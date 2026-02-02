@@ -28,28 +28,27 @@
   --color-amber-400: oklch(0.82 0.13 74);
   --color-amber-300: oklch(0.88 0.10 76);
 
-  /* Text: Warm off-white (cream/gold tint) */
-  --color-text-primary: oklch(0.93 0.015 85);
-  --color-text-secondary: oklch(0.75 0.010 85);
-  --color-text-muted: oklch(0.55 0.008 250);
+  /* Text: Warm cream with deeper tone */
+  --color-text-primary: oklch(0.90 0.022 80);
+  --color-text-secondary: oklch(0.72 0.016 80);
+  --color-text-muted: oklch(0.52 0.010 250);
 
-  /* Layered Shadows: Cool-tinted for contrast */
-  --shadow-color: oklch(0.10 0.02 250);
+  /* Layered Shadows: Subtle, tinted with base color */
+  --shadow-color: oklch(0.08 0.015 250);
 
   --shadow-sm:
-    0 1px 2px oklch(0.10 0.02 250 / 0.12),
-    0 1px 1px oklch(0.10 0.02 250 / 0.08);
+    0 1px 3px oklch(0.08 0.015 250 / 0.08),
+    0 2px 6px oklch(0.05 0.01 250 / 0.05);
 
   --shadow-md:
-    0 2px 4px oklch(0.10 0.02 250 / 0.10),
-    0 4px 8px oklch(0.10 0.02 250 / 0.08),
-    0 8px 16px oklch(0.10 0.02 250 / 0.06);
+    0 2px 4px oklch(0.08 0.015 250 / 0.06),
+    0 4px 12px oklch(0.05 0.01 250 / 0.08),
+    0 8px 24px oklch(0.03 0.008 250 / 0.06);
 
   --shadow-lg:
-    0 4px 6px oklch(0.10 0.02 250 / 0.08),
-    0 8px 15px oklch(0.10 0.02 250 / 0.06),
-    0 16px 30px oklch(0.10 0.02 250 / 0.05),
-    0 32px 60px oklch(0.10 0.02 250 / 0.04);
+    0 4px 8px oklch(0.08 0.015 250 / 0.05),
+    0 8px 20px oklch(0.05 0.01 250 / 0.08),
+    0 16px 40px oklch(0.03 0.008 250 / 0.10);
 
   /* Spacing (using Tailwind defaults, extend if needed) */
   --spacing-section: clamp(4rem, 8vw, 8rem);
@@ -110,6 +109,40 @@
     opacity: 0.06;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* Custom shadow utilities for dark backgrounds
+     Uses subtle light glow with higher blur radius
+     for soft, modern elevation effect. */
+  .shadow-elevation-sm {
+    box-shadow:
+      0 1px 4px rgba(255, 255, 255, 0.02),
+      0 4px 16px rgba(255, 255, 255, 0.02);
+  }
+
+  .shadow-elevation-md {
+    box-shadow:
+      0 2px 6px rgba(255, 255, 255, 0.025),
+      0 8px 24px rgba(255, 255, 255, 0.03);
+  }
+
+  .shadow-elevation-lg {
+    box-shadow:
+      0 4px 10px rgba(255, 255, 255, 0.03),
+      0 12px 36px rgba(255, 255, 255, 0.04);
+  }
+
+  /* Hover variants */
+  .hover\:shadow-elevation-md:hover {
+    box-shadow:
+      0 2px 6px rgba(255, 255, 255, 0.025),
+      0 8px 24px rgba(255, 255, 255, 0.03);
+  }
+
+  .hover\:shadow-elevation-lg:hover {
+    box-shadow:
+      0 4px 10px rgba(255, 255, 255, 0.03),
+      0 12px 36px rgba(255, 255, 255, 0.04);
   }
 }
 
