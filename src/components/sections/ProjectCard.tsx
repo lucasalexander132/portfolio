@@ -8,9 +8,10 @@ import { springSubtle, fadeUpVariants } from '@/lib/motion'
 interface ProjectCardProps {
   project: Project
   onClick: () => void
+  isSelected?: boolean
 }
 
-export function ProjectCard({ project, onClick }: ProjectCardProps) {
+export function ProjectCard({ project, onClick, isSelected }: ProjectCardProps) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
@@ -28,7 +29,7 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
       whileHover={{ y: -4 }}
       whileTap={{ scale: 0.98 }}
       transition={springSubtle}
-      className="card-grain group relative cursor-pointer overflow-hidden rounded-xl bg-base-800 shadow-elevation-sm transition-shadow duration-300 hover:shadow-elevation-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base-950"
+      className={`card-grain group relative cursor-pointer overflow-hidden rounded-xl bg-base-800 shadow-elevation-sm transition-shadow duration-300 hover:shadow-elevation-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base-950 ${isSelected ? 'ring-2 ring-amber-400' : ''}`}
     >
       {/* Thumbnail container */}
       <div className="relative aspect-video overflow-hidden">

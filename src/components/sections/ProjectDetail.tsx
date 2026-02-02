@@ -13,7 +13,7 @@ interface ProjectDetailProps {
 
 export function ProjectDetail({ project, onClose }: ProjectDetailProps) {
   return (
-    <div className="bg-text-primary">
+    <div className="bg-text-primary rounded-b-[28px]">
       {/* Close button */}
       <div className="relative">
         <button
