@@ -60,10 +60,11 @@ Plans:
   3. At least one case study includes quantified outcome (specific number, not vague claim)
   4. Adding a new project requires only data file changes (no component modification)
   5. TypeScript enforces project data structure at compile time
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD (to be defined during phase planning)
+- [ ] 03-01-PLAN.md — Install shadcn/ui Dialog, create TypeScript types and sample project data
+- [ ] 03-02-PLAN.md — Build project cards, modal with gallery, and integrate into page
 
 ### Phase 4: Animation
 **Goal**: Motion enhances the narrative without distracting, respecting user preferences
@@ -107,10 +108,10 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | ✓ Complete | 2026-02-02 |
 | 2. Content | 2/2 | ✓ Complete | 2026-02-02 |
-| 3. Projects | 0/? | Not started | - |
+| 3. Projects | 0/2 | Planned | - |
 | 4. Animation | 0/? | Not started | - |
 | 5. Contact & Polish | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-02 — Phase 2 complete*
+*Last updated: 2026-02-02 — Phase 3 planned*
