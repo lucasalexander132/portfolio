@@ -12,7 +12,7 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 
 - [x] **Phase 1: Foundation** - Design system and visual infrastructure
 - [x] **Phase 2: Content** - Hero and services with empathy-first messaging
-- [ ] **Phase 3: Projects** - Data-driven case studies with templated components
+- [x] **Phase 3: Projects** - Data-driven case studies with templated components
 - [ ] **Phase 4: Animation** - Orchestrated motion and polish
 - [ ] **Phase 5: Contact & Polish** - Form integration and final accessibility/performance audit
 
@@ -63,8 +63,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Install shadcn/ui Dialog, create TypeScript types and sample project data
-- [ ] 03-02-PLAN.md — Build project cards, modal with gallery, and integrate into page
+- [x] 03-01-PLAN.md — Install shadcn/ui Dialog, create TypeScript types and sample project data
+- [x] 03-02-PLAN.md — Build project cards, modal with gallery, and integrate into page
 
 ### Phase 4: Animation
 **Goal**: Motion enhances the narrative without distracting, respecting user preferences
@@ -108,10 +108,10 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | ✓ Complete | 2026-02-02 |
 | 2. Content | 2/2 | ✓ Complete | 2026-02-02 |
-| 3. Projects | 0/2 | Planned | - |
+| 3. Projects | 2/2 | ✓ Complete | 2026-02-02 |
 | 4. Animation | 0/? | Not started | - |
 | 5. Contact & Polish | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-02 — Phase 3 planned*
+*Last updated: 2026-02-02 — Phase 3 complete*

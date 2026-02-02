@@ -31,11 +31,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Projects Section
 
-- [ ] **PROJ-01**: Card-based layout with expandable detail views
-- [ ] **PROJ-02**: Conversational case study format (Challenge → Approach → Result)
-- [ ] **PROJ-03**: Quantified outcomes where available (specific numbers, not vague claims)
-- [ ] **PROJ-04**: Templated component system for easy addition of new projects
-- [ ] **PROJ-05**: TypeScript data structure for type-safe project content
+- [x] **PROJ-01**: Card-based layout with expandable detail views
+- [x] **PROJ-02**: Conversational case study format (Challenge → Approach → Result)
+- [x] **PROJ-03**: Quantified outcomes where available (specific numbers, not vague claims)
+- [x] **PROJ-04**: Templated component system for easy addition of new projects
+- [x] **PROJ-05**: TypeScript data structure for type-safe project content
 
 ### Contact Section
 
@@ -113,11 +113,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SERV-01 | Phase 2 | Complete |
 | SERV-02 | Phase 2 | Complete |
 | SERV-03 | Phase 2 | Complete |
-| PROJ-01 | Phase 3 | Pending |
-| PROJ-02 | Phase 3 | Pending |
-| PROJ-03 | Phase 3 | Pending |
-| PROJ-04 | Phase 3 | Pending |
-| PROJ-05 | Phase 3 | Pending |
+| PROJ-01 | Phase 3 | Complete |
+| PROJ-02 | Phase 3 | Complete |
+| PROJ-03 | Phase 3 | Complete |
+| PROJ-04 | Phase 3 | Complete |
+| PROJ-05 | Phase 3 | Complete |
 | CONT-01 | Phase 5 | Pending |
 | CONT-02 | Phase 5 | Pending |
 | CONT-03 | Phase 5 | Pending |
@@ -142,4 +142,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-02*
-*Last updated: 2026-02-02 after initial definition*
+*Last updated: 2026-02-02 — Phase 3 requirements complete*
