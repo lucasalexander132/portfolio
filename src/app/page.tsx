@@ -1,3 +1,5 @@
+'use client'
+
 export default function Home() {
   return (
     <main className="min-h-dvh p-8 md:p-16">
@@ -54,7 +56,67 @@ export default function Home() {
             Start a Conversation
           </div>
         </div>
+
+        {/* Responsive test section */}
+        <section id="responsive" className="py-8 border-t border-base-700">
+          <h2 className="text-h2 font-serif mb-6">Responsive Test</h2>
+
+          {/* Container query demo */}
+          <div className="@container">
+            <div className="@sm:flex @sm:gap-8 space-y-4 @sm:space-y-0">
+              <div className="flex-1 p-6 bg-base-800 rounded-lg shadow-md">
+                <h3 className="text-h3 font-serif mb-2">Card One</h3>
+                <p className="text-body text-text-secondary">
+                  This card responds to container width, not viewport.
+                </p>
+              </div>
+              <div className="flex-1 p-6 bg-base-800 rounded-lg shadow-md">
+                <h3 className="text-h3 font-serif mb-2">Card Two</h3>
+                <p className="text-body text-text-secondary">
+                  At narrow widths, cards stack. At wider widths, they sit side by side.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Interactive test section */}
+        <section id="interactive" className="py-8 border-t border-base-700">
+          <h2 className="text-h2 font-serif mb-6">Interactive Test</h2>
+          <p className="text-body text-text-secondary mb-4">
+            Click these buttons to verify grain overlay does not block interactions:
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <button
+              className="px-6 py-3 bg-amber-500 text-base-950 rounded-md shadow-md font-medium hover:bg-amber-400 transition-colors cursor-pointer"
+              onClick={() => alert('Primary button works!')}
+            >
+              Primary Action
+            </button>
+            <button
+              className="px-6 py-3 bg-base-700 text-text-primary rounded-md shadow-sm hover:bg-base-600 transition-colors cursor-pointer"
+              onClick={() => alert('Secondary button works!')}
+            >
+              Secondary Action
+            </button>
+            <a
+              href="#top"
+              className="px-6 py-3 text-amber-400 hover:text-amber-300 underline underline-offset-4"
+            >
+              Link Element
+            </a>
+          </div>
+        </section>
       </section>
+
+      {/* Viewport indicator for testing */}
+      <div className="fixed bottom-4 right-4 px-3 py-1 bg-base-800/90 rounded text-small text-text-muted">
+        <span className="sm:hidden">XS (&lt;640)</span>
+        <span className="hidden sm:inline md:hidden">SM (640-767)</span>
+        <span className="hidden md:inline lg:hidden">MD (768-1023)</span>
+        <span className="hidden lg:inline xl:hidden">LG (1024-1279)</span>
+        <span className="hidden xl:inline">XL (1280+)</span>
+      </div>
     </main>
   )
 }
