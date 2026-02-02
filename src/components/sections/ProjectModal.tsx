@@ -73,16 +73,16 @@ export function ProjectModal({ project, open, onOpenChange }: ProjectModalProps)
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-4xl max-h-[90vh] overflow-y-auto border-base-700 bg-base-900 p-0 [&>button]:text-text-primary [&>button]:ring-amber-400 [&>button]:ring-offset-base-900"
+        className="sm:max-w-6xl max-h-[85vh] overflow-y-auto border-base-700 bg-base-900 p-0 [&>button]:text-text-primary [&>button]:ring-amber-400 [&>button]:ring-offset-base-900"
       >
         {/* Image gallery */}
-        <div className="relative aspect-video w-full overflow-hidden rounded-t-lg bg-base-800">
+        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-t-lg bg-base-800">
           <Image
             src={project.images[activeImage]}
             alt={`${project.title} screenshot ${activeImage + 1}`}
             fill
             className="object-cover"
-            sizes="(max-width: 896px) 100vw, 896px"
+            sizes="(max-width: 1152px) 100vw, 1152px"
             priority
           />
 
