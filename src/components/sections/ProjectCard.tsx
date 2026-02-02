@@ -1,7 +1,9 @@
 'use client'
 
 import Image from 'next/image'
+import { m } from 'motion/react'
 import type { Project } from '@/types/project'
+import { springSubtle, fadeUpVariants } from '@/lib/motion'
 
 interface ProjectCardProps {
   project: Project
@@ -17,12 +19,16 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
   }
 
   return (
-    <article
+    <m.article
       role="button"
       tabIndex={0}
       onClick={onClick}
       onKeyDown={handleKeyDown}
-      className="card-grain group relative cursor-pointer overflow-hidden rounded-xl bg-base-800 shadow-elevation-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-elevation-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base-950"
+      variants={fadeUpVariants}
+      whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.98 }}
+      transition={springSubtle}
+      className="card-grain group relative cursor-pointer overflow-hidden rounded-xl bg-base-800 shadow-elevation-sm transition-shadow duration-300 hover:shadow-elevation-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base-950"
     >
       {/* Thumbnail container */}
       <div className="relative aspect-video overflow-hidden">
@@ -51,6 +57,6 @@ export function ProjectCard({ project, onClick }: ProjectCardProps) {
           {project.tagline}
         </p>
       </div>
-    </article>
+    </m.article>
   )
 }
