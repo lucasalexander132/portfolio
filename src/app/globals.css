@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Theme tokens using @theme directive */
+@theme {
+  /* Typography - reference next/font variables */
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Fluid Type Scale */
+  --text-display: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --text-h1: clamp(2rem, 3vw + 1rem, 3rem);
+  --text-h2: clamp(1.5rem, 2vw + 0.75rem, 2rem);
+  --text-h3: clamp(1.25rem, 1.5vw + 0.75rem, 1.5rem);
+  --text-body: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+  --text-small: clamp(0.875rem, 0.25vw + 0.8rem, 0.9375rem);
+
+  /* Color Palette: Workshop at Golden Hour (Dark Mode Only) */
+  /* Base: Warm slate with blue undertones */
+  --color-base-950: oklch(0.12 0.015 250);
+  --color-base-900: oklch(0.16 0.015 250);
+  --color-base-800: oklch(0.22 0.012 250);
+  --color-base-700: oklch(0.30 0.010 250);
+  --color-base-600: oklch(0.40 0.008 250);
+
+  /* Accent: Golden honey amber */
+  --color-amber-600: oklch(0.68 0.16 70);
+  --color-amber-500: oklch(0.75 0.15 72);
+  --color-amber-400: oklch(0.82 0.13 74);
+  --color-amber-300: oklch(0.88 0.10 76);
+
+  /* Text: Warm off-white (cream/gold tint) */
+  --color-text-primary: oklch(0.93 0.015 85);
+  --color-text-secondary: oklch(0.75 0.010 85);
+  --color-text-muted: oklch(0.55 0.008 250);
+
+  /* Layered Shadows: Cool-tinted for contrast */
+  --shadow-color: oklch(0.10 0.02 250);
+
+  --shadow-sm:
+    0 1px 2px oklch(0.10 0.02 250 / 0.12),
+    0 1px 1px oklch(0.10 0.02 250 / 0.08);
+
+  --shadow-md:
+    0 2px 4px oklch(0.10 0.02 250 / 0.10),
+    0 4px 8px oklch(0.10 0.02 250 / 0.08),
+    0 8px 16px oklch(0.10 0.02 250 / 0.06);
+
+  --shadow-lg:
+    0 4px 6px oklch(0.10 0.02 250 / 0.08),
+    0 8px 15px oklch(0.10 0.02 250 / 0.06),
+    0 16px 30px oklch(0.10 0.02 250 / 0.05),
+    0 32px 60px oklch(0.10 0.02 250 / 0.04);
+
+  /* Spacing (using Tailwind defaults, extend if needed) */
+  --spacing-section: clamp(4rem, 8vw, 8rem);
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* Container */
+  --container-max: 72rem;
+  --container-padding: clamp(1rem, 4vw, 2rem);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Base layer for global defaults */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-text-primary);
+    background-color: var(--color-base-950);
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    min-height: 100dvh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  h1 { font-size: var(--text-h1); }
+  h2 { font-size: var(--text-h2); }
+  h3 { font-size: var(--text-h3); }
+
+  p {
+    font-size: var(--text-body);
+    max-width: 65ch;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Grain texture overlay component */
+@layer components {
+  .grain-overlay {
+    position: relative;
+  }
+
+  .grain-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Utility for text that "sinks into" the page */
+@layer utilities {
+  .text-sink {
+    text-shadow: 0 1px 0 oklch(0.08 0.01 250 / 0.5);
+  }
 }
