@@ -44,10 +44,11 @@ Plans:
   3. Hero section conveys "workshop at golden hour" atmospheric mood
   4. Services section presents problem/solution pairs in scannable format
   5. Service descriptions focus on outcomes visitor receives, not technical capabilities
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD (to be defined during phase planning)
+- [ ] 02-01-PLAN.md — Utilities, navigation, and hero with empathy-first messaging
+- [ ] 02-02-PLAN.md — Services section and page composition with visual verification
 
 ### Phase 3: Projects
 **Goal**: Visitors see credible proof of work through conversational case studies with quantified results
@@ -105,11 +106,11 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | ✓ Complete | 2026-02-02 |
-| 2. Content | 0/? | Not started | - |
+| 2. Content | 0/2 | Planned | - |
 | 3. Projects | 0/? | Not started | - |
 | 4. Animation | 0/? | Not started | - |
 | 5. Contact & Polish | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-02 — Phase 1 complete*
+*Last updated: 2026-02-02 — Phase 2 planned*
