@@ -10,28 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-02)
 ## Current Position
 
 Phase: 2 of 5 (Content)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-02-02 — Phase 1 Foundation verified and complete
+Plan: 1 of ? in current phase
+Status: In progress
+Last activity: 2026-02-02 — Completed 02-01-PLAN.md
 
-Progress: [██░░░░░░░░] ~20%
+Progress: [███░░░░░░░] ~30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 8 min
-- Total execution time: 16 min
+- Total plans completed: 3
+- Average duration: 6 min
+- Total execution time: 17.5 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 2 | 16 min | 8 min |
+| 02-content | 1 | 1.5 min | 1.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4 min), 01-02 (12 min)
-- Trend: Stable
+- Last 5 plans: 01-01 (4 min), 01-02 (12 min), 02-01 (1.5 min)
+- Trend: Improving
 
 *Updated after each plan completion*
 
@@ -48,6 +49,9 @@ Recent decisions affecting current work:
 - **Static grain** - Animated grain deferred, static works well
 - **Card-level grain texture** - Applied to individual cards rather than global overlay to prevent click-blocking
 - **Paper texture JPG** - Real texture image instead of SVG noise for more natural grain
+- **Server component for Hero** - No interactivity needed, pure presentation
+- **Client component for Nav** - Requires useState/useEffect for scroll detection
+- **50px scroll threshold** - Enough scroll to indicate intent, not too sensitive
 
 ### Pending Todos
 
@@ -60,5 +64,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Phase 1 Foundation complete — ready for Phase 2 Content
+Stopped at: Completed 02-01-PLAN.md — Navigation and Hero components ready
 Resume file: None
