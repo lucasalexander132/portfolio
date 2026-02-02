@@ -1,4 +1,9 @@
+'use client'
+
+import { useRef } from 'react'
+import { m, useInView } from 'motion/react'
 import { Code, MessageSquare, Zap } from 'lucide-react'
+import { fadeUpVariants, staggerContainerVariants } from '@/lib/motion'
 
 const services = [
   {
@@ -22,23 +27,39 @@ const services = [
 ]
 
 export function Services() {
+  const sectionRef = useRef(null)
+  const isInView = useInView(sectionRef, {
+    once: true,
+    amount: 0.25,
+  })
+
   return (
-    <section id="services" className="py-[var(--spacing-section)]">
+    <m.section
+      ref={sectionRef}
+      id="services"
+      className="py-[var(--spacing-section)]"
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      variants={staggerContainerVariants}
+    >
       <div className="mx-auto max-w-6xl px-[var(--container-padding)]">
         {/* Section header */}
-        <h2 className="text-h1 font-serif text-text-primary mb-4">
-          How I Can Help
-        </h2>
-        <p className="text-body text-text-secondary max-w-2xl mb-12">
-          Every project starts with a conversation — no pressure, no commitment.
-          Just two people figuring out if we&apos;re a good fit.
-        </p>
+        <m.div variants={fadeUpVariants}>
+          <h2 className="text-h1 font-serif text-text-primary mb-4">
+            How I Can Help
+          </h2>
+          <p className="text-body text-text-secondary max-w-2xl mb-12">
+            Every project starts with a conversation — no pressure, no commitment.
+            Just two people figuring out if we&apos;re a good fit.
+          </p>
+        </m.div>
 
         {/* Service cards */}
         <div className="grid gap-8 md:grid-cols-3">
           {services.map((service) => (
-            <article
+            <m.article
               key={service.title}
+              variants={fadeUpVariants}
               className="card-grain p-8 bg-base-800 rounded-xl shadow-elevation-sm"
             >
               <service.icon
@@ -52,10 +73,10 @@ export function Services() {
               <p className="text-body text-text-secondary leading-relaxed">
                 {service.description}
               </p>
-            </article>
+            </m.article>
           ))}
         </div>
       </div>
-    </section>
+    </m.section>
   )
 }
