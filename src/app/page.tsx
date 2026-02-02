@@ -47,19 +47,19 @@ export default function Home() {
           {/* Elevated cards showing shadow progression */}
           <div className="flex flex-wrap gap-12 items-end py-8">
             <div className="flex flex-col items-center gap-3">
-              <div className="w-36 h-36 rounded-xl bg-base-800 shadow-elevation-sm flex items-center justify-center">
+              <div className="card-grain w-36 h-36 rounded-xl bg-base-800 shadow-elevation-sm flex items-center justify-center">
                 <span className="text-text-muted text-sm">Small</span>
               </div>
               <span className="text-small text-text-muted">Resting</span>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <div className="w-36 h-36 rounded-xl bg-base-800 shadow-elevation-md flex items-center justify-center -translate-y-2">
+              <div className="card-grain w-36 h-36 rounded-xl bg-base-800 shadow-elevation-md flex items-center justify-center -translate-y-2">
                 <span className="text-text-muted text-sm">Medium</span>
               </div>
               <span className="text-small text-text-muted">Raised</span>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <div className="w-36 h-36 rounded-xl bg-base-800 shadow-elevation-lg flex items-center justify-center -translate-y-4">
+              <div className="card-grain w-36 h-36 rounded-xl bg-base-800 shadow-elevation-lg flex items-center justify-center -translate-y-4">
                 <span className="text-text-muted text-sm">Large</span>
               </div>
               <span className="text-small text-text-muted">Floating</span>
@@ -70,13 +70,13 @@ export default function Home() {
           <div className="space-y-3">
             <h3 className="text-h3 font-serif text-text-secondary">Hover to see elevation change</h3>
             <div className="flex flex-wrap gap-6">
-              <div className="w-40 h-28 rounded-xl bg-base-800 shadow-elevation-sm hover:shadow-elevation-md hover:-translate-y-1 transition-all duration-300 cursor-pointer flex items-center justify-center">
+              <div className="card-grain w-40 h-28 rounded-xl bg-base-800 shadow-elevation-sm hover:shadow-elevation-md hover:-translate-y-1 transition-all duration-300 cursor-pointer flex items-center justify-center">
                 <span className="text-text-muted text-sm">sm → md</span>
               </div>
-              <div className="w-40 h-28 rounded-xl bg-base-800 shadow-elevation-md hover:shadow-elevation-lg hover:-translate-y-2 transition-all duration-300 cursor-pointer flex items-center justify-center">
+              <div className="card-grain w-40 h-28 rounded-xl bg-base-800 shadow-elevation-md hover:shadow-elevation-lg hover:-translate-y-2 transition-all duration-300 cursor-pointer flex items-center justify-center">
                 <span className="text-text-muted text-sm">md → lg</span>
               </div>
-              <div className="w-40 h-28 rounded-xl bg-base-700 shadow-elevation-sm hover:shadow-elevation-lg hover:-translate-y-3 transition-all duration-300 cursor-pointer flex items-center justify-center">
+              <div className="card-grain w-40 h-28 rounded-xl bg-base-700 shadow-elevation-sm hover:shadow-elevation-lg hover:-translate-y-3 transition-all duration-300 cursor-pointer flex items-center justify-center">
                 <span className="text-text-muted text-sm">sm → lg</span>
               </div>
             </div>
@@ -237,13 +237,13 @@ export default function Home() {
           {/* Container query demo */}
           <div className="@container">
             <div className="@sm:flex @sm:gap-8 space-y-4 @sm:space-y-0">
-              <div className="flex-1 p-6 bg-base-800 rounded-lg shadow-md">
+              <div className="card-grain flex-1 p-6 bg-base-800 rounded-lg shadow-md">
                 <h3 className="text-h3 font-serif mb-2">Card One</h3>
                 <p className="text-body text-text-secondary">
                   This card responds to container width, not viewport.
                 </p>
               </div>
-              <div className="flex-1 p-6 bg-base-800 rounded-lg shadow-md">
+              <div className="card-grain flex-1 p-6 bg-base-800 rounded-lg shadow-md">
                 <h3 className="text-h3 font-serif mb-2">Card Two</h3>
                 <p className="text-body text-text-secondary">
                   At narrow widths, cards stack. At wider widths, they sit side by side.

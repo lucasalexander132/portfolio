@@ -30,7 +30,7 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${openSans.variable}`}
     >
-      <body className="grain-overlay bg-base-950 text-text-primary">
+      <body className="bg-base-950 text-text-primary">
         {children}
       </body>
     </html>
