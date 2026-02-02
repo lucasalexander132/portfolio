@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Fraunces, Open_Sans } from 'next/font/google'
+import { MotionProvider } from '@/components/motion/MotionProvider'
 import './globals.css'
 
 const fraunces = Fraunces({
@@ -31,7 +32,9 @@ export default function RootLayout({
       className={`${fraunces.variable} ${openSans.variable}`}
     >
       <body className="bg-base-950 text-text-primary">
-        {children}
+        <MotionProvider>
+          {children}
+        </MotionProvider>
       </body>
     </html>
   )
