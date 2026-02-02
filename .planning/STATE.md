@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-02)
 ## Current Position
 
 Phase: 3 of 5 (Projects)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-02-02 — Phase 2 Content verified and complete
+Plan: 1 of ? in current phase
+Status: In progress
+Last activity: 2026-02-02 — Completed 03-01-PLAN.md (Dialog and project types)
 
-Progress: [████░░░░░░] ~40%
+Progress: [█████░░░░░] ~45%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 5.4 min
-- Total execution time: 21.5 min
+- Total plans completed: 5
+- Average duration: 4.9 min
+- Total execution time: 24.2 min
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: [████░░░░░░] ~40%
 |-------|-------|-------|----------|
 | 01-foundation | 2 | 16 min | 8 min |
 | 02-content | 2 | 5.5 min | 2.75 min |
+| 03-projects | 1 | 2.7 min | 2.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4 min), 01-02 (12 min), 02-01 (1.5 min), 02-02 (4 min)
-- Trend: Stable
+- Last 5 plans: 01-02 (12 min), 02-01 (1.5 min), 02-02 (4 min), 03-01 (2.7 min)
+- Trend: Stable/improving
 
 *Updated after each plan completion*
 
@@ -52,6 +53,8 @@ Recent decisions affecting current work:
 - **Server component for Hero** - No interactivity needed, pure presentation
 - **Client component for Nav** - Requires useState/useEffect for scroll detection
 - **50px scroll threshold** - Enough scroll to indicate intent, not too sensitive
+- **Discriminated union for projects** - LiveProject | ComingSoonProject with type guards for status-based rendering
+- **Button component added** - Required shadcn/ui dependency for Dialog component
 
 ### Pending Todos
 
@@ -64,5 +67,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Phase 2 Content complete — ready for Phase 3 Projects
+Stopped at: Completed 03-01-PLAN.md — Dialog and project types ready
 Resume file: None
