@@ -76,10 +76,14 @@ Plans:
   3. Interactive elements respond to hover with subtle state changes
   4. Users with prefers-reduced-motion see no or minimal animation
   5. Motion bundle is optimized via LazyMotion (under 10KB added)
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 04-01: TBD (to be defined during phase planning)
+- [ ] 04-01-PLAN.md — Install Motion library, create MotionProvider and shared variants
+- [ ] 04-02-PLAN.md — Hero typewriter effect and orchestrated page load sequence
+- [ ] 04-03-PLAN.md — Scroll reveals for sections and interactive hover/tap states
+- [ ] 04-04-PLAN.md — Inline project detail expansion with draggable gallery carousel
+- [ ] 04-05-PLAN.md — Visual verification checkpoint for all animations
 
 ### Phase 5: Contact & Polish
 **Goal**: Visitors can reach out with low friction, and site meets performance/accessibility standards
@@ -109,9 +113,9 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
 | 1. Foundation | 2/2 | ✓ Complete | 2026-02-02 |
 | 2. Content | 2/2 | ✓ Complete | 2026-02-02 |
 | 3. Projects | 2/2 | ✓ Complete | 2026-02-02 |
-| 4. Animation | 0/? | Not started | - |
+| 4. Animation | 0/5 | Ready | - |
 | 5. Contact & Polish | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-02 — Phase 3 complete*
+*Last updated: 2026-02-02 — Phase 4 planned*
