@@ -11,7 +11,7 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 - Decimal phases (e.g., 2.1): Urgent insertions if needed (marked with INSERTED)
 
 - [x] **Phase 1: Foundation** - Design system and visual infrastructure
-- [ ] **Phase 2: Content** - Hero and services with empathy-first messaging
+- [x] **Phase 2: Content** - Hero and services with empathy-first messaging
 - [ ] **Phase 3: Projects** - Data-driven case studies with templated components
 - [ ] **Phase 4: Animation** - Orchestrated motion and polish
 - [ ] **Phase 5: Contact & Polish** - Form integration and final accessibility/performance audit
@@ -47,8 +47,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Utilities, navigation, and hero with empathy-first messaging
-- [ ] 02-02-PLAN.md — Services section and page composition with visual verification
+- [x] 02-01-PLAN.md — Utilities, navigation, and hero with empathy-first messaging
+- [x] 02-02-PLAN.md — Services section and page composition with visual verification
 
 ### Phase 3: Projects
 **Goal**: Visitors see credible proof of work through conversational case studies with quantified results
@@ -106,11 +106,11 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | ✓ Complete | 2026-02-02 |
-| 2. Content | 0/2 | Planned | - |
+| 2. Content | 2/2 | ✓ Complete | 2026-02-02 |
 | 3. Projects | 0/? | Not started | - |
 | 4. Animation | 0/? | Not started | - |
 | 5. Contact & Polish | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-02 — Phase 2 planned*
+*Last updated: 2026-02-02 — Phase 2 complete*
