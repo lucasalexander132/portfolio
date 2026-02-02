@@ -18,16 +18,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Hero Section
 
-- [ ] **HERO-01**: Empathy-first opening that acknowledges visitor's wariness ("Been burned before?")
-- [ ] **HERO-02**: Clear value proposition that follows empathy statement
-- [ ] **HERO-03**: Atmospheric visual treatment establishing "workshop at golden hour" mood
+- [x] **HERO-01**: Empathy-first opening that acknowledges visitor's wariness ("Been burned before?")
+- [x] **HERO-02**: Clear value proposition that follows empathy statement
+- [x] **HERO-03**: Atmospheric visual treatment establishing "workshop at golden hour" mood
 - [ ] **HERO-04**: Slow orchestrated fade-in animation (elements breathe in over 1-2 seconds, staggered)
 
 ### Services Section
 
-- [ ] **SERV-01**: Problem/solution pairs format ("If you're struggling with X, I can help with Y")
-- [ ] **SERV-02**: Outcome-focused descriptions (what they get, not what you do)
-- [ ] **SERV-03**: Scannable layout that doesn't require reading paragraphs
+- [x] **SERV-01**: Problem/solution pairs format ("If you're struggling with X, I can help with Y")
+- [x] **SERV-02**: Outcome-focused descriptions (what they get, not what you do)
+- [x] **SERV-03**: Scannable layout that doesn't require reading paragraphs
 
 ### Projects Section
 
@@ -106,13 +106,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-04 | Phase 1 | Complete |
 | FOUND-05 | Phase 1 | Complete |
 | FOUND-06 | Phase 1 | Complete |
-| HERO-01 | Phase 2 | Pending |
-| HERO-02 | Phase 2 | Pending |
-| HERO-03 | Phase 2 | Pending |
+| HERO-01 | Phase 2 | Complete |
+| HERO-02 | Phase 2 | Complete |
+| HERO-03 | Phase 2 | Complete |
 | HERO-04 | Phase 4 | Pending |
-| SERV-01 | Phase 2 | Pending |
-| SERV-02 | Phase 2 | Pending |
-| SERV-03 | Phase 2 | Pending |
+| SERV-01 | Phase 2 | Complete |
+| SERV-02 | Phase 2 | Complete |
+| SERV-03 | Phase 2 | Complete |
 | PROJ-01 | Phase 3 | Pending |
 | PROJ-02 | Phase 3 | Pending |
 | PROJ-03 | Phase 3 | Pending |
