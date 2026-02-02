@@ -9,12 +9,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Custom typography system with serif headlines (Fraunces or similar) and refined sans body
-- [ ] **FOUND-02**: Color palette with deep slate/charcoal base and warm amber/gold accents as CSS variables
-- [ ] **FOUND-03**: Subtle grain texture overlay for atmospheric depth
-- [ ] **FOUND-04**: Soft layered shadows creating sense of physical space
-- [ ] **FOUND-05**: Mobile-first responsive design across all breakpoints
-- [ ] **FOUND-06**: Performance budget maintained (LCP < 2.5s)
+- [x] **FOUND-01**: Custom typography system with serif headlines (Fraunces or similar) and refined sans body
+- [x] **FOUND-02**: Color palette with deep slate/charcoal base and warm amber/gold accents as CSS variables
+- [x] **FOUND-03**: Subtle grain texture overlay for atmospheric depth
+- [x] **FOUND-04**: Soft layered shadows creating sense of physical space
+- [x] **FOUND-05**: Mobile-first responsive design across all breakpoints
+- [x] **FOUND-06**: Performance budget maintained (LCP < 2.5s)
 
 ### Hero Section
 
@@ -100,12 +100,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
-| FOUND-04 | Phase 1 | Pending |
-| FOUND-05 | Phase 1 | Pending |
-| FOUND-06 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
+| FOUND-02 | Phase 1 | Complete |
+| FOUND-03 | Phase 1 | Complete |
+| FOUND-04 | Phase 1 | Complete |
+| FOUND-05 | Phase 1 | Complete |
+| FOUND-06 | Phase 1 | Complete |
 | HERO-01 | Phase 2 | Pending |
 | HERO-02 | Phase 2 | Pending |
 | HERO-03 | Phase 2 | Pending |

@@ -10,7 +10,7 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 - Integer phases (1, 2, 3, 4, 5): Planned milestone work
 - Decimal phases (e.g., 2.1): Urgent insertions if needed (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation** - Design system and visual infrastructure
+- [x] **Phase 1: Foundation** - Design system and visual infrastructure
 - [ ] **Phase 2: Content** - Hero and services with empathy-first messaging
 - [ ] **Phase 3: Projects** - Data-driven case studies with templated components
 - [ ] **Phase 4: Animation** - Orchestrated motion and polish
@@ -31,8 +31,8 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Bootstrap Next.js 16 project with design system (typography, colors, grain, shadows)
-- [ ] 01-02-PLAN.md — Verify responsive behavior and performance baseline
+- [x] 01-01-PLAN.md — Bootstrap Next.js 16 project with design system (typography, colors, grain, shadows)
+- [x] 01-02-PLAN.md — Verify responsive behavior and performance baseline
 
 ### Phase 2: Content
 **Goal**: Visitors read empathy-first messaging that acknowledges their wariness and clearly states value
@@ -104,7 +104,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/2 | Planned | - |
+| 1. Foundation | 2/2 | ✓ Complete | 2026-02-02 |
 | 2. Content | 0/? | Not started | - |
 | 3. Projects | 0/? | Not started | - |
 | 4. Animation | 0/? | Not started | - |
@@ -112,4 +112,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-02*
+*Last updated: 2026-02-02 — Phase 1 complete*
