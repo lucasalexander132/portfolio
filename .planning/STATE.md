@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-02)
 ## Current Position
 
 Phase: 4 of 5 (Animation)
-Plan: 3 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-02 — Completed 04-03-PLAN.md
+Last activity: 2026-02-02 — Completed 04-04-PLAN.md
 
-Progress: [████████░░] ~85%
+Progress: [████████░░] ~90%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 10
 - Average duration: 4.0 min
-- Total execution time: 37.2 min
+- Total execution time: 41.2 min
 
 **By Phase:**
 
@@ -30,10 +30,10 @@ Progress: [████████░░] ~85%
 | 01-foundation | 2 | 16 min | 8 min |
 | 02-content | 2 | 5.5 min | 2.75 min |
 | 03-projects | 2 | 10.7 min | 5.35 min |
-| 04-animation | 3 | 5 min | 1.67 min |
+| 04-animation | 4 | 9 min | 2.25 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (2.7 min), 03-02 (8 min), 04-01 (1 min), 04-02 (2 min), 04-03 (2 min)
+- Last 5 plans: 03-02 (8 min), 04-01 (1 min), 04-02 (2 min), 04-03 (2 min), 04-04 (4 min)
 - Trend: Fast (animation plans)
 
 *Updated after each plan completion*
@@ -64,17 +64,20 @@ Recent decisions affecting current work:
 - **Client component for Hero** - Needed for useState orchestration between animation phases
 - **Services cards static** - Static content, not interactive (no hover state)
 - **Scroll reveal at 25%** - useInView with once:true and amount:0.25 for scroll reveals
+- **Inline expansion over modal** - Keeps user in scroll context, better UX
+- **Height-then-content choreography** - Height animates first, content wipes in from right with delay
+- **Drag momentum physics** - bounceStiffness: 300, bounceDamping: 30 for natural gallery drag
 
 ### Pending Todos
 
-None yet.
+- Consider deleting unused ProjectModal.tsx in polish phase
 
 ### Blockers/Concerns
 
-None yet.
+None.
 
 ## Session Continuity
 
 Last session: 2026-02-02
-Stopped at: Completed 04-03-PLAN.md — Section reveal and interactive states
+Stopped at: Completed 04-04-PLAN.md — Inline project expansion with draggable gallery
 Resume file: None
