@@ -28,10 +28,11 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
   3. Subtle grain texture overlay is visible, creating atmospheric depth
   4. Soft shadows create sense of layered physical space
   5. Layout responds correctly from mobile (320px) through desktop (1440px+)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD (to be defined during phase planning)
+- [ ] 01-01-PLAN.md — Bootstrap Next.js 16 project with design system (typography, colors, grain, shadows)
+- [ ] 01-02-PLAN.md — Verify responsive behavior and performance baseline
 
 ### Phase 2: Content
 **Goal**: Visitors read empathy-first messaging that acknowledges their wariness and clearly states value
@@ -103,7 +104,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/? | Not started | - |
+| 1. Foundation | 0/2 | Planned | - |
 | 2. Content | 0/? | Not started | - |
 | 3. Projects | 0/? | Not started | - |
 | 4. Animation | 0/? | Not started | - |
