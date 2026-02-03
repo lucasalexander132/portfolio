@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 
 ## Current Position
 
-Phase: 7 - Language Switcher
-Plan: 1 of 1 (complete)
-Status: Phase complete
-Last activity: 2026-02-03 — Completed 07-01-PLAN.md
+Phase: 8 - Content Migration (1 of 4 plans complete)
+Plan: 1 of 4
+Status: In progress
+Last activity: 2026-02-03 — Completed 08-01-PLAN.md
 
-Progress: [██████████] 100% (13/13 plans)
+Progress: [██████████░░░░] 74% (14/19 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
-- Average duration: 3.4 min
-- Total execution time: 44.2 min
+- Total plans completed: 14
+- Average duration: 3.3 min
+- Total execution time: 46.2 min
 
 **By Phase:**
 
@@ -33,10 +33,11 @@ Progress: [██████████] 100% (13/13 plans)
 | 04-animation | 4 | 9 min | 2.25 min |
 | 06-translation-infrastructure | 2 | 2 min | 1 min |
 | 07-language-switcher | 1 | 1 min | 1 min |
+| 08-content-migration | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-03 (2 min), 04-04 (4 min), 06-01 (1 min), 06-02 (1 min), 07-01 (1 min)
-- Trend: Fast (i18n UI components)
+- Last 5 plans: 04-04 (4 min), 06-01 (1 min), 06-02 (1 min), 07-01 (1 min), 08-01 (2 min)
+- Trend: Fast (i18n content migration)
 
 *Updated after each plan completion*
 
@@ -84,6 +85,9 @@ Recent decisions affecting current work:
 - **FR on top, EN on bottom** - Language button stacking per I18N-05 requirement
 - **Rightmost navbar position** - Common UX pattern for language switcher placement
 - **Translation key 'as const' pattern** - Type-safe translation key references
+- **hoverBubbles inside component** - Translation hook only available in component body
+- **Formal vous in French** - Professional tone for client-facing portfolio
+- **Emotional equivalence translations** - Not literal; preserves tone and intent
 
 ### Pending Todos
 
@@ -104,5 +108,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Phase 7 complete — Language switcher UI integrated
+Stopped at: Completed 08-01-PLAN.md — Hero section translations
 Resume file: None
