@@ -26,8 +26,11 @@
     "footer_cursor": "Des collations gratuites. J'y travaille."
   },
   "projects": {
-    "title": "Réalisations",
-    "placeholder": "Contenu des projets à venir"
+    "title": "Realisations",
+    "placeholder": "Contenu des projets a venir",
+    "header": "Des projets reels, des resultats reels. Cliquez sur une carte pour decouvrir l'histoire complete.",
+    "footer": "D'autres projets en cours. Le meilleur reste a venir.",
+    "coming_soon": "Bientot disponible"
   },
   "contact": {
     "title": "Parlons-en",

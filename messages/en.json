@@ -27,7 +27,10 @@
   },
   "projects": {
     "title": "Work",
-    "placeholder": "Projects content placeholder"
+    "placeholder": "Projects content placeholder",
+    "header": "Real projects, real results. Click any card to see the full story behind the build.",
+    "footer": "More in the works. The best is yet to come.",
+    "coming_soon": "Coming Soon"
   },
   "contact": {
     "title": "Let's Talk",

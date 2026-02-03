@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { m } from 'motion/react'
 import type { Project } from '@/types/project'
-import { springSubtle, fadeUpVariants } from '@/lib/motion'
+import { fadeUpVariants } from '@/lib/motion'
 import { useCursorHover } from '@/components/cursor'
 
 interface ProjectCardProps {
@@ -12,8 +12,14 @@ interface ProjectCardProps {
   isSelected?: boolean
 }
 
+/**
+ * @deprecated This component is no longer used.
+ * BentoCard in Projects.tsx replaced it. Consider deleting in polish phase.
+ */
 export function ProjectCard({ project, onClick, isSelected }: ProjectCardProps) {
-  const cursorProps = useCursorHover('text', project.cursorText)
+  // Use English content as default for deprecated component
+  const content = project.content.en
+  const cursorProps = useCursorHover('text', content.cursorText)
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -24,16 +30,20 @@ export function ProjectCard({ project, onClick, isSelected }: ProjectCardProps) 
 
   return (
     <m.article
-      {...(project.cursorText ? cursorProps : {})}
+      {...(content.cursorText ? cursorProps : {})}
       role="button"
       tabIndex={0}
       onClick={onClick}
       onKeyDown={handleKeyDown}
       variants={fadeUpVariants}
-      whileHover={{ y: -4 }}
-      whileTap={{ scale: 0.98 }}
-      transition={springSubtle}
-      className={`card-grain group relative cursor-pointer overflow-hidden rounded-xl bg-base-800 shadow-elevation-sm transition-shadow duration-300 hover:shadow-elevation-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base-950 ${isSelected ? 'ring-2 ring-amber-400' : ''}`}
+      whileHover={{
+        y: -6,
+        x: -3,
+        boxShadow: '6px 6px 0px 0px #f59e0b',
+      }}
+      whileTap={{ scale: 0.98, boxShadow: '2px 2px 0px 0px #f59e0b' }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      className={`card-grain group relative cursor-pointer overflow-hidden rounded-lg bg-base-800 border-2 border-transparent hover:border-amber-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base-950 ${isSelected ? 'ring-2 ring-amber-400' : ''}`}
     >
       {/* Thumbnail container */}
       <div className="relative aspect-video overflow-hidden">
@@ -59,7 +69,7 @@ export function ProjectCard({ project, onClick, isSelected }: ProjectCardProps) 
           {project.title}
         </h3>
         <p className="text-body text-text-secondary line-clamp-2">
-          {project.tagline}
+          {content.tagline}
         </p>
       </div>
     </m.article>

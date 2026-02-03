@@ -24,6 +24,10 @@ interface ProjectModalProps {
   onOpenChange: (open: boolean) => void
 }
 
+/**
+ * @deprecated This component is no longer used.
+ * ProjectDetail with inline expansion replaced it. Consider deleting in polish phase.
+ */
 export function ProjectModal({ project, open, onOpenChange }: ProjectModalProps) {
   const [activeImage, setActiveImage] = useState(0)
 
@@ -68,6 +72,8 @@ export function ProjectModal({ project, open, onOpenChange }: ProjectModalProps)
 
   if (!project) return null
 
+  // Use English content as default for deprecated component
+  const content = project.content.en
   const hasMultipleImages = project.images.length > 1
 
   return (
@@ -136,7 +142,7 @@ export function ProjectModal({ project, open, onOpenChange }: ProjectModalProps)
               {project.title}
             </DialogTitle>
             <DialogDescription className="text-body text-text-secondary">
-              {project.tagline}
+              {content.tagline}
             </DialogDescription>
           </DialogHeader>
 
@@ -147,7 +153,7 @@ export function ProjectModal({ project, open, onOpenChange }: ProjectModalProps)
                 Challenge
               </h3>
               <p className="text-body text-text-secondary leading-relaxed">
-                {project.challenge}
+                {content.challenge}
               </p>
             </section>
 
@@ -156,7 +162,7 @@ export function ProjectModal({ project, open, onOpenChange }: ProjectModalProps)
                 Approach
               </h3>
               <p className="text-body text-text-secondary leading-relaxed">
-                {project.approach}
+                {content.approach}
               </p>
             </section>
 
@@ -165,7 +171,7 @@ export function ProjectModal({ project, open, onOpenChange }: ProjectModalProps)
                 Result
               </h3>
               <p className="text-body text-text-secondary leading-relaxed">
-                {project.result}
+                {content.result}
               </p>
             </section>
           </div>
