@@ -46,22 +46,23 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - no blur for performance (hero has expensive 3D transforms) */}
           <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-base-950/60 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-base-950/80"
             onClick={onClose}
           />
 
-          {/* Modal Card */}
+          {/* Modal Card - GPU accelerated for smooth animation */}
           <m.div
             initial={{ y: '100%', opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: '100%', opacity: 0 }}
             transition={springModal}
+            style={{ willChange: 'transform, opacity' }}
             className="fixed z-40 inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[min(33vw,420px)] sm:min-w-[360px] bg-text-primary rounded-xl shadow-lg border border-base-700"
           >
             <div className="p-6 sm:p-8">
