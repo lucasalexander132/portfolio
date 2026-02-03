@@ -8,24 +8,34 @@ A single-page portfolio for Civix Solutions, a frontend development consultancy 
 
 Visitors must feel at ease — like they've found someone who genuinely cares about solving their problem, not selling them something. The digital equivalent of walking into a well-organized workshop at golden hour and realizing you can finally stop worrying.
 
+## Current Milestone: v1.1 Internationalization
+
+**Goal:** Enable French and English language support with instant client-side switching
+
+**Target features:**
+- i18n system with translation files for EN/FR
+- Instant language switching without page reload
+- Language switcher in navbar (FR on top, EN on bottom)
+- Browser language detection on first visit
+
 ## Requirements
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Foundation design system (typography, colors, grain, shadows) — v1.0
+- ✓ Hero with empathy-first messaging — v1.0
+- ✓ Services section with problem/solution pairs — v1.0
+- ✓ Project case studies with Challenge > Approach > Result — v1.0
+- ✓ Animation system (typewriter, scroll reveals, inline expansion, gallery) — v1.0
+- ✓ Contact form with Resend email integration — v1.0
 
 ### Active
 
-- [ ] Hero/introduction that establishes warmth and competence without selling
-- [ ] Services section explaining what Civix Solutions actually does
-- [ ] Project case studies as conversational narratives ("they came to me with X, we talked, here's what happened")
-- [ ] Project template system — easily extensible for new work
-- [ ] Contact form for starting a conversation
-- [ ] Orchestrated page load with staggered reveals
-- [ ] Atmospheric depth through layered visual treatment
-- [ ] Cultured typography: serif headlines, sans-serif body
-- [ ] Cool-with-warmth palette: slate/navy base, warm gold accents
-- [ ] Responsive design that maintains the mood across devices
+- [ ] i18n translation system for English and French
+- [ ] Instant language switching without page reload
+- [ ] Language switcher in navbar (FR on top, EN on bottom)
+- [ ] Browser language detection on first visit
+- [ ] All existing content translated to French
 
 ### Out of Scope
 
@@ -66,4 +76,4 @@ More projects will be added as the portfolio grows — the system must accommoda
 | Templated project system | Portfolio will grow; system must scale without redesign | — Pending |
 
 ---
-*Last updated: 2025-02-02 after initialization*
+*Last updated: 2026-02-03 after milestone v1.1 initialization*
