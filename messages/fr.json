@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "services": "Services",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Avez-vous deja ete decu par un developpeur?",
+    "subtitle": "Je comprends. Vous avez engage quelqu'un qui promettait monts et merveilles, facturait une fortune, puis disparaissait quand les choses se compliquaient. Et maintenant me voila, un autre developpeur qui vous demande votre confiance."
+  },
+  "services": {
+    "title": "Ce que je fais",
+    "placeholder": "Contenu des services a venir"
+  },
+  "projects": {
+    "title": "Realisations",
+    "placeholder": "Contenu des projets a venir"
+  },
+  "contact": {
+    "title": "Parlons-en",
+    "name_label": "Nom",
+    "name_placeholder": "Votre nom",
+    "email_label": "Courriel",
+    "email_placeholder": "votre@courriel.com",
+    "message_label": "Message",
+    "message_placeholder": "Qu'avez-vous en tete?",
+    "submit": "Envoyer",
+    "sending": "Envoi en cours...",
+    "success": "Envoye! Je vous contacterai bientot.",
+    "error": "Une erreur s'est produite. Veuillez reessayer."
+  },
+  "footer": {
+    "copyright": "Civix Solutions",
+    "tagline": "Developpement frontend sur mesure"
+  },
+  "cursor": {
+    "thats_me": "C'est moi!",
+    "what_ill_do": "Ce que je ferai",
+    "what_ive_done": "Ce que j'ai fait"
+  }
+}

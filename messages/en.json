@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "services": "Services",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Been burned by developers before?",
+    "subtitle": "I get it. You hired someone who promised the world, charged a fortune, then vanished when things got complicated. Now here I am, another developer asking for your trust."
+  },
+  "services": {
+    "title": "What I Do",
+    "placeholder": "Services content placeholder"
+  },
+  "projects": {
+    "title": "Work",
+    "placeholder": "Projects content placeholder"
+  },
+  "contact": {
+    "title": "Let's Talk",
+    "name_label": "Name",
+    "name_placeholder": "Your name",
+    "email_label": "Email",
+    "email_placeholder": "your@email.com",
+    "message_label": "Message",
+    "message_placeholder": "What's on your mind?",
+    "submit": "Send It",
+    "sending": "Sending...",
+    "success": "Sent! I'll be in touch soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "copyright": "Civix Solutions",
+    "tagline": "Boutique frontend development"
+  },
+  "cursor": {
+    "thats_me": "That's me!",
+    "what_ill_do": "What I'll Do",
+    "what_ive_done": "What I've Done"
+  }
+}
