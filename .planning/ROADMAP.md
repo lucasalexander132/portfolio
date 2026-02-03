@@ -25,7 +25,7 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 
 ### v1.1 Internationalization
 
-- [ ] **Phase 6: Translation Infrastructure** - LocaleProvider, translation files, and type safety
+- [x] **Phase 6: Translation Infrastructure** - LocaleProvider, translation files, and type safety
 - [ ] **Phase 7: Language Switcher** - Toggle UI and navigation integration
 - [ ] **Phase 8: Content Migration** - French translations for all sections
 
@@ -128,8 +128,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — TypeScript type definitions and translation JSON files (en.json, fr.json)
-- [ ] 06-02-PLAN.md — LocaleProvider with type-safe t() function and layout integration
+- [x] 06-01-PLAN.md — TypeScript type definitions and translation JSON files (en.json, fr.json)
+- [x] 06-02-PLAN.md — LocaleProvider with type-safe t() function and layout integration
 
 ### Phase 7: Language Switcher
 **Goal**: Visitors can switch between English and French instantly from the navigation
@@ -172,10 +172,10 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8
 | 3. Projects | v1.0 | 2/2 | Complete | 2026-02-02 |
 | 4. Animation | v1.0 | 0/5 | Ready | - |
 | 5. Contact & Polish | v1.0 | 0/? | Not started | - |
-| 6. Translation Infrastructure | v1.1 | 0/2 | Ready | - |
+| 6. Translation Infrastructure | v1.1 | 2/2 | Complete | 2026-02-03 |
 | 7. Language Switcher | v1.1 | 0/? | Not started | - |
 | 8. Content Migration | v1.1 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-03 — Phase 6 planned (2 plans)*
+*Last updated: 2026-02-03 — Phase 6 complete*

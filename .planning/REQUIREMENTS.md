@@ -10,10 +10,10 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **I18N-01**: LocaleProvider with React Context enables instant language switching
-- [ ] **I18N-02**: Translation files (en.json, fr.json) contain all UI strings
-- [ ] **I18N-03**: Browser language detection sets initial locale via navigator.language
-- [ ] **I18N-04**: TypeScript types enforce translation key safety at compile time
+- [x] **I18N-01**: LocaleProvider with React Context enables instant language switching
+- [x] **I18N-02**: Translation files (en.json, fr.json) contain all UI strings
+- [x] **I18N-03**: Browser language detection sets initial locale via navigator.language
+- [x] **I18N-04**: TypeScript types enforce translation key safety at compile time
 
 ### Language Switcher
 
@@ -60,10 +60,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| I18N-01 | Phase 6 | Pending |
-| I18N-02 | Phase 6 | Pending |
-| I18N-03 | Phase 6 | Pending |
-| I18N-04 | Phase 6 | Pending |
+| I18N-01 | Phase 6 | Complete |
+| I18N-02 | Phase 6 | Complete |
+| I18N-03 | Phase 6 | Complete |
+| I18N-04 | Phase 6 | Complete |
 | I18N-05 | Phase 7 | Pending |
 | I18N-06 | Phase 7 | Pending |
 | I18N-07 | Phase 8 | Pending |
@@ -81,4 +81,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 — Phase mappings added*
+*Last updated: 2026-02-03 — Phase 6 requirements complete*
