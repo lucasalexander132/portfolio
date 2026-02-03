@@ -6,7 +6,17 @@
   },
   "hero": {
     "title": "Been burned by developers before?",
-    "subtitle": "I get it. You hired someone who promised the world, charged a fortune, then vanished when things got complicated. Now here I am, another developer asking for your trust."
+    "subtitle": "I get it. You hired someone who promised the world and disappeared. Let's skip the sales pitch and talk about what you actually need.",
+    "cta": "See how I can help",
+    "bubbles": {
+      "experience": "8 years in dev work",
+      "personality": "Passionate and Empathetic",
+      "hungry": "Kind of hungry"
+    },
+    "cursor": {
+      "photo": "That's me!",
+      "help_link": "Cause I probably can"
+    }
   },
   "services": {
     "title": "What I Do",

@@ -5,16 +5,26 @@
     "contact": "Contact"
   },
   "hero": {
-    "title": "Avez-vous deja ete decu par un developpeur?",
-    "subtitle": "Je comprends. Vous avez engage quelqu'un qui promettait monts et merveilles, facturait une fortune, puis disparaissait quand les choses se compliquaient. Et maintenant me voila, un autre developpeur qui vous demande votre confiance."
+    "title": "Déçu par des développeurs dans le passé ?",
+    "subtitle": "Je comprends. Vous avez engagé quelqu'un qui promettait monts et merveilles, puis a disparu quand les choses se compliquaient. Pas de baratin commercial — parlons de ce dont vous avez vraiment besoin.",
+    "cta": "Découvrez comment je peux aider",
+    "bubbles": {
+      "experience": "8 ans d'expérience",
+      "personality": "Passionné et empathique",
+      "hungry": "Un peu affamé"
+    },
+    "cursor": {
+      "photo": "C'est moi !",
+      "help_link": "Car je peux probablement aider"
+    }
   },
   "services": {
     "title": "Ce que je fais",
-    "placeholder": "Contenu des services a venir"
+    "placeholder": "Contenu des services à venir"
   },
   "projects": {
-    "title": "Realisations",
-    "placeholder": "Contenu des projets a venir"
+    "title": "Réalisations",
+    "placeholder": "Contenu des projets à venir"
   },
   "contact": {
     "title": "Parlons-en",
@@ -23,18 +33,18 @@
     "email_label": "Courriel",
     "email_placeholder": "votre@courriel.com",
     "message_label": "Message",
-    "message_placeholder": "Qu'avez-vous en tete?",
+    "message_placeholder": "Qu'avez-vous en tête ?",
     "submit": "Envoyer",
     "sending": "Envoi en cours...",
-    "success": "Envoye! Je vous contacterai bientot.",
-    "error": "Une erreur s'est produite. Veuillez reessayer."
+    "success": "Envoyé ! Je vous contacterai bientôt.",
+    "error": "Une erreur s'est produite. Veuillez réessayer."
   },
   "footer": {
     "copyright": "Civix Solutions",
-    "tagline": "Developpement frontend sur mesure"
+    "tagline": "Développement frontend sur mesure"
   },
   "cursor": {
-    "thats_me": "C'est moi!",
+    "thats_me": "C'est moi !",
     "what_ill_do": "Ce que je ferai",
     "what_ive_done": "Ce que j'ai fait"
   }
