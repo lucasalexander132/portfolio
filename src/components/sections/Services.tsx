@@ -5,48 +5,26 @@ import { m, useInView, AnimatePresence } from 'motion/react'
 import { ArrowUpRight } from 'lucide-react'
 import { fadeUpVariants, staggerContainerVariants } from '@/lib/motion'
 import { useCursorHover } from '@/components/cursor'
-
-const services = [
-  {
-    id: 'development',
-    number: '01',
-    title: 'Custom Development',
-    description:
-      "If you're tired of templates that don't fit, I build exactly what your business needs — no more, no less. Every line of code serves a purpose.",
-    cursorText: '✨ Like this site',
-  },
-  {
-    id: 'communication',
-    number: '02',
-    title: 'Ongoing Communication',
-    description:
-      "If you've been ghosted before, you'll appreciate weekly updates and responses within hours, not days. You'll always know where your project stands.",
-    cursorText: '👻 No ghosts here',
-  },
-  {
-    id: 'iteration',
-    number: '03',
-    title: 'Fast Iteration',
-    description:
-      "If you're watching competitors move faster, I help you ship improvements in days instead of months. Speed without sacrificing quality.",
-    cursorText: "🫣 I'm addicted to work",
-  },
-]
+import { useLocale, useTranslations } from '@/lib/i18n'
+import { services, type Locale } from '@/data/services'
 
 function ServiceRow({
   service,
+  locale,
   isExpanded,
   hasExpanded,
   onHover,
   onClick,
 }: {
   service: (typeof services)[number]
+  locale: Locale
   isExpanded: boolean
   hasExpanded: boolean
   onHover: (id: string | null) => void
   onClick: (id: string) => void
 }) {
-  const cursorProps = useCursorHover('text', service.cursorText)
+  const content = service.content[locale]
+  const cursorProps = useCursorHover('text', content.cursorText)
 
   return (
     <m.article
@@ -86,7 +64,7 @@ function ServiceRow({
           }}
           transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          {service.title}
+          {content.title}
         </m.h3>
 
         {/* Arrow indicator - using CSS transitions for color */}
@@ -126,7 +104,7 @@ function ServiceRow({
           >
             <div className="pb-8 md:pb-10 pl-16 md:pl-20">
               <p className="text-sm tracking-[0.1em] font-sans text-text-secondary max-w-sm leading-snug">
-                {service.description}
+                {content.description}
               </p>
             </div>
           </m.div>
@@ -145,14 +123,15 @@ function ServiceRow({
 }
 
 function FooterText() {
-  const cursorProps = useCursorHover('text', '🍕 Free snacks. But I\'m working on it.')
+  const t = useTranslations()
+  const cursorProps = useCursorHover('text', t('services.footer_cursor'))
 
   return (
     <p
       className="text-xs uppercase tracking-[0.2em] text-text-secondary max-w-md leading-relaxed cursor-default inline-block"
       {...cursorProps}
     >
-      What more could you want?
+      {t('services.footer')}
     </p>
   )
 }
@@ -162,6 +141,8 @@ interface ServicesProps {
 }
 
 export function Services({ hasProjectOpen = false }: ServicesProps) {
+  const { locale } = useLocale()
+  const t = useTranslations()
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [lockedId, setLockedId] = useState<string | null>(null)
   const sectionRef = useRef(null)
@@ -202,8 +183,7 @@ export function Services({ hasProjectOpen = false }: ServicesProps) {
         {/* Section header */}
         <m.div variants={fadeUpVariants} className="mb-12 md:mb-16 flex justify-end">
           <p className="text-xs uppercase tracking-[0.2em] text-text-secondary max-w-md leading-relaxed text-right">
-            Every project starts with a conversation — no pressure, no commitment.
-            Just two people figuring out if we&apos;re a good fit.
+            {t('services.header')}
           </p>
         </m.div>
 
@@ -213,6 +193,7 @@ export function Services({ hasProjectOpen = false }: ServicesProps) {
             <ServiceRow
               key={service.id}
               service={service}
+              locale={locale}
               isExpanded={expandedId === service.id}
               hasExpanded={expandedId !== null}
               onHover={handleHover}
