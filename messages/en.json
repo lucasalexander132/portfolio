@@ -30,7 +30,15 @@
     "placeholder": "Projects content placeholder",
     "header": "Real projects, real results. Click any card to see the full story behind the build.",
     "footer": "More in the works. The best is yet to come.",
-    "coming_soon": "Coming Soon"
+    "coming_soon": "Coming Soon",
+    "labels": {
+      "challenge": "Challenge",
+      "approach": "Approach",
+      "result": "Result",
+      "built_with": "Built with",
+      "visit_project": "Visit Project",
+      "view_source": "View Source"
+    }
   },
   "contact": {
     "title": "Let's Talk",

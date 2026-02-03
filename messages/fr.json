@@ -30,7 +30,15 @@
     "placeholder": "Contenu des projets a venir",
     "header": "Des projets reels, des resultats reels. Cliquez sur une carte pour decouvrir l'histoire complete.",
     "footer": "D'autres projets en cours. Le meilleur reste a venir.",
-    "coming_soon": "Bientot disponible"
+    "coming_soon": "Bientot disponible",
+    "labels": {
+      "challenge": "Defi",
+      "approach": "Approche",
+      "result": "Resultat",
+      "built_with": "Construit avec",
+      "visit_project": "Visiter le projet",
+      "view_source": "Voir le code source"
+    }
   },
   "contact": {
     "title": "Parlons-en",
