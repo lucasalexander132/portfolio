@@ -3,7 +3,12 @@
 import { useState } from 'react'
 import { m, AnimatePresence } from 'motion/react'
 import { X } from 'lucide-react'
-import { springSubtle } from '@/lib/motion'
+// Slower spring for modal - gentler feel
+const springModal = {
+  type: 'spring' as const,
+  stiffness: 260,
+  damping: 28,
+}
 import { useCursor } from '@/components/cursor'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -56,8 +61,8 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
             initial={{ y: '100%', opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: '100%', opacity: 0 }}
-            transition={springSubtle}
-            className="fixed z-40 inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[min(33vw,420px)] sm:min-w-[360px] bg-text-primary rounded-xl shadow-lg"
+            transition={springModal}
+            className="fixed z-40 inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[min(33vw,420px)] sm:min-w-[360px] bg-text-primary rounded-xl shadow-lg border border-base-700"
           >
             <div className="p-6 sm:p-8">
               {/* Close button */}
@@ -66,7 +71,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                 onClick={onClose}
                 className="absolute top-3 right-3 p-2 rounded-lg text-base-600 hover:text-base-950 hover:bg-base-950/10 transition-colors"
                 whileTap={{ scale: 0.95 }}
-                transition={springSubtle}
+                transition={springModal}
                 onMouseEnter={() => setCursorVariant('link', undefined, true)}
                 onMouseLeave={resetCursor}
                 aria-label="Close contact form"
@@ -127,7 +132,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                   />
                 </div>
 
-                <m.div whileTap={{ scale: 0.98 }} transition={springSubtle}>
+                <m.div whileTap={{ scale: 0.98 }} transition={springModal}>
                   <Button
                     type="submit"
                     className="w-full bg-base-950 text-text-primary hover:bg-base-800 font-medium"

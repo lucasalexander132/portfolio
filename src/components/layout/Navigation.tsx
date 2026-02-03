@@ -39,7 +39,7 @@ export function Navigation() {
 
   const handleContactClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    setIsFormOpen(true)
+    setIsFormOpen((prev) => !prev)
   }
 
   return (
