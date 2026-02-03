@@ -155,10 +155,13 @@ Plans:
   4. Contact form labels, placeholders, and validation messages display in French
   5. Footer content displays in French
   6. Custom cursor hover text displays in French
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 08-01: TBD (to be defined during phase planning)
+- [ ] 08-01-PLAN.md — Expand translation files with Hero keys and refactor Hero.tsx
+- [ ] 08-02-PLAN.md — Create services data file and refactor Services.tsx
+- [ ] 08-03-PLAN.md — Add locale-keyed content to projects and refactor Projects/ProjectDetail
+- [ ] 08-04-PLAN.md — Footer translations and visual verification checkpoint
 
 ## Progress
 
@@ -174,8 +177,8 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8
 | 5. Contact & Polish | v1.0 | 0/? | Not started | - |
 | 6. Translation Infrastructure | v1.1 | 2/2 | Complete | 2026-02-03 |
 | 7. Language Switcher | v1.1 | 1/1 | Complete | 2026-02-03 |
-| 8. Content Migration | v1.1 | 0/? | Not started | - |
+| 8. Content Migration | v1.1 | 0/4 | Ready | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-03 — Phase 7 complete*
+*Last updated: 2026-02-03 — Phase 8 planned*
