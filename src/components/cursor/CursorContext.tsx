@@ -11,6 +11,22 @@ import {
 export type CursorVariant = 'default' | 'link' | 'text'
 export type ArrowDirection = 'diagonal' | 'up' | 'down' | 'left' | 'right'
 
+// Neo-brutal color palette for random cursor backgrounds
+const NEO_BRUTAL_COLORS = [
+  'oklch(0.85 0.18 85)',   // yellow
+  'oklch(0.75 0.18 145)',  // green
+  'oklch(0.70 0.20 250)',  // blue
+  'oklch(0.75 0.20 320)',  // pink/magenta
+  'oklch(0.80 0.18 30)',   // orange
+  'oklch(0.70 0.22 280)',  // purple
+  'oklch(0.80 0.15 175)',  // teal
+  'oklch(0.85 0.20 55)',   // peach/coral
+]
+
+function getRandomNeoBrutalColor(): string {
+  return NEO_BRUTAL_COLORS[Math.floor(Math.random() * NEO_BRUTAL_COLORS.length)]
+}
+
 interface CursorState {
   variant: CursorVariant
   text?: string
@@ -18,11 +34,12 @@ interface CursorState {
   tiltDirection: 1 | -1
   withArrow?: boolean
   arrowDirection?: ArrowDirection
+  bgColor?: string
 }
 
 interface CursorContextValue {
   cursorState: CursorState
-  setCursorVariant: (variant: CursorVariant, text?: string, withArrow?: boolean, arrowDirection?: ArrowDirection) => void
+  setCursorVariant: (variant: CursorVariant, text?: string, withArrow?: boolean, arrowDirection?: ArrowDirection, bgColor?: string) => void
   resetCursor: () => void
 }
 
@@ -39,7 +56,7 @@ export function CursorProvider({ children }: { children: ReactNode }) {
   const [cursorState, setCursorState] = useState<CursorState>(defaultState)
 
   const setCursorVariant = useCallback(
-    (variant: CursorVariant, text?: string, withArrow?: boolean, arrowDirection?: ArrowDirection) => {
+    (variant: CursorVariant, text?: string, withArrow?: boolean, arrowDirection?: ArrowDirection, bgColor?: string) => {
       setCursorState((prev) => ({
         variant,
         text,
@@ -47,6 +64,8 @@ export function CursorProvider({ children }: { children: ReactNode }) {
         tiltDirection: prev.tiltDirection === 1 ? -1 : 1,
         withArrow,
         arrowDirection: arrowDirection ?? 'diagonal',
+        // Use provided bgColor, or pick a random neo-brutal color
+        bgColor: bgColor ?? getRandomNeoBrutalColor(),
       }))
     },
     []

@@ -56,6 +56,7 @@ export function CustomCursor() {
   const showText = cursorState.variant === 'text' && cursorState.text
   const showArrow = cursorState.withArrow
   const arrowDirection = cursorState.arrowDirection ?? 'diagonal'
+  const customBgColor = cursorState.bgColor
 
   // Arrow SVG paths for different directions
   const arrowPaths: Record<string, React.ReactNode> = {
@@ -138,7 +139,7 @@ export function CustomCursor() {
             paddingLeft: isExpanded ? 10 : 0,
             paddingRight: isExpanded ? 10 : 0,
             rotate: isExpanded ? cursorState.tiltDirection * 2 : 0,
-            backgroundColor: isExpanded ? colors.fillExpanded : colors.fill,
+            backgroundColor: isExpanded ? (customBgColor ?? colors.fillExpanded) : colors.fill,
             borderColor: colors.border,
             boxShadow: colors.shadow,
           }}
