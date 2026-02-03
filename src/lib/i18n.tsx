@@ -35,6 +35,11 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  // Sync HTML lang attribute with current locale
+  useEffect(() => {
+    document.documentElement.lang = locale
+  }, [locale])
+
   const t = useCallback(
     (key: TranslationKey): string => {
       const keys = key.split('.')
