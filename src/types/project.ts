@@ -6,7 +6,20 @@
  * projects cannot have one.
  */
 
+import type { Locale } from '@/lib/i18n'
+
 export type ProjectStatus = 'live' | 'coming-soon'
+
+/**
+ * Localized content for translatable project fields
+ */
+export interface LocalizedContent {
+  tagline: string
+  challenge: string
+  approach: string
+  result: string
+  cursorText?: string
+}
 
 /**
  * Base interface with shared fields for all projects
@@ -14,24 +27,18 @@ export type ProjectStatus = 'live' | 'coming-soon'
 interface BaseProject {
   /** Unique identifier for the project (used as key and URL slug) */
   id: string
-  /** Project display title */
+  /** Project display title (kept as string - proper noun) */
   title: string
-  /** One-line description for cards */
-  tagline: string
   /** Path to card thumbnail image */
   thumbnail: string
   /** Array of paths to gallery images for modal */
   images: string[]
-  /** The problem or pain point addressed */
-  challenge: string
-  /** How the solution was built */
-  approach: string
-  /** Quantified outcomes (with specific numbers when possible) */
-  result: string
   /** Technologies used */
   technologies: string[]
-  /** Optional text to show in custom cursor on hover */
-  cursorText?: string
+  /** Locale-keyed content for translations */
+  content: {
+    [K in Locale]: LocalizedContent
+  }
 }
 
 /**
