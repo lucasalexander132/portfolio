@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 
 ## Current Position
 
-Phase: 8 - Content Migration (1 of 4 plans complete)
-Plan: 1 of 4
+Phase: 8 - Content Migration (2 of 4 plans complete)
+Plan: 2 of 4
 Status: In progress
-Last activity: 2026-02-03 — Completed 08-01-PLAN.md
+Last activity: 2026-02-03 — Completed 08-02-PLAN.md
 
-Progress: [██████████░░░░] 74% (14/19 plans)
+Progress: [███████████░░░] 79% (15/19 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
+- Total plans completed: 15
 - Average duration: 3.3 min
-- Total execution time: 46.2 min
+- Total execution time: 49.2 min
 
 **By Phase:**
 
@@ -33,10 +33,10 @@ Progress: [██████████░░░░] 74% (14/19 plans)
 | 04-animation | 4 | 9 min | 2.25 min |
 | 06-translation-infrastructure | 2 | 2 min | 1 min |
 | 07-language-switcher | 1 | 1 min | 1 min |
-| 08-content-migration | 1 | 2 min | 2 min |
+| 08-content-migration | 2 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-04 (4 min), 06-01 (1 min), 06-02 (1 min), 07-01 (1 min), 08-01 (2 min)
+- Last 5 plans: 06-01 (1 min), 06-02 (1 min), 07-01 (1 min), 08-01 (2 min), 08-02 (3 min)
 - Trend: Fast (i18n content migration)
 
 *Updated after each plan completion*
@@ -88,6 +88,8 @@ Recent decisions affecting current work:
 - **hoverBubbles inside component** - Translation hook only available in component body
 - **Formal vous in French** - Professional tone for client-facing portfolio
 - **Emotional equivalence translations** - Not literal; preserves tone and intent
+- **Locale-keyed content pattern** - service.content[locale] for component-specific data
+- **Export Locale type from i18n.tsx** - Enables data files to use Locale type in interfaces
 
 ### Pending Todos
 
@@ -108,5 +110,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed 08-01-PLAN.md — Hero section translations
+Stopped at: Completed 08-02-PLAN.md — Services section localization
 Resume file: None
