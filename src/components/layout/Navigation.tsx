@@ -5,15 +5,18 @@ import { m } from 'motion/react'
 import { Mail } from 'lucide-react'
 import { springSnappy, springSubtle } from '@/lib/motion'
 import { useCursor } from '@/components/cursor'
+import { useTranslations } from '@/lib/i18n'
 import { ContactForm } from './ContactForm'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
-const navLinks = [
-  { href: '#services', label: 'Services', cursorText: "What I'll Do" },
-  { href: '#projects', label: 'Projects', cursorText: "What I've Done" },
-]
+const navItems = [
+  { href: '#services', labelKey: 'nav.services' as const, cursorKey: 'cursor.what_ill_do' as const },
+  { href: '#projects', labelKey: 'nav.projects' as const, cursorKey: 'cursor.what_ive_done' as const },
+] as const
 
 export function Navigation() {
   const { setCursorVariant, resetCursor } = useCursor()
+  const t = useTranslations()
   const [isFormOpen, setIsFormOpen] = useState(false)
 
   // Close form on Escape key
@@ -27,6 +30,13 @@ export function Navigation() {
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
   }, [isFormOpen])
+
+  // Listen for custom event to open form (from Footer, etc.)
+  useEffect(() => {
+    const handleOpenContactForm = () => setIsFormOpen(true)
+    window.addEventListener('openContactForm', handleOpenContactForm)
+    return () => window.removeEventListener('openContactForm', handleOpenContactForm)
+  }, [])
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
@@ -68,16 +78,16 @@ export function Navigation() {
 
           {/* Nav Links */}
           <ul className="flex items-center gap-1 pl-1">
-            {navLinks.map(({ href, label, cursorText }) => (
+            {navItems.map(({ href, labelKey, cursorKey }) => (
               <li key={href}>
                 <m.a
                   href={href}
                   onClick={(e) => handleClick(e, href)}
                   className="block px-4 py-2 text-sm rounded-lg text-amber-500 border border-amber-500/50 bg-base-900 hover:bg-base-800 hover:border-amber-400 transition-colors"
-                  onMouseEnter={() => setCursorVariant('text', cursorText, true)}
+                  onMouseEnter={() => setCursorVariant('text', t(cursorKey), true)}
                   onMouseLeave={resetCursor}
                 >
-                  {label}
+                  {t(labelKey)}
                 </m.a>
               </li>
             ))}
@@ -96,6 +106,9 @@ export function Navigation() {
               <Mail className="w-5 h-5" />
             </button>
           </m.div>
+
+          {/* Language Switcher */}
+          <LanguageSwitcher />
         </div>
       </m.nav>
 
