@@ -125,10 +125,11 @@ Plans:
   2. Translation JSON files exist for English and French with matching key structure
   3. Site detects browser language on initial load and sets appropriate locale
   4. TypeScript compilation fails if a translation key is misspelled or missing
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD (to be defined during phase planning)
+- [ ] 06-01-PLAN.md — TypeScript type definitions and translation JSON files (en.json, fr.json)
+- [ ] 06-02-PLAN.md — LocaleProvider with type-safe t() function and layout integration
 
 ### Phase 7: Language Switcher
 **Goal**: Visitors can switch between English and French instantly from the navigation
@@ -171,10 +172,10 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8
 | 3. Projects | v1.0 | 2/2 | Complete | 2026-02-02 |
 | 4. Animation | v1.0 | 0/5 | Ready | - |
 | 5. Contact & Polish | v1.0 | 0/? | Not started | - |
-| 6. Translation Infrastructure | v1.1 | 0/? | Not started | - |
+| 6. Translation Infrastructure | v1.1 | 0/2 | Ready | - |
 | 7. Language Switcher | v1.1 | 0/? | Not started | - |
 | 8. Content Migration | v1.1 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-03 — v1.1 Internationalization phases added*
+*Last updated: 2026-02-03 — Phase 6 planned (2 plans)*
