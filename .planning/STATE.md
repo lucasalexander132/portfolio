@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 
 ## Current Position
 
-Phase: 6 - Translation Infrastructure
-Plan: 2 of 2 (complete)
+Phase: 7 - Language Switcher
+Plan: 1 of 1 (complete)
 Status: Phase complete
-Last activity: 2026-02-03 — Completed 06-02-PLAN.md
+Last activity: 2026-02-03 — Completed 07-01-PLAN.md
 
-Progress: [█████████░] 92% (12/13 plans)
+Progress: [██████████] 100% (13/13 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 3.6 min
-- Total execution time: 43.2 min
+- Total plans completed: 13
+- Average duration: 3.4 min
+- Total execution time: 44.2 min
 
 **By Phase:**
 
@@ -32,10 +32,11 @@ Progress: [█████████░] 92% (12/13 plans)
 | 03-projects | 2 | 10.7 min | 5.35 min |
 | 04-animation | 4 | 9 min | 2.25 min |
 | 06-translation-infrastructure | 2 | 2 min | 1 min |
+| 07-language-switcher | 1 | 1 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-02 (2 min), 04-03 (2 min), 04-04 (4 min), 06-01 (1 min), 06-02 (1 min)
-- Trend: Fast (React Context infrastructure)
+- Last 5 plans: 04-03 (2 min), 04-04 (4 min), 06-01 (1 min), 06-02 (1 min), 07-01 (1 min)
+- Trend: Fast (i18n UI components)
 
 *Updated after each plan completion*
 
@@ -80,6 +81,9 @@ Recent decisions affecting current work:
 - **ASCII-only French text initially** - Avoid encoding issues; proper accents added in Phase 8
 - **LocaleProvider as outermost provider** - All components can access translations
 - **Translation key fallback** - Returns key string if missing (visible bug indicator)
+- **FR on top, EN on bottom** - Language button stacking per I18N-05 requirement
+- **Rightmost navbar position** - Common UX pattern for language switcher placement
+- **Translation key 'as const' pattern** - Type-safe translation key references
 
 ### Pending Todos
 
@@ -100,5 +104,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Phase 6 complete — Translation infrastructure verified
+Stopped at: Phase 7 complete — Language switcher UI integrated
 Resume file: None
