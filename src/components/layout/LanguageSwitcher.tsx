@@ -7,9 +7,9 @@ import { useCursor } from '@/components/cursor'
 
 type Locale = 'en' | 'fr'
 
-const languages: { code: Locale; label: string }[] = [
-  { code: 'fr', label: 'FR' }, // FR on top per requirement
-  { code: 'en', label: 'EN' }, // EN on bottom
+const languages: { code: Locale; label: string; cursorText: string }[] = [
+  { code: 'fr', label: 'FR', cursorText: 'Français' },
+  { code: 'en', label: 'EN', cursorText: 'English' },
 ]
 
 export function LanguageSwitcher() {
@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
       role="group"
       aria-label="Language selection"
     >
-      {languages.map(({ code, label }) => {
+      {languages.map(({ code, label, cursorText }) => {
         const isActive = locale === code
         return (
           <m.button
@@ -42,7 +42,7 @@ export function LanguageSwitcher() {
             `}
             whileTap={isActive ? {} : { scale: 0.95 }}
             transition={springSnappy}
-            onMouseEnter={() => !isActive && setCursorVariant('link', undefined, true)}
+            onMouseEnter={() => !isActive && setCursorVariant('text', cursorText)}
             onMouseLeave={resetCursor}
           >
             {label}
