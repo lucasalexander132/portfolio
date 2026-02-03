@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { m } from 'motion/react'
 import { Mail } from 'lucide-react'
-import { springSnappy } from '@/lib/motion'
+import { springSnappy, springSubtle } from '@/lib/motion'
 import { useCursor } from '@/components/cursor'
 import { ContactForm } from './ContactForm'
 
@@ -50,7 +50,7 @@ export function Navigation() {
           bottom: isFormOpen ? 'auto' : 40,
           top: isFormOpen ? 12 : 'auto',
         }}
-        transition={springSnappy}
+        transition={springSubtle}
       >
         <div className="flex items-center gap-1 bg-base-900/50 backdrop-blur-md rounded-lg px-2 py-2 shadow-lg border border-base-700/30">
           {/* Logo */}

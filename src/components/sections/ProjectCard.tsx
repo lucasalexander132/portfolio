@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { m } from 'motion/react'
 import type { Project } from '@/types/project'
 import { springSubtle, fadeUpVariants } from '@/lib/motion'
+import { useCursorHover } from '@/components/cursor'
 
 interface ProjectCardProps {
   project: Project
@@ -12,6 +13,8 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, onClick, isSelected }: ProjectCardProps) {
+  const cursorProps = useCursorHover('text', project.cursorText)
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
@@ -21,6 +24,7 @@ export function ProjectCard({ project, onClick, isSelected }: ProjectCardProps) 
 
   return (
     <m.article
+      {...(project.cursorText ? cursorProps : {})}
       role="button"
       tabIndex={0}
       onClick={onClick}

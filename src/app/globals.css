@@ -5,6 +5,7 @@
   /* Typography - reference next/font variables */
   --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sketch: var(--font-sketch), 'Comic Sans MS', cursive;
 
   /* Fluid Type Scale */
   --text-display: clamp(2.5rem, 5vw + 1rem, 4.5rem);
@@ -15,12 +16,12 @@
   --text-small: clamp(0.875rem, 0.25vw + 0.8rem, 0.9375rem);
 
   /* Color Palette: Workshop at Golden Hour (Dark Mode Only) */
-  /* Base: Warm slate with blue undertones */
-  --color-base-950: oklch(0.12 0.015 250);
-  --color-base-900: oklch(0.16 0.015 250);
-  --color-base-800: oklch(0.22 0.012 250);
-  --color-base-700: oklch(0.30 0.010 250);
-  --color-base-600: oklch(0.40 0.008 250);
+  /* Base: Warm slate with blue undertones - lifted for better contrast */
+  --color-base-950: oklch(0.18 0.015 250);
+  --color-base-900: oklch(0.22 0.015 250);
+  --color-base-800: oklch(0.30 0.012 250);
+  --color-base-700: oklch(0.40 0.010 250);
+  --color-base-600: oklch(0.52 0.008 250);
 
   /* Accent: Golden honey amber */
   --color-amber-600: oklch(0.68 0.16 70);
@@ -29,9 +30,9 @@
   --color-amber-300: oklch(0.88 0.10 76);
 
   /* Text: Warm cream with deeper tone */
-  --color-text-primary: oklch(0.90 0.022 80);
-  --color-text-secondary: oklch(0.72 0.016 80);
-  --color-text-muted: oklch(0.52 0.010 250);
+  --color-text-primary: oklch(0.92 0.022 80);
+  --color-text-secondary: oklch(0.75 0.016 80);
+  --color-text-muted: oklch(0.58 0.010 250);
 
   /* Layered Shadows: Subtle, tinted with base color */
   --shadow-color: oklch(0.08 0.015 250);
@@ -57,6 +58,7 @@
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
+  --radius-xl: 1.75rem;
 
   /* Container */
   --container-max: 72rem;
@@ -174,5 +176,14 @@
 @layer utilities {
   .text-sink {
     text-shadow: 0 1px 0 oklch(0.08 0.01 250 / 0.5);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

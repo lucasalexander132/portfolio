@@ -13,24 +13,25 @@ export const projects = [
   // LIVE PROJECTS
   // ============================================
   {
-    id: 'employee-management',
-    title: 'Employee Management Dashboard',
-    tagline: 'Transformed HR chaos into streamlined operations',
-    thumbnail: '/projects/employee-management/thumbnail.jpg',
+    id: 'codex-grove',
+    title: 'Codex Grove',
+    tagline: 'AI-powered knowledge management for developers',
+    thumbnail: '/images/codex-grove-landing.png',
     images: [
-      '/projects/employee-management/screenshot-1.jpg',
-      '/projects/employee-management/screenshot-2.jpg',
-      '/projects/employee-management/screenshot-3.jpg',
+      '/images/codex-grove-landing.png',
+      '/images/codex-grove-dashboard.png',
+      '/images/codex-grove-schedule.png',
     ],
     status: 'live',
-    url: 'https://example.com/employee-dashboard',
+    url: 'https://codexgrove.com',
     challenge:
-      'A growing business was tracking employee hours, PTO, and schedules across three different spreadsheets. HR spent 8+ hours every week just reconciling data and chasing down missing information.',
+      'Developers waste hours searching through documentation, Stack Overflow, and old code for answers they\'ve found before. Knowledge gets lost in chat threads and forgotten bookmarks.',
     approach:
-      'Built a unified dashboard with real-time sync, automated PTO calculations, and role-based access. Employees can submit requests directly, and managers get instant notifications.',
+      'Built an AI-powered knowledge base that learns from your codebase and conversations. Automatically indexes and connects related concepts, surfacing relevant context exactly when needed.',
     result:
-      'Reduced weekly HR admin time from 8 hours to under 2 hours. Eliminated double-booking errors completely and improved employee satisfaction scores by 23%.',
-    technologies: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
+      'Early users report 40% less time spent searching for information. The system learns and improves with each interaction, becoming more valuable over time.',
+    technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'OpenAI', 'Tailwind CSS'],
+    cursorText: 'Manage your employees with ease',
   },
   {
     id: 'local-inventory',

@@ -30,6 +30,8 @@ interface BaseProject {
   result: string
   /** Technologies used */
   technologies: string[]
+  /** Optional text to show in custom cursor on hover */
+  cursorText?: string
 }
 
 /**

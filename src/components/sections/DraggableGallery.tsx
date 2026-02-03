@@ -35,7 +35,7 @@ export function DraggableGallery({ images, projectTitle }: DraggableGalleryProps
   }, [images])
 
   return (
-    <div className="relative">
+    <div className="relative mt-8">
       {/* Drag hint - fades after user drags */}
       {!hasDragged && images.length > 1 && (
         <m.div
@@ -77,7 +77,7 @@ export function DraggableGallery({ images, projectTitle }: DraggableGalleryProps
             bounceDamping: 30,
           }}
           onDragStart={() => setHasDragged(true)}
-          className="flex gap-4 cursor-grab active:cursor-grabbing pl-4 sm:pl-8"
+          className="flex gap-4 cursor-grab active:cursor-grabbing pl-8 sm:pl-16"
         >
           {images.map((src, i) => (
             <div
