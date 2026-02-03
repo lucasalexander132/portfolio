@@ -22,13 +22,13 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Content Translation
 
-- [ ] **I18N-07**: Hero section content available in French
-- [ ] **I18N-08**: Services section content available in French
-- [ ] **I18N-09**: Projects section content available in French (case studies, tech tags)
-- [ ] **I18N-10**: Contact form labels, placeholders, and validation messages in French
+- [x] **I18N-07**: Hero section content available in French
+- [x] **I18N-08**: Services section content available in French
+- [x] **I18N-09**: Projects section content available in French (case studies, tech tags)
+- [x] **I18N-10**: Contact form labels, placeholders, and validation messages in French
 - [x] **I18N-11**: Navigation labels available in French
-- [ ] **I18N-12**: Footer content available in French
-- [ ] **I18N-13**: Cursor hover text available in French
+- [x] **I18N-12**: Footer content available in French
+- [x] **I18N-13**: Cursor hover text available in French
 
 ## Future Requirements
 
@@ -66,19 +66,19 @@ Which phases cover which requirements. Updated during roadmap creation.
 | I18N-04 | Phase 6 | Complete |
 | I18N-05 | Phase 7 | Complete |
 | I18N-06 | Phase 7 | Complete |
-| I18N-07 | Phase 8 | Pending |
-| I18N-08 | Phase 8 | Pending |
-| I18N-09 | Phase 8 | Pending |
-| I18N-10 | Phase 8 | Pending |
+| I18N-07 | Phase 8 | Complete |
+| I18N-08 | Phase 8 | Complete |
+| I18N-09 | Phase 8 | Complete |
+| I18N-10 | Phase 8 | Complete |
 | I18N-11 | Phase 7 | Complete |
-| I18N-12 | Phase 8 | Pending |
-| I18N-13 | Phase 8 | Pending |
+| I18N-12 | Phase 8 | Complete |
+| I18N-13 | Phase 8 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 13 total
 - Mapped to phases: 13
-- Unmapped: 0
+- Complete: 13
 
 ---
 *Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 — Phase 7 requirements complete*
+*Last updated: 2026-02-03 — All v1.1 requirements complete*

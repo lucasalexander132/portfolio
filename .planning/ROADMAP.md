@@ -27,7 +27,7 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 
 - [x] **Phase 6: Translation Infrastructure** - LocaleProvider, translation files, and type safety
 - [x] **Phase 7: Language Switcher** - Toggle UI and navigation integration
-- [ ] **Phase 8: Content Migration** - French translations for all sections
+- [x] **Phase 8: Content Migration** - French translations for all sections
 
 ## Phase Details
 
@@ -158,10 +158,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Expand translation files with Hero keys and refactor Hero.tsx
-- [ ] 08-02-PLAN.md — Create services data file and refactor Services.tsx
-- [ ] 08-03-PLAN.md — Add locale-keyed content to projects and refactor Projects/ProjectDetail
-- [ ] 08-04-PLAN.md — Footer translations and visual verification checkpoint
+- [x] 08-01-PLAN.md — Expand translation files with Hero keys and refactor Hero.tsx
+- [x] 08-02-PLAN.md — Create services data file and refactor Services.tsx
+- [x] 08-03-PLAN.md — Add locale-keyed content to projects and refactor Projects/ProjectDetail
+- [x] 08-04-PLAN.md — Footer translations and visual verification checkpoint
 
 ## Progress
 
@@ -177,8 +177,8 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8
 | 5. Contact & Polish | v1.0 | 0/? | Not started | - |
 | 6. Translation Infrastructure | v1.1 | 2/2 | Complete | 2026-02-03 |
 | 7. Language Switcher | v1.1 | 1/1 | Complete | 2026-02-03 |
-| 8. Content Migration | v1.1 | 0/4 | Ready | - |
+| 8. Content Migration | v1.1 | 4/4 | Complete | 2026-02-03 |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-03 — Phase 8 planned*
+*Last updated: 2026-02-03 — Phase 8 complete, v1.1 milestone complete*
