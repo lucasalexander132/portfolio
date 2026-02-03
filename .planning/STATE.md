@@ -78,6 +78,12 @@ Recent decisions affecting current work:
 
 None.
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 001 | Slide-in contact form from nav bar | 2026-02-03 | 807445e | [001-slide-in-contact-form-from-nav-bar](./quick/001-slide-in-contact-form-from-nav-bar/) |
+
 ## Session Continuity
 
 Last session: 2026-02-03
