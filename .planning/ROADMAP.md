@@ -139,10 +139,10 @@ Plans:
   1. Language toggle is visible in navbar with FR stacked on top, EN on bottom
   2. Clicking a language option switches all visible text immediately (no page reload)
   3. Navigation labels (if any) display in the selected language
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 07-01: TBD (to be defined during phase planning)
+- [ ] 07-01-PLAN.md — LanguageSwitcher component and translated navigation labels
 
 ### Phase 8: Content Migration
 **Goal**: All site content is available in French with the same empathetic tone
@@ -173,9 +173,9 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8
 | 4. Animation | v1.0 | 0/5 | Ready | - |
 | 5. Contact & Polish | v1.0 | 0/? | Not started | - |
 | 6. Translation Infrastructure | v1.1 | 2/2 | Complete | 2026-02-03 |
-| 7. Language Switcher | v1.1 | 0/? | Not started | - |
+| 7. Language Switcher | v1.1 | 0/1 | Ready | - |
 | 8. Content Migration | v1.1 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-03 — Phase 6 complete*
+*Last updated: 2026-02-03 — Phase 7 planned*
