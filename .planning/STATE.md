@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 6 - Translation Infrastructure
 Plan: —
-Status: Defining requirements
-Last activity: 2026-02-03 — Milestone v1.1 started
+Status: Roadmap complete, awaiting phase planning
+Last activity: 2026-02-03 — v1.1 roadmap created
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -71,6 +71,12 @@ Recent decisions affecting current work:
 - **ContactForm as centered modal** - Cream background, slide-up from bottom (y: 100%), springSubtle, ~33% width desktop
 - **Resend SDK** - Email delivery via Resend API, simple integration, generous free tier
 
+### v1.1 Decisions
+
+- **Custom React Context over i18n libraries** - Instant switching without page reload; ~50 lines vs heavy dependency
+- **JSON translation files in /messages/** - Simple, type-safe, appropriate for ~60 strings
+- **Browser language detection** - navigator.language on initial load, no persistence
+
 ### Pending Todos
 
 - Consider deleting unused ProjectModal.tsx in polish phase
@@ -90,5 +96,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed quick/003-implement-resend-for-email-form — Resend email delivery with loading/success/error states
+Stopped at: v1.1 roadmap created — Phases 6-8 defined for internationalization
 Resume file: None

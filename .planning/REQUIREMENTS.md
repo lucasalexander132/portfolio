@@ -60,25 +60,25 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| I18N-01 | TBD | Pending |
-| I18N-02 | TBD | Pending |
-| I18N-03 | TBD | Pending |
-| I18N-04 | TBD | Pending |
-| I18N-05 | TBD | Pending |
-| I18N-06 | TBD | Pending |
-| I18N-07 | TBD | Pending |
-| I18N-08 | TBD | Pending |
-| I18N-09 | TBD | Pending |
-| I18N-10 | TBD | Pending |
-| I18N-11 | TBD | Pending |
-| I18N-12 | TBD | Pending |
-| I18N-13 | TBD | Pending |
+| I18N-01 | Phase 6 | Pending |
+| I18N-02 | Phase 6 | Pending |
+| I18N-03 | Phase 6 | Pending |
+| I18N-04 | Phase 6 | Pending |
+| I18N-05 | Phase 7 | Pending |
+| I18N-06 | Phase 7 | Pending |
+| I18N-07 | Phase 8 | Pending |
+| I18N-08 | Phase 8 | Pending |
+| I18N-09 | Phase 8 | Pending |
+| I18N-10 | Phase 8 | Pending |
+| I18N-11 | Phase 7 | Pending |
+| I18N-12 | Phase 8 | Pending |
+| I18N-13 | Phase 8 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 13 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 13
+- Mapped to phases: 13
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 after initial definition*
+*Last updated: 2026-02-03 — Phase mappings added*

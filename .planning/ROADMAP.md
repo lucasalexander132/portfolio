@@ -1,20 +1,33 @@
 # Roadmap: Civix Solutions Portfolio
 
+## Milestones
+
+- 🚧 **v1.0 MVP** - Phases 1-5 (in progress)
+- 📋 **v1.1 Internationalization** - Phases 6-8 (planned)
+
 ## Overview
 
-This roadmap delivers a single-page portfolio for Civix Solutions that makes weary, skeptical visitors feel understood before impressed. The journey builds from visual foundation through content, case studies, animation, and finally the contact experience — each phase delivering a verifiable capability that serves the core value: visitors must feel at ease.
+This roadmap delivers a single-page portfolio for Civix Solutions that makes weary, skeptical visitors feel understood before impressed. v1.0 builds from visual foundation through content, case studies, animation, and contact experience. v1.1 adds French language support with instant client-side switching, enabling bilingual visitors to experience the same empathetic messaging in their preferred language.
 
 ## Phases
 
 **Phase Numbering:**
-- Integer phases (1, 2, 3, 4, 5): Planned milestone work
+- Integer phases (1, 2, 3, 4, 5, 6, 7, 8): Planned milestone work
 - Decimal phases (e.g., 2.1): Urgent insertions if needed (marked with INSERTED)
+
+### v1.0 MVP
 
 - [x] **Phase 1: Foundation** - Design system and visual infrastructure
 - [x] **Phase 2: Content** - Hero and services with empathy-first messaging
 - [x] **Phase 3: Projects** - Data-driven case studies with templated components
 - [ ] **Phase 4: Animation** - Orchestrated motion and polish
 - [ ] **Phase 5: Contact & Polish** - Form integration and final accessibility/performance audit
+
+### v1.1 Internationalization
+
+- [ ] **Phase 6: Translation Infrastructure** - LocaleProvider, translation files, and type safety
+- [ ] **Phase 7: Language Switcher** - Toggle UI and navigation integration
+- [ ] **Phase 8: Content Migration** - French translations for all sections
 
 ## Phase Details
 
@@ -103,19 +116,65 @@ Plans:
 Plans:
 - [ ] 05-01: TBD (to be defined during phase planning)
 
+### Phase 6: Translation Infrastructure
+**Goal**: Site has the technical foundation for instant language switching with type-safe translations
+**Depends on**: Phase 5
+**Requirements**: I18N-01, I18N-02, I18N-03, I18N-04
+**Success Criteria** (what must be TRUE):
+  1. LocaleProvider wraps app and exposes current locale + setLocale via React Context
+  2. Translation JSON files exist for English and French with matching key structure
+  3. Site detects browser language on initial load and sets appropriate locale
+  4. TypeScript compilation fails if a translation key is misspelled or missing
+**Plans**: TBD
+
+Plans:
+- [ ] 06-01: TBD (to be defined during phase planning)
+
+### Phase 7: Language Switcher
+**Goal**: Visitors can switch between English and French instantly from the navigation
+**Depends on**: Phase 6
+**Requirements**: I18N-05, I18N-06, I18N-11
+**Success Criteria** (what must be TRUE):
+  1. Language toggle is visible in navbar with FR stacked on top, EN on bottom
+  2. Clicking a language option switches all visible text immediately (no page reload)
+  3. Navigation labels (if any) display in the selected language
+**Plans**: TBD
+
+Plans:
+- [ ] 07-01: TBD (to be defined during phase planning)
+
+### Phase 8: Content Migration
+**Goal**: All site content is available in French with the same empathetic tone
+**Depends on**: Phase 7
+**Requirements**: I18N-07, I18N-08, I18N-09, I18N-10, I18N-12, I18N-13
+**Success Criteria** (what must be TRUE):
+  1. Hero section displays French empathy statement and value proposition when FR selected
+  2. Services section problem/solution pairs render in French
+  3. Project case studies (challenge, approach, result) and tech tags available in French
+  4. Contact form labels, placeholders, and validation messages display in French
+  5. Footer content displays in French
+  6. Custom cursor hover text displays in French
+**Plans**: TBD
+
+Plans:
+- [ ] 08-01: TBD (to be defined during phase planning)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 > 2 > 3 > 4 > 5
+Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Foundation | 2/2 | ✓ Complete | 2026-02-02 |
-| 2. Content | 2/2 | ✓ Complete | 2026-02-02 |
-| 3. Projects | 2/2 | ✓ Complete | 2026-02-02 |
-| 4. Animation | 0/5 | Ready | - |
-| 5. Contact & Polish | 0/? | Not started | - |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Foundation | v1.0 | 2/2 | Complete | 2026-02-02 |
+| 2. Content | v1.0 | 2/2 | Complete | 2026-02-02 |
+| 3. Projects | v1.0 | 2/2 | Complete | 2026-02-02 |
+| 4. Animation | v1.0 | 0/5 | Ready | - |
+| 5. Contact & Polish | v1.0 | 0/? | Not started | - |
+| 6. Translation Infrastructure | v1.1 | 0/? | Not started | - |
+| 7. Language Switcher | v1.1 | 0/? | Not started | - |
+| 8. Content Migration | v1.1 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-02 — Phase 4 planned*
+*Last updated: 2026-02-03 — v1.1 Internationalization phases added*
