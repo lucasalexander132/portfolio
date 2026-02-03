@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-03)
 
 **Core value:** Visitors must feel at ease — like they've found someone who genuinely cares about solving their problem.
-**Current focus:** Milestone v1.1 - Internationalization
+**Current focus:** Milestone v1.1 - Internationalization (COMPLETE)
 
 ## Current Position
 
-Phase: 8 - Content Migration (3 of 4 plans complete)
-Plan: 3 of 4
-Status: In progress
-Last activity: 2026-02-03 — Completed 08-03-PLAN.md
+Phase: 8 - Content Migration (4 of 4 plans complete)
+Plan: 4 of 4
+Status: Phase complete - Milestone v1.1 complete
+Last activity: 2026-02-03 — Completed 08-04-PLAN.md
 
-Progress: [████████████░░] 84% (16/19 plans)
+Progress: [██████████████] 89% (17/19 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 17
 - Average duration: 3.5 min
-- Total execution time: 55.2 min
+- Total execution time: 60.2 min
 
 **By Phase:**
 
@@ -33,11 +33,11 @@ Progress: [████████████░░] 84% (16/19 plans)
 | 04-animation | 4 | 9 min | 2.25 min |
 | 06-translation-infrastructure | 2 | 2 min | 1 min |
 | 07-language-switcher | 1 | 1 min | 1 min |
-| 08-content-migration | 3 | 11 min | 3.7 min |
+| 08-content-migration | 4 | 16 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 06-02 (1 min), 07-01 (1 min), 08-01 (2 min), 08-02 (3 min), 08-03 (6 min)
-- Trend: Moderate (projects i18n more complex)
+- Last 5 plans: 07-01 (1 min), 08-01 (2 min), 08-02 (3 min), 08-03 (6 min), 08-04 (5 min)
+- Trend: Moderate (content migration required checkpoint feedback)
 
 *Updated after each plan completion*
 
@@ -93,6 +93,8 @@ Recent decisions affecting current work:
 - **ProjectLocale type in project.ts** - Avoids circular import between project.ts and i18n.tsx
 - **Locale-keyed project content** - project.content[locale] pattern for translatable project data
 - **Technical terms kept English in FR** - Kanban, OCR, FSRS, TypeScript as industry-standard terms
+- **Contact form cursor translations** - Added contact.cursor.close and contact.cursor.submit for hover states
+- **Emotional French equivalents for contact** - "Oh, vraiment ?" and "C'est parti !" for cursor hover text
 
 ### Pending Todos
 
@@ -113,5 +115,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed 08-03-PLAN.md — Projects section localization
+Stopped at: Completed 08-04-PLAN.md — Footer and ContactForm localization (Milestone v1.1 complete)
 Resume file: None
