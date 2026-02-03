@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { m, AnimatePresence, useAnimationControls } from 'motion/react'
 import { X } from 'lucide-react'
 import { useCursor } from '@/components/cursor'
+import { useTranslations } from '@/lib/i18n'
 
 // Snappy spring for neo-brutal - quick and decisive
 const springBrutal = {
@@ -18,6 +19,7 @@ interface ContactFormProps {
 }
 
 export function ContactForm({ isOpen, onClose }: ContactFormProps) {
+  const t = useTranslations()
   const { setCursorVariant, resetCursor } = useCursor()
   const [formData, setFormData] = useState({
     name: '',
@@ -143,7 +145,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                 className="absolute -top-3 -right-3 w-10 h-10 bg-text-primary border-3 border-base-950 shadow-[3px_3px_0px_0px_#0a0a0a] flex items-center justify-center hover:bg-red-400 hover:shadow-[1px_1px_0px_0px_#0a0a0a] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
                 whileTap={{ scale: 0.95 }}
                 transition={springBrutal}
-                onMouseEnter={() => setCursorVariant('text', 'Awe, really?', false, undefined, '#ef4444')}
+                onMouseEnter={() => setCursorVariant('text', t('contact.cursor.close'), false, undefined, '#ef4444')}
                 onMouseLeave={resetCursor}
                 aria-label="Close contact form"
               >
@@ -153,9 +155,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
               {/* Header */}
               <div className="mb-8">
                 <h2 className="font-mono text-3xl sm:text-4xl font-black text-base-950 uppercase tracking-tight leading-none">
-                  Let&apos;s
-                  <br />
-                  Talk.
+                  {t('contact.title')}
                 </h2>
                 <div className="mt-2 h-1 w-16 bg-base-950" />
               </div>
@@ -167,7 +167,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                     htmlFor="name"
                     className="block font-mono text-xs font-bold text-base-950 uppercase tracking-widest"
                   >
-                    Name
+                    {t('contact.name_label')}
                   </label>
                   <m.div animate={nameControls}>
                     <input
@@ -178,7 +178,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                       onChange={handleChange}
                       required
                       className={`w-full h-12 px-4 border-3 shadow-[4px_4px_0px_0px_#0a0a0a] font-mono text-base-950 placeholder:text-base-500 focus:shadow-[2px_2px_0px_0px_#0a0a0a] focus:outline-none transition-all ${shakenFields.has('name') ? 'border-red-600 bg-red-200' : 'bg-text-primary border-base-950'}`}
-                      placeholder="Your name"
+                      placeholder={t('contact.name_placeholder')}
                     />
                   </m.div>
                 </div>
@@ -189,7 +189,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                     htmlFor="email"
                     className="block font-mono text-xs font-bold text-base-950 uppercase tracking-widest"
                   >
-                    Email
+                    {t('contact.email_label')}
                   </label>
                   <m.div animate={emailControls}>
                     <input
@@ -200,7 +200,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                       onChange={handleChange}
                       required
                       className={`w-full h-12 px-4 border-3 shadow-[4px_4px_0px_0px_#0a0a0a] font-mono text-base-950 placeholder:text-base-500 focus:shadow-[2px_2px_0px_0px_#0a0a0a] focus:outline-none transition-all ${shakenFields.has('email') ? 'border-red-600 bg-red-200' : 'bg-text-primary border-base-950'}`}
-                      placeholder="your@email.com"
+                      placeholder={t('contact.email_placeholder')}
                     />
                   </m.div>
                 </div>
@@ -211,7 +211,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                     htmlFor="message"
                     className="block font-mono text-xs font-bold text-base-950 uppercase tracking-widest"
                   >
-                    Message
+                    {t('contact.message_label')}
                   </label>
                   <m.div animate={messageControls}>
                     <textarea
@@ -222,7 +222,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                       required
                       rows={4}
                       className={`w-full px-4 py-3 border-3 shadow-[4px_4px_0px_0px_#0a0a0a] font-mono text-base-950 placeholder:text-base-500 focus:shadow-[2px_2px_0px_0px_#0a0a0a] focus:outline-none transition-all resize-none ${shakenFields.has('message') ? 'border-red-600 bg-red-200' : 'bg-text-primary border-base-950'}`}
-                      placeholder="Tell me about your project..."
+                      placeholder={t('contact.message_placeholder')}
                     />
                   </m.div>
                 </div>
@@ -234,10 +234,10 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                   className="w-full h-14 mt-2 bg-base-950 border-3 border-base-950 text-text-primary font-mono font-bold text-lg uppercase tracking-wider shadow-[4px_4px_0px_0px_#78350f] hover:shadow-[2px_2px_0px_0px_#78350f] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0px_0px_#78350f]"
                   whileTap={isSubmitting ? {} : { scale: 0.98 }}
                   transition={springBrutal}
-                  onMouseEnter={() => !isSubmitting && setCursorVariant('text', 'Hell yeah!', true, 'diagonal')}
+                  onMouseEnter={() => !isSubmitting && setCursorVariant('text', t('contact.cursor.submit'), true, 'diagonal')}
                   onMouseLeave={resetCursor}
                 >
-                  {isSubmitting ? 'Sending...' : 'Send It →'}
+                  {isSubmitting ? t('contact.sending') : `${t('contact.submit')} →`}
                 </m.button>
 
                 {/* Status feedback */}
@@ -250,7 +250,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                       exit={{ opacity: 0, y: -10 }}
                       className="font-mono text-sm font-bold text-green-800 text-center mt-3"
                     >
-                      Sent! I&apos;ll be in touch soon.
+                      {t('contact.success')}
                     </m.p>
                   )}
                   {submitStatus === 'error' && (
@@ -261,7 +261,7 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
                       exit={{ opacity: 0, y: -10 }}
                       className="font-mono text-sm font-bold text-red-700 text-center mt-3"
                     >
-                      {errorMessage}
+                      {errorMessage || t('contact.error')}
                     </m.p>
                   )}
                 </AnimatePresence>

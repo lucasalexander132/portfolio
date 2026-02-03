@@ -20,21 +20,21 @@
   },
   "services": {
     "title": "Ce que je fais",
-    "placeholder": "Contenu des services a venir",
-    "header": "Chaque projet commence par une conversation - sans pression, sans engagement. Juste deux personnes qui cherchent a savoir si le courant passe.",
+    "placeholder": "Contenu des services à venir",
+    "header": "Chaque projet commence par une conversation - sans pression, sans engagement. Juste deux personnes qui cherchent à savoir si le courant passe.",
     "footer": "Que demander de plus ?",
     "footer_cursor": "Des collations gratuites. J'y travaille."
   },
   "projects": {
-    "title": "Realisations",
-    "placeholder": "Contenu des projets a venir",
-    "header": "Des projets reels, des resultats reels. Cliquez sur une carte pour decouvrir l'histoire complete.",
-    "footer": "D'autres projets en cours. Le meilleur reste a venir.",
-    "coming_soon": "Bientot disponible",
+    "title": "Réalisations",
+    "placeholder": "Contenu des projets à venir",
+    "header": "Des projets réels, des résultats réels. Cliquez sur une carte pour découvrir l'histoire complète.",
+    "footer": "D'autres projets en cours. Le meilleur reste à venir.",
+    "coming_soon": "Bientôt disponible",
     "labels": {
-      "challenge": "Defi",
+      "challenge": "Défi",
       "approach": "Approche",
-      "result": "Resultat",
+      "result": "Résultat",
       "built_with": "Construit avec",
       "visit_project": "Visiter le projet",
       "view_source": "Voir le code source"
@@ -47,11 +47,15 @@
     "email_label": "Courriel",
     "email_placeholder": "votre@courriel.com",
     "message_label": "Message",
-    "message_placeholder": "Qu'avez-vous en tête ?",
+    "message_placeholder": "Parlez-moi de votre projet...",
     "submit": "Envoyer",
     "sending": "Envoi en cours...",
     "success": "Envoyé ! Je vous contacterai bientôt.",
-    "error": "Une erreur s'est produite. Veuillez réessayer."
+    "error": "Une erreur s'est produite. Veuillez réessayer.",
+    "cursor": {
+      "close": "Oh, vraiment ?",
+      "submit": "C'est parti !"
+    }
   },
   "footer": {
     "copyright": "Civix Solutions",

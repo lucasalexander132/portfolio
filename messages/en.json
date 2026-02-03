@@ -47,11 +47,15 @@
     "email_label": "Email",
     "email_placeholder": "your@email.com",
     "message_label": "Message",
-    "message_placeholder": "What's on your mind?",
+    "message_placeholder": "Tell me about your project...",
     "submit": "Send It",
     "sending": "Sending...",
     "success": "Sent! I'll be in touch soon.",
-    "error": "Something went wrong. Please try again."
+    "error": "Something went wrong. Please try again.",
+    "cursor": {
+      "close": "Awe, really?",
+      "submit": "Hell yeah!"
+    }
   },
   "footer": {
     "copyright": "Civix Solutions",
