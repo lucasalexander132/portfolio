@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Fraunces, Open_Sans, Architects_Daughter } from 'next/font/google'
+import { LocaleProvider } from '@/lib/i18n'
 import { MotionProvider } from '@/components/motion/MotionProvider'
 import { CursorProvider, CustomCursor } from '@/components/cursor'
 import './globals.css'
@@ -40,12 +41,14 @@ export default function RootLayout({
       className={`${fraunces.variable} ${openSans.variable} ${architectsDaughter.variable}`}
     >
       <body className="bg-base-950 text-text-primary">
-        <MotionProvider>
-          <CursorProvider>
-            <CustomCursor />
-            {children}
-          </CursorProvider>
-        </MotionProvider>
+        <LocaleProvider>
+          <MotionProvider>
+            <CursorProvider>
+              <CustomCursor />
+              {children}
+            </CursorProvider>
+          </MotionProvider>
+        </LocaleProvider>
       </body>
     </html>
   )
