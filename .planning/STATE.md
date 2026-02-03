@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-02)
 Phase: 4 of 5 (Animation)
 Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-02-02 — Completed 04-04-PLAN.md
+Last activity: 2026-02-03 — Completed quick/001-slide-in-contact-form-from-nav-bar
 
 Progress: [████████░░] ~90%
 
@@ -67,6 +67,8 @@ Recent decisions affecting current work:
 - **Inline expansion over modal** - Keeps user in scroll context, better UX
 - **Height-then-content choreography** - Height animates first, content wipes in from right with delay
 - **Drag momentum physics** - bounceStiffness: 300, bounceDamping: 30 for natural gallery drag
+- **Nav position animation** - animate={{ bottom, top }} for repositioning from bottom to top when form opens
+- **AnimatePresence for ContactForm** - y: -100% slide-down entry pattern
 
 ### Pending Todos
 
@@ -78,6 +80,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-02
-Stopped at: Completed 04-04-PLAN.md — Inline project expansion with draggable gallery
+Last session: 2026-02-03
+Stopped at: Completed quick/001-slide-in-contact-form-from-nav-bar — Contact form slides in from nav
 Resume file: None
