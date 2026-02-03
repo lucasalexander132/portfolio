@@ -55,7 +55,20 @@
   },
   "footer": {
     "copyright": "Civix Solutions",
-    "tagline": "Boutique frontend development"
+    "tagline": "Boutique frontend development",
+    "brand_description": "Building digital experiences that help small businesses thrive.",
+    "nav_title": "Navigation",
+    "connect_title": "Connect",
+    "all_rights": "All rights reserved.",
+    "availability": "Available for new projects",
+    "cursor": {
+      "services": "What I'll Do",
+      "projects": "What I've Done",
+      "contact": "Drop a Line",
+      "github": "See Code",
+      "linkedin": "Connect",
+      "bluesky": "Follow"
+    }
   },
   "cursor": {
     "thats_me": "That's me!",

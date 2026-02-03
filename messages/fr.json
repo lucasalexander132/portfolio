@@ -55,7 +55,20 @@
   },
   "footer": {
     "copyright": "Civix Solutions",
-    "tagline": "Développement frontend sur mesure"
+    "tagline": "Développement frontend sur mesure",
+    "brand_description": "Créer des expériences numériques qui aident les petites entreprises à prospérer.",
+    "nav_title": "Navigation",
+    "connect_title": "Connecter",
+    "all_rights": "Tous droits réservés.",
+    "availability": "Disponible pour de nouveaux projets",
+    "cursor": {
+      "services": "Ce que je ferai",
+      "projects": "Ce que j'ai fait",
+      "contact": "Envoyer un message",
+      "github": "Voir le code",
+      "linkedin": "Se connecter",
+      "bluesky": "Suivre"
+    }
   },
   "cursor": {
     "thats_me": "C'est moi !",
