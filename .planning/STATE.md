@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 
 ## Current Position
 
-Phase: 8 - Content Migration (2 of 4 plans complete)
-Plan: 2 of 4
+Phase: 8 - Content Migration (3 of 4 plans complete)
+Plan: 3 of 4
 Status: In progress
-Last activity: 2026-02-03 — Completed 08-02-PLAN.md
+Last activity: 2026-02-03 — Completed 08-03-PLAN.md
 
-Progress: [███████████░░░] 79% (15/19 plans)
+Progress: [████████████░░] 84% (16/19 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
-- Average duration: 3.3 min
-- Total execution time: 49.2 min
+- Total plans completed: 16
+- Average duration: 3.5 min
+- Total execution time: 55.2 min
 
 **By Phase:**
 
@@ -33,11 +33,11 @@ Progress: [███████████░░░] 79% (15/19 plans)
 | 04-animation | 4 | 9 min | 2.25 min |
 | 06-translation-infrastructure | 2 | 2 min | 1 min |
 | 07-language-switcher | 1 | 1 min | 1 min |
-| 08-content-migration | 2 | 5 min | 2.5 min |
+| 08-content-migration | 3 | 11 min | 3.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 06-01 (1 min), 06-02 (1 min), 07-01 (1 min), 08-01 (2 min), 08-02 (3 min)
-- Trend: Fast (i18n content migration)
+- Last 5 plans: 06-02 (1 min), 07-01 (1 min), 08-01 (2 min), 08-02 (3 min), 08-03 (6 min)
+- Trend: Moderate (projects i18n more complex)
 
 *Updated after each plan completion*
 
@@ -90,10 +90,13 @@ Recent decisions affecting current work:
 - **Emotional equivalence translations** - Not literal; preserves tone and intent
 - **Locale-keyed content pattern** - service.content[locale] for component-specific data
 - **Export Locale type from i18n.tsx** - Enables data files to use Locale type in interfaces
+- **ProjectLocale type in project.ts** - Avoids circular import between project.ts and i18n.tsx
+- **Locale-keyed project content** - project.content[locale] pattern for translatable project data
+- **Technical terms kept English in FR** - Kanban, OCR, FSRS, TypeScript as industry-standard terms
 
 ### Pending Todos
 
-- Consider deleting unused ProjectModal.tsx in polish phase
+- Delete unused ProjectCard.tsx and ProjectModal.tsx in polish phase (marked as deprecated)
 
 ### Blockers/Concerns
 
@@ -110,5 +113,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed 08-02-PLAN.md — Services section localization
+Stopped at: Completed 08-03-PLAN.md — Projects section localization
 Resume file: None
