@@ -12,7 +12,7 @@ import en from '../../messages/en.json'
 import fr from '../../messages/fr.json'
 import type { TranslationKey } from '@/types/i18n'
 
-type Locale = 'en' | 'fr'
+export type Locale = 'en' | 'fr'
 
 const messages = { en, fr } as const
 
