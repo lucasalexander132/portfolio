@@ -1,19 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { m, AnimatePresence } from 'motion/react'
+import { m, AnimatePresence, useAnimationControls } from 'motion/react'
 import { X } from 'lucide-react'
-// Slower spring for modal - gentler feel
-const springModal = {
-  type: 'spring' as const,
-  stiffness: 260,
-  damping: 28,
-}
 import { useCursor } from '@/components/cursor'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
+
+// Snappy spring for neo-brutal - quick and decisive
+const springBrutal = {
+  type: 'spring' as const,
+  stiffness: 400,
+  damping: 30,
+}
 
 interface ContactFormProps {
   isOpen: boolean
@@ -27,12 +24,82 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
     email: '',
     message: '',
   })
+  const [shakenFields, setShakenFields] = useState<Set<string>>(new Set())
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Animation controls for each field
+  const nameControls = useAnimationControls()
+  const emailControls = useAnimationControls()
+  const messageControls = useAnimationControls()
+
+  const shakeField = async (controls: ReturnType<typeof useAnimationControls>) => {
+    await controls.start({
+      x: [0, -10, 10, -8, 8, -5, 5, -2, 2, 0],
+      transition: { duration: 0.4, ease: 'easeOut' },
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    setFormData({ name: '', email: '', message: '' })
-    onClose()
+
+    // Check which fields are empty
+    const emptyFields: string[] = []
+    if (!formData.name.trim()) emptyFields.push('name')
+    if (!formData.email.trim()) emptyFields.push('email')
+    if (!formData.message.trim()) emptyFields.push('message')
+
+    if (emptyFields.length > 0) {
+      // Trigger shake on empty fields
+      setShakenFields(new Set(emptyFields))
+
+      // Shake animations
+      const shakePromises: Promise<void>[] = []
+      if (emptyFields.includes('name')) shakePromises.push(shakeField(nameControls))
+      if (emptyFields.includes('email')) shakePromises.push(shakeField(emailControls))
+      if (emptyFields.includes('message')) shakePromises.push(shakeField(messageControls))
+
+      await Promise.all(shakePromises)
+      setShakenFields(new Set())
+      return
+    }
+
+    // Submit to API
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    setErrorMessage('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setSubmitStatus('error')
+        setErrorMessage(data.error || 'Something went wrong')
+        return
+      }
+
+      setSubmitStatus('success')
+      setFormData({ name: '', email: '', message: '' })
+
+      // Close modal after showing success
+      setTimeout(() => {
+        onClose()
+        // Reset status after close animation
+        setTimeout(() => setSubmitStatus('idle'), 300)
+      }, 1500)
+    } catch {
+      setSubmitStatus('error')
+      setErrorMessage('Network error. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (
@@ -46,104 +113,163 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop - no blur for performance (hero has expensive 3D transforms) */}
+          {/* Backdrop - solid black, no blur */}
           <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-base-950/80"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-base-950/90"
             onClick={onClose}
           />
 
-          {/* Modal Card - GPU accelerated for smooth animation */}
+          {/* Modal Card - Neo Brutal */}
           <m.div
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
-            transition={springModal}
+            initial={{ y: 40, opacity: 0, rotate: -1 }}
+            animate={{ y: 0, opacity: 1, rotate: 0 }}
+            exit={{ y: 40, opacity: 0, rotate: 1 }}
+            transition={springBrutal}
             style={{ willChange: 'transform, opacity' }}
-            className="fixed z-40 inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[min(33vw,420px)] sm:min-w-[360px] bg-text-primary rounded-xl shadow-lg border border-base-700"
+            className="fixed z-40 inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[min(36vw,460px)] sm:min-w-[380px] bg-amber-400 border-4 border-base-950 shadow-[8px_8px_0px_0px_#0a0a0a]"
           >
+            {/* Top accent bar */}
+            <div className="h-3 bg-base-950" />
+
             <div className="p-6 sm:p-8">
-              {/* Close button */}
+              {/* Close button - offset position */}
               <m.button
                 type="button"
                 onClick={onClose}
-                className="absolute top-3 right-3 p-2 rounded-lg text-base-600 hover:text-base-950 hover:bg-base-950/10 transition-colors"
+                className="absolute -top-3 -right-3 w-10 h-10 bg-text-primary border-3 border-base-950 shadow-[3px_3px_0px_0px_#0a0a0a] flex items-center justify-center hover:bg-red-400 hover:shadow-[1px_1px_0px_0px_#0a0a0a] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
                 whileTap={{ scale: 0.95 }}
-                transition={springModal}
-                onMouseEnter={() => setCursorVariant('link', undefined, true)}
+                transition={springBrutal}
+                onMouseEnter={() => setCursorVariant('text', 'Awe, really?', false, undefined, '#ef4444')}
                 onMouseLeave={resetCursor}
                 aria-label="Close contact form"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 text-base-950" strokeWidth={3} />
               </m.button>
 
-              <h2 className="font-serif text-2xl text-base-950 mb-6">
-                Get in Touch
-              </h2>
+              {/* Header */}
+              <div className="mb-8">
+                <h2 className="font-mono text-3xl sm:text-4xl font-black text-base-950 uppercase tracking-tight leading-none">
+                  Let&apos;s
+                  <br />
+                  Talk.
+                </h2>
+                <div className="mt-2 h-1 w-16 bg-base-950" />
+              </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                {/* Name field */}
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="text-base-700">
-                    Name
-                  </Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="bg-base-950/5 border-base-950/20 text-base-950 placeholder:text-base-600 focus-visible:border-amber-500 focus-visible:ring-amber-500/20"
-                    placeholder="Your name"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-base-700">
-                    Email
-                  </Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="bg-base-950/5 border-base-950/20 text-base-950 placeholder:text-base-600 focus-visible:border-amber-500 focus-visible:ring-amber-500/20"
-                    placeholder="your@email.com"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-base-700">
-                    Message
-                  </Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className="bg-base-950/5 border-base-950/20 text-base-950 placeholder:text-base-600 focus-visible:border-amber-500 focus-visible:ring-amber-500/20 resize-none"
-                    placeholder="Tell me about your project..."
-                  />
-                </div>
-
-                <m.div whileTap={{ scale: 0.98 }} transition={springModal}>
-                  <Button
-                    type="submit"
-                    className="w-full bg-base-950 text-text-primary hover:bg-base-800 font-medium"
-                    onMouseEnter={() => setCursorVariant('text', 'Send', true)}
-                    onMouseLeave={resetCursor}
+                  <label
+                    htmlFor="name"
+                    className="block font-mono text-xs font-bold text-base-950 uppercase tracking-widest"
                   >
-                    Send Message
-                  </Button>
-                </m.div>
+                    Name
+                  </label>
+                  <m.div animate={nameControls}>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className={`w-full h-12 px-4 border-3 shadow-[4px_4px_0px_0px_#0a0a0a] font-mono text-base-950 placeholder:text-base-500 focus:shadow-[2px_2px_0px_0px_#0a0a0a] focus:outline-none transition-all ${shakenFields.has('name') ? 'border-red-600 bg-red-200' : 'bg-text-primary border-base-950'}`}
+                      placeholder="Your name"
+                    />
+                  </m.div>
+                </div>
+
+                {/* Email field */}
+                <div className="space-y-2">
+                  <label
+                    htmlFor="email"
+                    className="block font-mono text-xs font-bold text-base-950 uppercase tracking-widest"
+                  >
+                    Email
+                  </label>
+                  <m.div animate={emailControls}>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className={`w-full h-12 px-4 border-3 shadow-[4px_4px_0px_0px_#0a0a0a] font-mono text-base-950 placeholder:text-base-500 focus:shadow-[2px_2px_0px_0px_#0a0a0a] focus:outline-none transition-all ${shakenFields.has('email') ? 'border-red-600 bg-red-200' : 'bg-text-primary border-base-950'}`}
+                      placeholder="your@email.com"
+                    />
+                  </m.div>
+                </div>
+
+                {/* Message field */}
+                <div className="space-y-2">
+                  <label
+                    htmlFor="message"
+                    className="block font-mono text-xs font-bold text-base-950 uppercase tracking-widest"
+                  >
+                    Message
+                  </label>
+                  <m.div animate={messageControls}>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                      className={`w-full px-4 py-3 border-3 shadow-[4px_4px_0px_0px_#0a0a0a] font-mono text-base-950 placeholder:text-base-500 focus:shadow-[2px_2px_0px_0px_#0a0a0a] focus:outline-none transition-all resize-none ${shakenFields.has('message') ? 'border-red-600 bg-red-200' : 'bg-text-primary border-base-950'}`}
+                      placeholder="Tell me about your project..."
+                    />
+                  </m.div>
+                </div>
+
+                {/* Submit button */}
+                <m.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full h-14 mt-2 bg-base-950 border-3 border-base-950 text-text-primary font-mono font-bold text-lg uppercase tracking-wider shadow-[4px_4px_0px_0px_#78350f] hover:shadow-[2px_2px_0px_0px_#78350f] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-[4px_4px_0px_0px_#78350f]"
+                  whileTap={isSubmitting ? {} : { scale: 0.98 }}
+                  transition={springBrutal}
+                  onMouseEnter={() => !isSubmitting && setCursorVariant('text', 'Hell yeah!', true, 'diagonal')}
+                  onMouseLeave={resetCursor}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send It →'}
+                </m.button>
+
+                {/* Status feedback */}
+                <AnimatePresence mode="wait">
+                  {submitStatus === 'success' && (
+                    <m.p
+                      key="success"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="font-mono text-sm font-bold text-green-800 text-center mt-3"
+                    >
+                      Sent! I&apos;ll be in touch soon.
+                    </m.p>
+                  )}
+                  {submitStatus === 'error' && (
+                    <m.p
+                      key="error"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="font-mono text-sm font-bold text-red-700 text-center mt-3"
+                    >
+                      {errorMessage}
+                    </m.p>
+                  )}
+                </AnimatePresence>
               </form>
+
+              {/* Corner decorations */}
+              <div className="absolute bottom-4 left-4 w-4 h-4 border-l-3 border-b-3 border-base-950" />
+              <div className="absolute bottom-4 right-4 w-4 h-4 border-r-3 border-b-3 border-base-950" />
             </div>
           </m.div>
         </>
