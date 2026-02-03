@@ -6,19 +6,22 @@ import Image from 'next/image'
 import { Typewriter } from '@/components/motion/Typewriter'
 import { fadeUpVariants } from '@/lib/motion'
 import { useCursorHover } from '@/components/cursor'
-
-const hoverBubbles = [
-  { text: '8 years in dev work', position: 'top-4 -left-4 lg:-left-24', rotate: '-6deg', bg: 'bg-amber-300' },
-  { text: 'Passionate and Empathetic', position: 'top-1/3 -right-4 lg:-right-8', rotate: '5deg', bg: 'bg-lime-300' },
-  { text: 'Kind of hungry', position: 'bottom-20 -left-4 lg:-left-20', rotate: '-4deg', bg: 'bg-cyan-300' },
-]
+import { useTranslations } from '@/lib/i18n'
 
 export function Hero() {
+  const t = useTranslations()
   const [headlineComplete, setHeadlineComplete] = useState(false)
   const [subtitleComplete, setSubtitleComplete] = useState(false)
   const [isImageHovered, setIsImageHovered] = useState(false)
-  const imageCursorProps = useCursorHover('text', "👋 That's me!")
-  const helpLinkCursorProps = useCursorHover('text', 'Cause I probably can')
+  const imageCursorProps = useCursorHover('text', t('hero.cursor.photo'))
+  const helpLinkCursorProps = useCursorHover('text', t('hero.cursor.help_link'))
+
+  // Hover bubbles - defined inside component to access translations
+  const hoverBubbles = [
+    { text: t('hero.bubbles.experience'), position: 'top-4 -left-4 lg:-left-24', rotate: '-6deg', bg: 'bg-amber-300' },
+    { text: t('hero.bubbles.personality'), position: 'top-1/3 -right-4 lg:-right-8', rotate: '5deg', bg: 'bg-lime-300' },
+    { text: t('hero.bubbles.hungry'), position: 'bottom-20 -left-4 lg:-left-20', rotate: '-4deg', bg: 'bg-cyan-300' },
+  ]
 
   // 3D tilt effect - track mouse position relative to image
   const imageRef = useRef<HTMLDivElement>(null)
@@ -91,7 +94,7 @@ export function Hero() {
             {/* Empathy-first headline with typewriter */}
             <h1 className="text-display font-serif text-text-primary mb-6">
               <Typewriter
-                text="Been burned by developers before?"
+                text={t('hero.title')}
                 speed={70}
                 onComplete={() => setHeadlineComplete(true)}
               />
@@ -101,7 +104,7 @@ export function Hero() {
             {headlineComplete && (
               <p className="text-xs uppercase tracking-[0.2em] font-sans text-text-secondary max-w-md leading-relaxed mb-12">
                 <Typewriter
-                  text="I get it. You hired someone who promised the world and disappeared. Let's skip the sales pitch and talk about what you actually need."
+                  text={t('hero.subtitle')}
                   speed={12}
                   onComplete={() => setSubtitleComplete(true)}
                 />
@@ -123,7 +126,7 @@ export function Hero() {
                 className="group inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 transition-colors"
                 {...helpLinkCursorProps}
               >
-                <span>See how I can help</span>
+                <span>{t('hero.cta')}</span>
                 <span
                   className="group-hover:translate-y-0.5 transition-transform"
                   aria-hidden="true"
@@ -156,11 +159,25 @@ export function Hero() {
           >
             {/* 3D tilting image container */}
             <m.div
-              className="relative w-72 h-[22rem] lg:w-96 lg:h-[30rem] xl:w-[26rem] xl:h-[34rem] rounded-lg overflow-hidden shadow-2xl shadow-base-900/50"
+              className="relative w-72 h-[22rem] lg:w-96 lg:h-[30rem] xl:w-[26rem] xl:h-[34rem] overflow-hidden"
               style={{
                 rotateX,
                 rotateY,
                 transformStyle: 'preserve-3d',
+              }}
+              initial={false}
+              animate={{
+                borderRadius: isImageHovered ? 0 : 8,
+                outline: isImageHovered ? '6px solid oklch(0.85 0.18 85)' : 'none',
+                outlineOffset: isImageHovered ? 0 : 0,
+                boxShadow: isImageHovered
+                  ? '20px 12px 0px 0px oklch(0.85 0.18 85)'
+                  : '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                rotate: isImageHovered ? -2 : 0,
+              }}
+              transition={{
+                duration: 0.25,
+                ease: [0.4, 0, 0.2, 1],
               }}
             >
               <Image
@@ -171,33 +188,40 @@ export function Hero() {
                 priority
               />
 
-              {/* Dynamic lighting overlay that follows mouse */}
+              {/* Dynamic lighting overlay - fades out on hover for flat neo-brutal look */}
               <m.div
-                className="absolute inset-0 rounded-lg pointer-events-none mix-blend-soft-light"
+                className="absolute inset-0 pointer-events-none mix-blend-soft-light"
                 style={{
                   background: `radial-gradient(circle at ${gradientX} ${gradientY}, rgba(251, 191, 36, 0.3) 0%, transparent 60%)`,
                 }}
+                animate={{ opacity: isImageHovered ? 0 : 1 }}
+                transition={{ duration: 0.25 }}
                 aria-hidden="true"
               />
 
-              {/* Edge highlight for depth */}
-              <div
-                className="absolute inset-0 rounded-lg pointer-events-none"
+              {/* Edge highlight - fades out on hover */}
+              <m.div
+                className="absolute inset-0 pointer-events-none"
                 style={{
                   boxShadow: 'inset 0 0 60px rgba(0, 0, 0, 0.3)',
                 }}
+                animate={{ opacity: isImageHovered ? 0 : 1 }}
+                transition={{ duration: 0.25 }}
                 aria-hidden="true"
               />
+
             </m.div>
 
-            {/* Reflection/glow beneath image */}
+            {/* Reflection/glow beneath image - fades out for neo-brutal */}
             <m.div
-              className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 rounded-full blur-2xl opacity-40"
+              className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 rounded-full blur-2xl"
               style={{
                 background: 'radial-gradient(ellipse, oklch(0.75 0.12 72 / 0.5) 0%, transparent 70%)',
                 rotateX,
                 rotateY,
               }}
+              animate={{ opacity: isImageHovered ? 0 : 0.4 }}
+              transition={{ duration: 0.25 }}
               aria-hidden="true"
             />
 
