@@ -1,565 +1,722 @@
-# Pitfalls Research: Frontend Consultant Portfolio
+# Pitfalls Research: i18n for Existing Next.js App Router Site
 
-**Project:** Civix Solutions Portfolio
-**Context:** Frontend consultant serving small business owners burned by agencies
-**Mood:** "Workshop at golden hour" - warm but technical
-**Visitor state:** Skeptical, weary, expecting to be disappointed
-**Researched:** 2026-02-02
-**Confidence:** MEDIUM-HIGH (multiple sources corroborate patterns)
+**Project:** Civix Solutions Portfolio v1.1 Internationalization
+**Context:** Adding English/French support to existing single-page portfolio
+**Key Requirements:** Instant language switching, browser detection on first visit
+**Tech Stack:** Next.js 16 (App Router), React 19.2, Turbopack
+**Researched:** 2026-02-03
+**Confidence:** MEDIUM-HIGH (multiple official sources, verified with next-intl docs)
 
 ---
 
 ## Critical Pitfalls
 
-Mistakes that destroy trust with your specific audience (small business owners burned by agencies).
+Mistakes that cause rewrites, broken functionality, or fundamentally wrong architecture.
 
-### Pitfall 1: The "Agency Impression" Problem
+### Pitfall 1: Expecting Built-in Next.js i18n to Work with App Router
 
-**What goes wrong:** Your portfolio accidentally mimics the agencies that burned your visitors. Flashy animations, jargon-heavy copy, vague promises of "digital transformation" - these trigger recognition of past bad experiences.
+**What goes wrong:** Developers familiar with Pages Router try to use `next.config.js` i18n configuration (`locales`, `defaultLocale`, `domains`) and discover it does nothing in App Router.
 
-**Why it happens:** Developers default to impressive-looking portfolios because they think sophistication signals competence. But your visitors have been burned by "sophisticated" agencies who over-promised and under-delivered.
-
-**Warning signs:**
-- Copy uses words like "leverage," "synergy," "cutting-edge solutions"
-- Hero section focuses on YOUR capabilities rather than their problems
-- Animations or transitions that feel performative rather than functional
-- Generic stock imagery of "business people collaborating"
-
-**Prevention:**
-- Write copy as if you're explaining to a friend, not pitching to a board
-- Lead with their pain ("Been burned by agencies who disappeared after launch?") not your credentials
-- Every visual choice should feel like a workshop, not a boardroom
-- Test copy with real small business owners - if they roll their eyes, rewrite
-
-**Phase to address:** Content/Messaging phase (very first pass)
-
-**Sources:** [Empathy in Consulting](https://www.linkedin.com/pulse/empathy-consulting-jack-przemieniecki), [Build Rapport in Consulting](https://www.seerinteractive.com/insights/consulting-skills-how-to-build-rapport-in-the-workplace)
-
----
-
-### Pitfall 2: Performance Hypocrisy
-
-**What goes wrong:** A frontend consultant's portfolio loads slowly. This instantly destroys credibility - "You claim to build fast sites, but yours is slow?"
-
-**Why it happens:** Developers add heavy animations, unoptimized images, and third-party scripts without measuring impact. They judge the site on their fast dev machine, not on the average visitor's 3G connection.
+**Why it happens:** Next.js App Router removed built-in internationalized routing. The locale/locales/defaultLocale/domainLocales config options have been removed entirely. Many tutorials and Stack Overflow answers reference the old approach.
 
 **Warning signs:**
-- Page load > 3 seconds on mobile (53% of mobile users bounce)
-- Large Contentful Paint > 2.5 seconds
-- Heavy JavaScript bundles (especially animation libraries)
-- Images not optimized or lazy-loaded
-- No performance budget established
+- Adding `i18n: { locales: ['en', 'fr'], defaultLocale: 'en' }` to next.config.js
+- Expecting `useRouter().locale` to work (it won't)
+- Looking for `getStaticProps` with `locale` param
+- Trying to use `next/router` instead of `next/navigation`
 
 **Prevention:**
-- Establish performance budget BEFORE adding any features
-- Test on throttled connection (slow 3G) throughout development
-- Lighthouse score > 90 as a gate before shipping
-- Every animation must justify its byte cost
-- Optimize images aggressively (WebP, proper sizing, lazy loading)
+- Use a dedicated library: next-intl, react-i18next with next-i18n-router, or paraglide-next
+- Implement routing via middleware + `[locale]` dynamic segment
+- Reference only App Router documentation (dated 2023 or later)
+- Verify any tutorial is for App Router, not Pages Router
 
-**Phase to address:** Infrastructure/Technical setup phase, monitored throughout
+**Phase to address:** Initial setup phase - architecture decision
 
-**Sources:** [Google Research](https://www.semrush.com/blog/bounce-rate/), [Performance and Animations](https://www.a11y-collective.com/blog/why-flashy-website-destroy-the-user-experience/)
+**Sources:**
+- [Next.js App Router Migration Guide](https://nextjs.org/docs/app/guides/migrating/app-router-migration)
+- [next-intl App Router Setup](https://next-intl.dev/docs/getting-started/app-router)
 
 ---
 
-### Pitfall 3: Empty Social Proof
+### Pitfall 2: Static Rendering Conflicts with Locale Detection
 
-**What goes wrong:** Testimonials feel generic, manufactured, or suspiciously perfect. Skeptical visitors (who are already wary) dismiss them as fake.
+**What goes wrong:** Using next-intl's `useTranslations()` in Server Components opts the entire route into dynamic rendering. This breaks static export, increases server load, and may cause unexpected behavior with caching.
 
-**Why it happens:** Real testimonials are hard to get. Developers either write vague requests that yield vague responses, or worse, fabricate/embellish. Studies show ~40% of online reviews are fake - your visitors know this.
+**Why it happens:** next-intl reads the locale from request headers via middleware (`x-next-intl-locale`). Calling `headers()` anywhere in the render tree forces dynamic rendering. Next.js currently has no API to read route params at arbitrary points in Server Components.
 
 **Warning signs:**
-- All testimonials say essentially the same thing ("Great work!")
-- No specific details about what was built or what problem was solved
-- No photos, names, or verifiable businesses
-- Testimonials lack any mention of hesitation or problems overcome
-- Suspiciously similar language patterns
+- Build warning: "Error: Usage of next-intl APIs in Server Components is currently only available for dynamic rendering"
+- All pages become dynamic (`export const dynamic = 'force-dynamic'` everywhere)
+- Build times suddenly much slower
+- Page caching not working as expected
 
 **Prevention:**
-- Ask for testimonials with specific prompts ("What problem did we solve? What almost made you not hire me?")
-- Include photos AND links to real businesses (verifiable)
-- Let testimonials include honest hesitations ("I wasn't sure at first, but...")
-- Fewer real testimonials > many generic ones
-- Feature mini case studies, not just quotes
+- Use `setRequestLocale()` (formerly `unstable_setRequestLocale`) in all layouts and pages
+- Add `generateStaticParams` returning all locales
+- Pass locale explicitly to `NextIntlClientProvider`
+- Provide `locale`, `now`, and `timeZone` explicitly to avoid dynamic rendering from provider
 
-**Phase to address:** Content/Case Studies phase
+```typescript
+// In every layout and page:
+import { setRequestLocale } from 'next-intl/server';
 
-**Sources:** [How to Use Testimonials Without Making Them Look Fake](https://graticle.com/blog/use-testimonials-without-fake-feel/), [Fake Testimonials Impact](https://strongtestimonials.com/fake-testimonials/)
+export default async function Page({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  // ...
+}
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'fr' }];
+}
+```
+
+**Phase to address:** Initial setup phase - must be configured from the start
+
+**Sources:**
+- [next-intl Static Rendering](https://next-intl.dev/docs/routing/setup)
+- [GitHub Issue #521](https://github.com/amannn/next-intl/issues/521)
 
 ---
 
-### Pitfall 4: Navigation That Makes Visitors Work
+### Pitfall 3: Client-Side Switching That Loses State
 
-**What goes wrong:** Clever navigation labels ("Musings," "Creations," "Journey") or buried content forces visitors to hunt for information. They leave instead.
+**What goes wrong:** Language switching causes full page reload, resetting scroll position, form state, animation state, and any client-side context. For a single-page portfolio with animations, this breaks the experience entirely.
 
-**Why it happens:** Designers want unique navigation to "stand out." But visitors spend 50 milliseconds forming impressions - confusion in that window = bounce.
+**Why it happens:** Default approach uses `<Link>` navigation to `/fr/...` which triggers route transition. Alternatively, cookie-based switching requires `router.refresh()` which also resets client state.
 
 **Warning signs:**
-- Navigation uses metaphorical labels instead of clear ones
-- Important content (case studies, contact) requires multiple clicks
-- Menu structure differs from mental model (Home, Work, About, Contact)
-- Two menus with overlapping content
-- Mobile navigation buried or awkward
+- User clicks language switch, page scrolls to top
+- Partially filled contact form gets cleared
+- Animations restart from beginning
+- Loading flash/blank screen during switch
+- React state (open modals, expanded sections) resets
 
 **Prevention:**
-- Use standard labels: Work, About, Contact (maybe: Process, FAQ)
-- One-click rule: Everything important accessible from homepage
-- Test with someone unfamiliar - can they find contact info in 5 seconds?
-- Consistent navigation across all pages
-- Mobile navigation prominent and easy to tap
+For instant switching WITHOUT reload:
+1. Load all translations for all locales on initial page load
+2. Use React context/state to track current locale
+3. Switch locale by updating context, not navigation
+4. Store preference in cookie/localStorage for persistence
 
-**Phase to address:** Design/Wireframe phase (before any visual design)
+```typescript
+// Client-side locale context pattern
+const [locale, setLocale] = useState(initialLocale);
 
-**Sources:** [8 UX Portfolio Website Mistakes](https://sarahdoody.medium.com/8-ux-mistakes-to-avoid-on-your-ux-portfolio-website-4d6dd437cf21), [UX Portfolio Navigation](https://uxplaybook.org/articles/11-common-ux-portfolio-mistakes-and-solutions)
+const switchLocale = (newLocale: string) => {
+  setLocale(newLocale);
+  document.cookie = `NEXT_LOCALE=${newLocale}; path=/`;
+  // NO router.push, NO router.refresh
+};
+```
+
+**Tradeoff:** This means loading both EN and FR translations upfront. For a small portfolio, this is acceptable (~10-20KB extra). For large apps, this pattern doesn't scale.
+
+**Phase to address:** Architecture decision - must be planned before implementation
+
+**Sources:**
+- [next-intl Issue #496 - Persisting state on locale change](https://github.com/amannn/next-intl/issues/496)
+- [next-intl Discussion #1096 - Switch locale from client](https://github.com/amannn/next-intl/discussions/1096)
 
 ---
 
-## Design Pitfalls
+### Pitfall 4: Hydration Mismatches with Dates and Numbers
 
-Visual and UX mistakes that undermine the "workshop at golden hour" mood.
+**What goes wrong:** Server renders date/number in one locale format, client hydrates with different format. React throws hydration mismatch error. Common with `Intl.DateTimeFormat` and `Intl.NumberFormat`.
 
-### Pitfall 5: Over-Designed "Look at Me" Aesthetic
-
-**What goes wrong:** Portfolio becomes a showcase of technical ability rather than a service to visitors. Animations, parallax effects, and novel interactions prioritize impressing over informing.
-
-**Why it happens:** Developers treat portfolios as tech demos. "I know Three.js, so my hero should have a 3D animation." But visitors aren't hiring you to make their portfolio - they need their business site to work.
+**Why it happens:** Server timezone/locale may differ from client. Default number formatting applies locale-specific digit characters (e.g., Arabic digits). Time zones cause date rendering to differ.
 
 **Warning signs:**
-- Continuous loop animations (CPU drain, distraction)
-- Every element animates on scroll
-- Experimental navigation or page transitions
-- Design choices that can't be explained in terms of visitor benefit
-- More JavaScript than content
+- React error: "Text content does not match server-rendered HTML"
+- Dates showing differently on first load vs. after hydration
+- Numbers formatted with unexpected digit characters
+- Console warnings about hydration mismatches
 
 **Prevention:**
-- For every animation/effect, ask: "How does this help the visitor?"
-- Micro-interactions are fine; macro-distractions are not
-- The site should feel calm and competent, not anxious to impress
-- "Workshop at golden hour" = warm, focused, purposeful
-- If it triggers a CPU fan, remove it
+- Always pass explicit `timeZone` to date formatting (not just locale)
+- Use `suppressHydrationWarning={true}` for timestamp-only elements (use sparingly)
+- Provide `now` and `timeZone` explicitly in `NextIntlClientProvider`
+- For server components, use `getTranslations()` with explicit options
 
-**Phase to address:** Design phase (establish visual principles before building)
+```typescript
+// In i18n/request.ts
+export default getRequestConfig(async ({ locale }) => ({
+  locale,
+  now: new Date(),
+  timeZone: 'America/Toronto', // Explicit timezone
+  messages: (await import(`../messages/${locale}.json`)).default
+}));
+```
 
-**Sources:** [5 Reasons Why Flashy Websites Destroy UX](https://www.a11y-collective.com/blog/why-flashy-website-destroy-the-user-experience/), [CyberOptik Portfolio Analysis](https://www.cyberoptik.net/blog/best-personal-portfolio-websites/)
+**Phase to address:** Configuration phase - set up providers correctly
+
+**Sources:**
+- [next-intl Issue #467 - Date mismatch hydration error](https://github.com/amannn/next-intl/issues/467)
+- [next-intl Issue #528 - Plural hydration error](https://github.com/amannn/next-intl/issues/528)
 
 ---
 
-### Pitfall 6: Mobile Afterthought
+## Integration Pitfalls
 
-**What goes wrong:** Site designed for desktop, then crammed into mobile. Small business owners often browse on phones between customers - your site looks broken or cramped.
+Mistakes specific to adding i18n to an EXISTING site.
 
-**Why it happens:** Developers design on large monitors. Mobile is "responsive" but not "mobile-first." Result: usable but uncomfortable on phones.
+### Pitfall 5: Breaking Existing URL Structure
+
+**What goes wrong:** Adding `[locale]` segment changes all URLs from `/` to `/en/` and `/#projects` to `/en/#projects`. This breaks existing bookmarks, search rankings, and any external links.
+
+**Why it happens:** Standard i18n routing prepends locale to all paths. For an existing site, this is a breaking change.
 
 **Warning signs:**
-- Text needs pinching to read on mobile
-- Tap targets smaller than 44px
-- Horizontal scrolling on any mobile viewport
-- Images not resizing appropriately
-- Contact forms painful to use on phone
+- Old URLs (shared on LinkedIn, bookmarked) now 404
+- Google Search Console shows massive drop in indexed pages
+- Analytics shows spike in 404 errors
+- Hash links (`#contact`) stop working with locale prefix
 
-**Prevention:**
-- Design mobile-first (literally start with mobile wireframes)
-- Test on actual devices, not just browser dev tools
-- Thumb-zone analysis for key CTAs
-- Images and layout truly responsive
-- Forms work with mobile keyboards (proper input types)
+**Prevention options:**
 
-**Phase to address:** Design phase (mobile wireframes before desktop)
+**Option A: Hide default locale (recommended for existing site)**
+```typescript
+// routing.ts
+export const routing = defineRouting({
+  locales: ['en', 'fr'],
+  defaultLocale: 'en',
+  localePrefix: 'as-needed' // Only show /fr/, not /en/
+});
+```
 
-**Sources:** [Mobile-First Design 2025](https://www.devportfoliotemplates.com/blog/5-mistakes-developers-make-in-their-portfolio-websites)
+**Option B: Redirect old URLs**
+- Set up redirects in middleware for old paths
+- Submit URL change to Google Search Console
+- Update any external links you control
+
+**Option C: No locale in URL (cookie-only)**
+```typescript
+localePrefix: 'never' // No /en/ or /fr/ in URL
+```
+Note: This has SEO implications - search engines can't crawl both versions.
+
+**Phase to address:** Architecture decision - before any implementation
+
+**Sources:**
+- [next-intl Locale Prefix Options](https://next-intl.dev/docs/routing/navigation)
 
 ---
 
-### Pitfall 7: Template Sameness
+### Pitfall 6: Forgetting to Wrap Entire App in [locale] Segment
 
-**What goes wrong:** Portfolio looks like every other Wix/Squarespace/theme-based portfolio. Visitors feel like they've seen it before because they have.
+**What goes wrong:** Only some pages are under `app/[locale]/`, causing routing chaos. Some pages work, others don't have locale context.
 
-**Why it happens:** Developers use templates because design is hard. But small business owners have likely browsed many portfolios - template patterns are recognizable.
+**Why it happens:** When adding i18n to existing site, easy to miss restructuring. Existing `app/page.tsx` should become `app/[locale]/page.tsx`.
 
 **Warning signs:**
-- Hero section follows exact template pattern
-- Color palette is template default or obvious Bootstrap
-- Layout structure matches common patterns exactly
-- Stock imagery that appears on other sites
-- Generic "Hi, I'm [name]" opener
+- "Unable to find next-intl locale" error on some pages
+- Locale context undefined in some components
+- Middleware running on some routes but not others
 
 **Prevention:**
-- If using a template, customize significantly (colors, typography, layout tweaks)
-- Personal photography or custom illustrations over stock
-- Opening that speaks to THEIR problem, not introduces you
-- One or two distinctive design choices that break the template mold
-- "Workshop at golden hour" is a mood most templates don't have - lean into it
+- Move ALL pages and layouts under `app/[locale]/`
+- Root `app/layout.tsx` should only contain `html` and `body` with `{children}`
+- Locale-aware layout goes in `app/[locale]/layout.tsx`
+- Keep only technical files at root (`not-found.tsx`, `error.tsx`)
 
-**Phase to address:** Design phase
+```
+app/
+  layout.tsx          // Minimal: <html><body>{children}</body></html>
+  not-found.tsx       // Global 404
+  [locale]/
+    layout.tsx        // LocaleLayout with providers
+    page.tsx          // Home page
+    // ... all other pages
+```
 
-**Sources:** [12 Tips to Avoid Generic Portfolio](https://designlab.com/blog/avoid-an-identikit-ux-design-portfolio), [UX Portfolio Trap](https://medium.com/design-bootcamp/the-ux-portfolio-trap-why-90-of-designers-struggle-to-stand-out-f5d23f1b456d)
+**Phase to address:** File structure migration - first step of implementation
+
+**Sources:**
+- [next-intl Discussion #446 - Unable to find locale](https://github.com/amannn/next-intl/discussions/446)
 
 ---
 
-## Content Pitfalls
+### Pitfall 7: Middleware Not Running on All Routes
 
-Messaging and copywriting mistakes that fail to connect.
+**What goes wrong:** Some routes bypass middleware entirely, causing locale detection to fail. Routes with dots (`.`), API routes, and special Next.js paths need explicit handling.
 
-### Pitfall 8: Tech-Forward Instead of Problem-Forward
-
-**What goes wrong:** Portfolio leads with technologies ("React, Next.js, TypeScript, Tailwind...") instead of problems solved. Visitors don't buy technologies; they buy outcomes.
-
-**Why it happens:** Developers are proud of their stack. But small business owners don't know what React is. They know they need customers, orders, leads.
+**Why it happens:** Default middleware matcher excludes paths that look like static files. URLs with dots (e.g., `/about.html`, `/user.name`) are excluded. Third-party integrations (Vercel Analytics) use paths that shouldn't be localized.
 
 **Warning signs:**
-- Tech stack listed prominently in hero or intro
-- Project descriptions focus on technologies used
-- Jargon without explanation
-- No mention of business outcomes (faster load, more conversions, easier to maintain)
+- Locale detection works on some pages but not others
+- API routes getting locale prefix
+- Analytics or other services breaking
+- Routes with dots in them returning 404
 
 **Prevention:**
-- Lead with outcomes: "Sites that load fast and convert visitors"
-- Translate tech to benefits: "Built with React" becomes "Fast, responsive interface"
-- Case studies focus on: problem -> approach -> result (measurable)
-- Tech details can exist but shouldn't lead
-- Test: would a non-technical small business owner understand this?
+```typescript
+// middleware.ts
+export const config = {
+  matcher: [
+    // Match all paths except:
+    // - API routes (/api/...)
+    // - Static files (/_next/static/...)
+    // - Image optimization (/_next/image/...)
+    // - Favicon
+    // - Vercel internals
+    '/((?!api|_next/static|_next/image|favicon.ico|_vercel).*)',
+    // Explicitly include paths with dots if needed
+    '/users/:path*'
+  ]
+};
+```
 
-**Phase to address:** Content/Copywriting phase
+**Phase to address:** Middleware configuration - early in setup
 
-**Sources:** [LinkedIn Portfolio Advice](https://www.linkedin.com/advice/0/what-most-important-things-avoid-your-web-developer-lk51e), [Evaluate Freelance Portfolios](https://www.index.dev/blog/evaluate-freelance-developer-portfolio)
+**Sources:**
+- [next-intl Middleware Troubleshooting](https://next-intl.dev/docs/routing/middleware)
 
 ---
 
-### Pitfall 9: Talking About Yourself, Not Them
+### Pitfall 8: View Transitions Conflicting with Locale Switch
 
-**What goes wrong:** Copy is me-focused ("I'm passionate about..." "My skills include..." "I've been coding since...") instead of visitor-focused.
+**What goes wrong:** React 19.2 View Transitions animate page changes. Locale switching triggers transition animation even when staying on same content, creating jarring flash.
 
-**Why it happens:** It's natural to write about yourself on your own portfolio. But visitors are thinking "What can you do for ME?"
+**Why it happens:** View Transitions API captures screenshots before/after state changes. If locale switch causes re-render (even without navigation), transition animates the text change.
 
 **Warning signs:**
-- "I" appears more than "you" in first scroll
-- About section is biography without relevance to visitor
-- No acknowledgment of visitor's problems or frustrations
-- Copy reads as resume, not conversation
+- Flash/animation when switching language
+- "Flicker" effect as old text fades and new appears
+- View transition animation playing on every language switch
+- User perceives language switch as "slow" even though it's instant
 
 **Prevention:**
-- Flip the script: "You need X" before "I provide X"
-- Acknowledge their wariness upfront: "You've probably been burned before"
-- Make them feel understood before asking them to trust you
-- About section: yes, who you are, but WHY that matters to them
+- For instant client-side switching, bypass View Transitions entirely
+- Use CSS to disable transitions during locale switch
+- Or embrace it: style the transition to feel intentional
 
-**Phase to address:** Content/Copywriting phase
+```typescript
+const switchLocale = (newLocale: string) => {
+  // Disable view transitions temporarily
+  document.documentElement.classList.add('no-view-transition');
+  setLocale(newLocale);
+  requestAnimationFrame(() => {
+    document.documentElement.classList.remove('no-view-transition');
+  });
+};
+```
 
-**Sources:** [Copywriting Portfolio Mistakes](https://www.journoportfolio.com/blog/10-of-the-biggest-copywriting-portfolio-mistakes-that-you-might-be-making/)
+```css
+.no-view-transition *,
+.no-view-transition *::view-transition-old(*),
+.no-view-transition *::view-transition-new(*) {
+  animation: none !important;
+}
+```
+
+**Phase to address:** Implementation phase - when building language switcher
+
+**Sources:**
+- [React View Transitions](https://react.dev/reference/react/ViewTransition)
+- [Motion Blog - React View Transitions](https://motion.dev/blog/reacts-experimental-view-transition-api)
 
 ---
 
-### Pitfall 10: Vague Case Studies
+## Translation Pitfalls
 
-**What goes wrong:** Case studies say "Built a website for a local business" without specifics. No problem statement, no approach, no results. Visitor can't evaluate your work.
+Common mistakes with translation file management and quality.
 
-**Why it happens:** Developers think the visual is the case study. But visitors need the story - what was broken, what you did, what changed.
+### Pitfall 9: Single Monolithic Translation File
+
+**What goes wrong:** All translations in one file (`messages/en.json`) grows unwieldy. Hard to find keys, merge conflicts, loading more than needed.
+
+**Why it happens:** Starting simple is good, but portfolios grow. Services, projects, testimonials each add content.
 
 **Warning signs:**
-- Case studies are just screenshots with a paragraph
-- No mention of the business problem
-- No explanation of decisions made
-- No measurable outcomes (or even qualitative feedback)
-- All case studies read the same
+- Translation file exceeds 300 lines
+- Duplicate or near-duplicate keys
+- Hard to find specific translation
+- Loading full file even for small component
 
 **Prevention:**
-- Structure: Situation -> Challenge -> Approach -> Result
-- Include specific numbers when possible (load time improvement, conversion rate)
-- Quote the client about what changed for them
-- Show your thinking, not just your output
-- Different case studies should highlight different skills/scenarios
+Organize by feature/section:
+```
+messages/
+  en/
+    common.json      // Shared: buttons, nav, footer
+    hero.json        // Hero section
+    services.json    // Services section
+    projects.json    // Project case studies
+    contact.json     // Contact form
+  fr/
+    common.json
+    hero.json
+    // ...
+```
 
-**Phase to address:** Content/Case Studies phase
+Merge at load time:
+```typescript
+const messages = {
+  ...(await import(`../messages/${locale}/common.json`)).default,
+  ...(await import(`../messages/${locale}/hero.json`)).default,
+  // ...
+};
+```
 
-**Sources:** [UX Portfolio Mistakes](https://uxplaybook.org/articles/11-common-ux-portfolio-mistakes-and-solutions), [Portfolio Mistake Analysis](https://designlab.com/blog/ux-portfolio-mistakes-to-avoid)
+**For small portfolio:** Single file is fine initially. Split when it becomes painful.
+
+**Phase to address:** Translation file structure - before writing translations
+
+**Sources:**
+- [i18next Namespaces](https://www.i18next.com/principles/namespaces)
+- [Split translations in next-intl](https://dev.to/hpouyanmehr/split-your-translations-in-next-intl-in-a-nice-way-4jof)
 
 ---
 
-## Emotional Pitfalls
+### Pitfall 10: Missing Translation Keys Silently Fail
 
-How portfolios fail to connect with skeptical, weary visitors.
+**What goes wrong:** Typo in translation key shows the key itself (`hero.title`) instead of translated text. In production, visitors see raw keys. Developer doesn't notice during development.
 
-### Pitfall 11: Missing the Empathy Window
-
-**What goes wrong:** Portfolio doesn't acknowledge the visitor's emotional state. Small business owners burned by agencies arrive defensive. A portfolio that acts like everyone else just confirms their suspicion.
-
-**Why it happens:** Most portfolios assume an eager, trusting visitor. Yours arrives skeptical. If you don't meet them where they are, they feel unseen.
+**Why it happens:** Default behavior shows key as fallback. No error thrown. Easy to miss during manual testing.
 
 **Warning signs:**
-- No acknowledgment of bad experiences with other providers
-- Immediately jumps to selling services
-- Tone feels corporate or agency-like
-- No humanizing elements (real photos, vulnerable moments, process struggles)
-- Feels transactional rather than relational
+- Raw keys appearing on page (`common.submit_button`)
+- No console warnings for missing keys
+- Translations work in development but not production (different files)
+- Adding new content without remembering to translate
 
 **Prevention:**
-- Open with empathy: "Been burned before? I get it."
-- Share your own story - why you work with small businesses specifically
-- Include "warts and all" moments - a challenge you faced, how you solved it
-- Tone should feel like a conversation with a trusted neighbor
-- The "workshop at golden hour" mood = warm, honest, skilled
+1. Enable strict mode in development:
+```typescript
+// Only in development
+if (process.env.NODE_ENV === 'development') {
+  i18n.on('missingKey', (lngs, namespace, key) => {
+    console.error(`Missing translation: ${namespace}:${key} for ${lngs}`);
+  });
+}
+```
 
-**Phase to address:** Content/Copywriting phase (establish tone early)
+2. Use TypeScript for type-safe keys:
+```typescript
+// Generate types from translation files
+type Messages = typeof import('../messages/en.json');
+declare global {
+  interface IntlMessages extends Messages {}
+}
+```
 
-**Sources:** [Holicky Corporation Trust Guide](https://www.holickycorporation.com/blog/how-to-design-a-website-that-builds-trust-and-credibility/), [Rapport Building with Frustrated Clients](https://www.callcentrehelper.com/rapport-building-angry-customers-examples-157908.htm)
+3. Add CI check for missing keys between locales
+
+**Phase to address:** Development tooling - set up before writing translations
+
+**Sources:**
+- [Fixing Missing Translations in i18next](https://www.locize.com/blog/missing-translations/)
+- [i18next Configuration Options](https://www.i18next.com/overview/configuration-options)
 
 ---
 
-### Pitfall 12: Trust Signals That Signal Distrust
+### Pitfall 11: Machine Translation Without Review
 
-**What goes wrong:** Portfolio overcompensates with trust signals (too many badges, over-eager testimonials, "As seen in...") which paradoxically triggers suspicion.
+**What goes wrong:** Using Google Translate or similar for French translations produces grammatically correct but tonally wrong content. The empathetic "been burned before?" becomes cold and corporate in translation.
 
-**Why it happens:** Articles about conversion optimization recommend trust signals. But skeptical visitors pattern-match these as manipulation tactics.
+**Why it happens:** Machine translation is fast and cheap. For a portfolio emphasizing emotional connection with "weary, skeptical" visitors, tone matters enormously.
 
 **Warning signs:**
-- Logos of companies you've "worked with" that are tenuous connections
-- Trust badges that seem performative
-- Testimonials that are too glowing, too similar
-- "As seen in..." that links to pay-to-play mentions
-- Contact forms asking for too much information upfront
+- French text reads technically correct but feels "off"
+- Idioms translated literally ("been burned" -> "avoir ete brule")
+- Formal/informal tone inconsistent (tu vs. vous mixing)
+- Cultural references that don't translate
 
 **Prevention:**
-- Fewer, more authentic signals beat many weak ones
-- If you worked with a brand, show the actual work, not just the logo
-- Testimonials should include some skepticism or hesitation overcome
-- Let work speak for itself - less proving, more showing
-- Easy contact (email visible, simple form) signals confidence
+- Machine translate first, then HUMAN REVIEW by native speaker
+- Establish tone guide: Use "vous" (formal) or "tu" (informal)? The portfolio's warm-but-professional tone likely wants "vous"
+- Test translated emotional hooks with French speakers
+- Pay for professional translation of key emotional content (hero, empathy hooks)
 
-**Phase to address:** Design and Content phases
+**For this portfolio specifically:**
+- "Been burned by agencies?" -> Review how to express this in French idiom
+- "Workshop at golden hour" metaphor - does it resonate culturally?
+- Small business terminology differs between cultures
 
-**Sources:** [Trust Signals Guide](https://www.remarqz.com/post/website-trust-signals-guide), [Fake Testimonials Research](https://wpreviewslider.com/fake-and-paid-testimonials/)
+**Phase to address:** Content translation - after initial implementation
+
+**Sources:**
+- [Phrase: Detecting User Locale](https://phrase.com/blog/posts/detecting-a-users-locale/)
 
 ---
 
-### Pitfall 13: No Clear Next Step
+### Pitfall 12: Inconsistent Translation Key Naming
 
-**What goes wrong:** Visitor is interested but unclear what to do. No obvious CTA, or too many competing CTAs. They leave intending to "come back later" (they won't).
+**What goes wrong:** Keys are named inconsistently (`submitButton` vs `submit_button` vs `btnSubmit`). Hard to find, predict, or maintain.
 
-**Why it happens:** Designer focuses on content, assumes visitor will figure out how to contact. But confused visitors don't act.
+**Why it happens:** No convention established upfront. Different developers (or same developer on different days) use different patterns.
 
 **Warning signs:**
-- Multiple CTAs competing for attention
-- Contact buried in footer or separate page
-- No CTA visible above the fold
-- Unclear what happens when they reach out
-- Form asks for too much (full project brief upfront)
+- Mixed naming conventions in same file
+- Duplicate concepts with different keys
+- Can't guess what a key should be named
+- Refactoring requires renaming many keys
 
 **Prevention:**
-- One primary CTA per page section
-- Contact always visible (sticky header or persistent element)
-- Set expectations: "Reach out, I respond within 24 hours"
-- Low-friction initial contact (email or simple form)
-- Tell them what happens next: "We'll schedule a 15-minute call"
+Establish convention BEFORE writing any translations:
 
-**Phase to address:** Design phase (CTA strategy), Content phase (CTA copy)
+```json
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "...",
+    "subtitle": "...",
+    "cta": "Get in Touch"
+  },
+  "common": {
+    "buttons": {
+      "submit": "Submit",
+      "cancel": "Cancel"
+    },
+    "form": {
+      "required": "Required",
+      "email_invalid": "Please enter a valid email"
+    }
+  }
+}
+```
 
-**Sources:** [CrowdSpring Engagement Guide](https://www.crowdspring.com/blog/reduce-bounce-rate/), [Trust Signals and CTA](https://www.trustsignals.com/blog/77-trust-signals-to-increase-your-online-conversion-rate)
+**Convention for this project:**
+- snake_case for multi-word keys
+- Nest by section/component
+- Prefix actions with verb: `submit`, `cancel`, `view_more`
+- Suffix types: `_title`, `_description`, `_label`, `_placeholder`
+
+**Phase to address:** Before writing any translations
 
 ---
 
-## Technical Pitfalls
+## SEO Pitfalls
 
-Implementation mistakes that affect experience or credibility.
+Mistakes that hurt search visibility in both languages.
 
-### Pitfall 14: Broken Links and Outdated Work
+### Pitfall 13: Missing or Incorrect hreflang Tags
 
-**What goes wrong:** Portfolio links to dead sites (client businesses closed, URLs changed) or shows work that's visibly outdated. Suggests neglect.
+**What goes wrong:** Search engines don't understand EN and FR pages are translations. French visitors see English page in Google results. Duplicate content penalties possible.
 
-**Why it happens:** Portfolios are "set and forget." But the web moves fast - client sites shut down, designs age.
+**Why it happens:** hreflang tags must be manually implemented in App Router. Easy to forget or misconfigure.
 
 **Warning signs:**
-- Links to client sites return 404
-- Screenshots show obviously dated design trends
-- "Recent work" is more than 2 years old
-- No indication of when work was done
-- Contact form doesn't work (!)
+- Google Search Console shows "no return tag" errors
+- French speakers see English version in French Google
+- Both language versions competing for same keywords
+- Lower rankings than expected for French content
 
 **Prevention:**
-- Quarterly audit of all external links
-- Include dates on projects (shows recency, explains dated designs)
-- Archive screenshots even for live sites (they change)
-- If client site is gone, keep the case study but note the situation
-- Test contact form monthly
+Add hreflang tags in `generateMetadata`:
 
-**Phase to address:** Maintenance/Launch checklist
+```typescript
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = 'https://civixsolutions.com';
 
-**Sources:** [Portfolio Maintenance](https://www.devportfoliotemplates.com/blog/5-mistakes-developers-make-in-their-portfolio-websites)
+  return {
+    alternates: {
+      canonical: locale === 'en' ? baseUrl : `${baseUrl}/fr`,
+      languages: {
+        'en': baseUrl,
+        'fr': `${baseUrl}/fr`,
+        'x-default': baseUrl  // Default for unsupported languages
+      }
+    }
+  };
+}
+```
+
+**Requirements:**
+- Use absolute URLs (not relative)
+- Include self-referencing link (EN page lists EN)
+- Include x-default for fallback
+- Every page must have both language alternates
+- Bidirectional: EN links to FR, FR links to EN
+
+**Phase to address:** SEO configuration - during implementation
+
+**Sources:**
+- [Next.js Multilingual SEO with hreflang](https://www.buildwithmatija.com/blog/nextjs-advanced-seo-multilingual-canonical-tags)
+- [Lingo.dev hreflang Guide](https://lingo.dev/en/nextjs-i18n/link-language-alternatives)
 
 ---
 
-### Pitfall 15: Accessibility Failures
+### Pitfall 14: Browser Detection Overriding User Choice
 
-**What goes wrong:** Portfolio fails basic accessibility. Small business owners may have disabilities, or may value inclusivity. An inaccessible portfolio from a "frontend expert" is embarrassing.
+**What goes wrong:** User explicitly switches to French, but on next visit, browser detection switches them back to English because their browser is set to English.
 
-**Why it happens:** Developers don't test with screen readers or keyboard navigation. Assume "looks fine" = works fine.
+**Why it happens:** Auto-detection runs on every visit if not properly configured. Cookie preference not checked first.
 
 **Warning signs:**
-- Images without alt text
-- Poor color contrast
-- Focus states invisible
-- Can't navigate by keyboard alone
-- Animations that can't be paused/disabled
-- Form labels missing
+- Users complain language keeps resetting
+- Language switch doesn't "stick"
+- Detection hierarchy not respecting explicit choices
 
 **Prevention:**
-- Run accessibility audit (axe, Lighthouse)
-- Test keyboard-only navigation
-- Ensure color contrast passes WCAG AA
-- Add prefers-reduced-motion support for animations
-- Use semantic HTML (nav, main, article, etc.)
+Implement proper detection hierarchy:
+1. Check for explicit user choice (cookie: `NEXT_LOCALE`)
+2. Only if no cookie, check `Accept-Language` header
+3. Only run detection on first visit
 
-**Phase to address:** Development phase, verified before launch
+```typescript
+// middleware.ts
+export function middleware(request: NextRequest) {
+  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
 
-**Sources:** [Accessibility and Animations](https://www.a11y-collective.com/blog/why-flashy-website-destroy-the-user-experience/)
+  if (cookieLocale && locales.includes(cookieLocale)) {
+    // User has explicit preference - respect it
+    return NextResponse.next();
+  }
+
+  // Only detect on first visit (no cookie)
+  const acceptLanguage = request.headers.get('Accept-Language');
+  const detectedLocale = detectLocaleFromHeader(acceptLanguage);
+  // ...
+}
+```
+
+**Phase to address:** Middleware logic - during implementation
+
+**Sources:**
+- [i18n Locale Detection Best Practices](https://dev.to/lingodotdev/every-way-to-detect-a-users-locale-from-best-to-worst-369i)
 
 ---
 
-## Moderate Pitfalls
+### Pitfall 15: Google Crawler Getting Wrong Language
 
-Mistakes that cause friction but are recoverable.
+**What goes wrong:** Googlebot doesn't send Accept-Language header. Gets redirected to detected language (often English) and only indexes that version.
 
-### Pitfall 16: Process Mystery
+**Why it happens:** Crawlers have no language preference. Auto-redirect based on detection prevents them from seeing alternate versions.
 
-**What goes wrong:** Visitor is interested but unclear how working with you would actually work. No process section, no FAQ, no timeline expectations.
-
-**Why it happens:** Developers assume the process is obvious or will be explained in conversation. But skeptical visitors want to know before they reach out.
+**Warning signs:**
+- Google only indexes English version
+- French pages not appearing in Google Search Console
+- Search results only show one language
 
 **Prevention:**
-- Include a "How I Work" or "Process" section
-- Set expectations: rough timeline, communication style, what you need from them
-- FAQ addressing common concerns (cost range, timeline, revisions)
-- Transparency builds trust with burned visitors
+- Ensure crawlers can access both versions without detection redirect
+- Use hreflang tags (crawlers follow these)
+- Don't redirect based solely on Accept-Language
+- In `localePrefix: 'as-needed'` mode, both `/` and `/fr/` should be accessible
 
-**Phase to address:** Content phase
+```typescript
+// Let crawlers access without redirect
+const isBot = /bot|crawl|spider|slurp/i.test(userAgent);
+if (isBot) {
+  // Don't auto-redirect bots - let them access requested URL
+  return NextResponse.next();
+}
+```
+
+**Phase to address:** Middleware logic and SEO - during implementation
+
+**Sources:**
+- [Nuxt i18n Browser Detection](https://i18n.nuxtjs.org/docs/guide/browser-language-detection)
 
 ---
 
-### Pitfall 17: No Pricing Signals
-
-**What goes wrong:** Visitor can't tell if you're $500 or $50,000. Either they assume too expensive and leave, or reach out expecting something you can't deliver.
-
-**Why it happens:** Developers avoid pricing because "it depends." But some signal helps qualify leads and builds trust.
-
-**Prevention:**
-- "Projects typically start at $X" or "Most projects range $X-$Y"
-- If not comfortable with numbers, describe scope ("I work with businesses who need a 5-10 page site")
-- FAQ: "What affects pricing?"
-- Transparency is a differentiator with burned clients
-
-**Phase to address:** Content phase
-
----
-
-### Pitfall 18: SEO Neglect
-
-**What goes wrong:** Portfolio is invisible to search. When small business owners search "frontend developer [city]" you don't appear.
-
-**Why it happens:** SEO feels like marketing, not development. But local search matters for local consultant.
-
-**Prevention:**
-- Basic on-page SEO (title tags, meta descriptions, headers)
-- Local keywords if targeting local clients
-- Fast site (performance = SEO)
-- Content that answers questions potential clients search
-
-**Phase to address:** Technical setup and Content phases
-
----
-
-## Prevention Matrix
+## Prevention Strategies Summary
 
 | Pitfall | Warning Sign | Prevention | Phase |
 |---------|--------------|------------|-------|
-| Agency Impression | Jargon-heavy, flashy, vague promises | Write human, lead with empathy | Content |
-| Performance Hypocrisy | >3s load, heavy animations | Performance budget, test throttled | Technical |
-| Empty Social Proof | Generic testimonials, no specifics | Ask for stories, include hesitations | Content |
-| Bad Navigation | Clever labels, buried content | Standard labels, one-click rule | Design |
-| Over-Designed | Animations everywhere, tech-demo feel | Ask "how does this help visitor?" | Design |
-| Mobile Afterthought | Cramped on phone, tiny tap targets | Mobile-first design, real device tests | Design |
-| Template Sameness | Recognizable layout, stock imagery | Customize heavily, personal photos | Design |
-| Tech-Forward Copy | Stack in hero, jargon first | Lead with outcomes, translate tech | Content |
-| Me-Focused Copy | "I/My" > "You/Your" | Flip the script, acknowledge their pain | Content |
-| Vague Case Studies | Screenshots only, no story | Structure: Situation -> Result | Content |
-| Missing Empathy | No acknowledgment of their wariness | Open with "been burned before?" | Content |
-| Distrust Signals | Too many badges, glowing testimonials | Fewer authentic signals, show work | Design/Content |
-| No Clear CTA | Competing CTAs, hidden contact | One primary CTA, explain next step | Design |
-| Broken Links | 404s, outdated work | Quarterly audit, archive screenshots | Maintenance |
-| Accessibility Failures | No alt text, can't keyboard navigate | Audit, test keyboard, semantic HTML | Development |
-| Process Mystery | No "how I work" section | Add process section, FAQ | Content |
-| No Pricing Signals | Zero cost indication | "Projects typically start at..." | Content |
-| SEO Neglect | Invisible to search | Basic on-page SEO, local keywords | Technical |
+| Pages Router config | `i18n` in next.config.js | Use next-intl or equivalent | Architecture |
+| Static rendering | Dynamic rendering warning | `setRequestLocale()` + `generateStaticParams` | Setup |
+| State loss on switch | Page scrolls to top on switch | Client-side context, not navigation | Architecture |
+| Hydration mismatch | React hydration error | Explicit timezone, careful with dates | Configuration |
+| URL structure break | Old URLs 404 | `localePrefix: 'as-needed'` | Architecture |
+| Missing [locale] wrap | "Unable to find locale" | Restructure all pages under [locale] | File structure |
+| Middleware matcher | Some routes not localized | Explicit matcher config | Middleware |
+| View Transition conflict | Flash on language switch | Disable transitions during switch | Implementation |
+| Monolithic translations | 300+ line JSON file | Split by section/feature | File structure |
+| Missing keys silent | Raw keys on page | TypeScript types, dev warnings | Tooling |
+| Machine translation | Tone feels off | Human review, especially emotional content | Translation |
+| Inconsistent key names | Mixed conventions | Establish naming convention first | Before translation |
+| Missing hreflang | Wrong language in Google | `generateMetadata` with alternates | SEO |
+| Detection override | Language keeps resetting | Cookie-first hierarchy | Middleware |
+| Crawler wrong language | Only one language indexed | Don't redirect bots, use hreflang | Middleware/SEO |
 
 ---
 
 ## Phase-Specific Checklist
 
-### Foundation/Technical Phase
-- [ ] Performance budget established
-- [ ] Mobile-first approach confirmed
-- [ ] Accessibility requirements documented
-- [ ] Basic SEO structure planned
+### Phase 1: Architecture Decisions
+- [ ] Library chosen (next-intl recommended)
+- [ ] URL strategy decided (`localePrefix: 'as-needed'` for existing site)
+- [ ] Client-side switching approach decided (context vs. navigation)
+- [ ] Translation file structure decided
 
-### Design Phase
-- [ ] Navigation uses standard, clear labels
-- [ ] One-click rule for important content
-- [ ] Animation policy: functional only, not decorative
-- [ ] Template heavily customized or avoided
-- [ ] Mobile wireframes BEFORE desktop
-- [ ] CTA strategy defined
+### Phase 2: Setup and Configuration
+- [ ] `[locale]` segment structure created
+- [ ] Middleware configured with correct matcher
+- [ ] `setRequestLocale()` in all layouts/pages
+- [ ] `generateStaticParams` returning all locales
+- [ ] NextIntlClientProvider configured with explicit timezone
+- [ ] TypeScript types for translation keys
 
-### Content Phase
-- [ ] Copy leads with visitor's problems, not your skills
-- [ ] Empathy acknowledged early ("been burned before")
-- [ ] Tech translated to outcomes
-- [ ] Testimonials include specifics and hesitations overcome
-- [ ] Case studies follow Situation -> Challenge -> Approach -> Result
-- [ ] Process section explains how working together works
-- [ ] Pricing signals present (even if range)
-- [ ] "You" appears more than "I" in key sections
+### Phase 3: Translation Content
+- [ ] Key naming convention documented
+- [ ] English translations extracted from existing content
+- [ ] French translations created (human reviewed)
+- [ ] Emotional content (hero, empathy hooks) professionally translated
+- [ ] Form labels and validation messages translated
 
-### Development Phase
-- [ ] Performance verified (Lighthouse > 90)
-- [ ] Accessibility audit passed
-- [ ] Keyboard navigation works
-- [ ] prefers-reduced-motion respected
-- [ ] Contact form tested
+### Phase 4: Language Switcher
+- [ ] Switcher component built (FR on top, EN on bottom per requirements)
+- [ ] Instant switch without page reload
+- [ ] User preference stored in cookie
+- [ ] View Transitions handled (no flash)
+- [ ] Switcher accessible (keyboard, screen reader)
+
+### Phase 5: Browser Detection
+- [ ] Detection only on first visit (no cookie)
+- [ ] Cookie takes precedence over detection
+- [ ] Bots not redirected
+- [ ] Fallback to English if detection fails
+
+### Phase 6: SEO
+- [ ] hreflang tags on all pages
+- [ ] x-default set to English
+- [ ] Canonical URLs correct
+- [ ] Both languages accessible to crawlers
+- [ ] sitemap.xml includes both language versions
 
 ### Pre-Launch
-- [ ] All external links verified
-- [ ] Contact form tested from incognito
-- [ ] Mobile tested on real devices
-- [ ] Load time < 3s on throttled connection
-- [ ] Read through as skeptical visitor
-
-### Ongoing
-- [ ] Quarterly link audit
-- [ ] Update case studies with new work
-- [ ] Monitor performance over time
-- [ ] Refresh testimonials as you complete projects
+- [ ] Test switching multiple times (doesn't reset)
+- [ ] Test as French speaker (browser set to French)
+- [ ] Test with JavaScript disabled (graceful degradation)
+- [ ] Verify no hydration errors in console
+- [ ] Google Search Console preview both versions
+- [ ] All external links still work (no URL structure breakage)
 
 ---
 
 ## Sources
 
-### Design and UX
-- [5 Mistakes Developers Make in Their Portfolio Websites](https://www.devportfoliotemplates.com/blog/5-mistakes-developers-make-in-their-portfolio-websites)
-- [8 UX Mistakes To Avoid On Your Portfolio Website](https://sarahdoody.medium.com/8-ux-mistakes-to-avoid-on-your-ux-portfolio-website-4d6dd437cf21)
-- [12 Tips to Avoid Generic Portfolio](https://designlab.com/blog/avoid-an-identikit-ux-design-portfolio)
-- [UX Portfolio Mistakes: 11 Red Flags](https://uxplaybook.org/articles/11-common-ux-portfolio-mistakes-and-solutions)
-- [5 Reasons Why Flashy Websites Destroy UX](https://www.a11y-collective.com/blog/why-flashy-website-destroy-the-user-experience/)
+### Official Documentation
+- [Next.js Internationalization Guide](https://nextjs.org/docs/app/guides/internationalization)
+- [next-intl App Router Setup](https://next-intl.dev/docs/getting-started/app-router)
+- [next-intl Middleware Configuration](https://next-intl.dev/docs/routing/middleware)
 
-### Trust and Conversion
-- [Trust Signals Guide for Small Businesses](https://www.remarqz.com/post/website-trust-signals-guide)
-- [How to Use Testimonials Without Looking Fake](https://graticle.com/blog/use-testimonials-without-fake-feel/)
-- [What is Bounce Rate and How to Reduce It](https://www.semrush.com/blog/bounce-rate/)
-- [8 Tips to Engage Visitors and Reduce Bounce Rate](https://www.crowdspring.com/blog/reduce-bounce-rate/)
+### Technical Issues and Solutions
+- [next-intl Static Rendering Issue #521](https://github.com/amannn/next-intl/issues/521)
+- [next-intl State Persistence Issue #496](https://github.com/amannn/next-intl/issues/496)
+- [next-intl Hydration Issue #467](https://github.com/amannn/next-intl/issues/467)
+- [next-i18next Migration Issue #2221](https://github.com/i18next/next-i18next/issues/2221)
 
-### Emotional Connection
-- [Trustworthy Website Design](https://www.holickycorporation.com/blog/how-to-design-a-website-that-builds-trust-and-credibility/)
-- [Empathy in Consulting](https://www.linkedin.com/pulse/empathy-consulting-jack-przemieniecki)
-- [Building Rapport in Consulting](https://www.seerinteractive.com/insights/consulting-skills-how-to-build-rapport-in-the-workplace)
+### Best Practices
+- [Locale Detection Best Practices](https://dev.to/lingodotdev/every-way-to-detect-a-users-locale-from-best-to-worst-369i)
+- [i18next Namespaces](https://www.i18next.com/principles/namespaces)
+- [i18next Fallback Configuration](https://www.i18next.com/principles/fallback)
+- [Fixing Missing Translations](https://www.locize.com/blog/missing-translations/)
 
-### Content
-- [10 Copywriting Portfolio Mistakes](https://www.journoportfolio.com/blog/10-of-the-biggest-copywriting-portfolio-mistakes-that-you-might-be-making/)
-- [Evaluate Freelance Developer Portfolios](https://www.index.dev/blog/evaluate-freelance-developer-portfolio)
+### SEO
+- [Next.js Multilingual SEO with hreflang](https://www.buildwithmatija.com/blog/nextjs-advanced-seo-multilingual-canonical-tags)
+- [Next.js Multilingual SEO Checklist](https://staarter.dev/blog/nextjs-multilingual-seo-checklist-2024)
+- [Lingo.dev hreflang Guide](https://lingo.dev/en/nextjs-i18n/link-language-alternatives)
+
+### Tutorials
+- [next-intl Complete Guide 2025](https://www.buildwithmatija.com/blog/nextjs-internationalization-guide-next-intl-2025)
+- [i18n in Next.js App Router](https://www.ali-dev.com/blog/implementing-internationalization-i18n-in-next-js-15-with-the-app-router)
