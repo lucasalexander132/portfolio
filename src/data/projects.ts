@@ -88,9 +88,12 @@ export const projects = [
     thumbnail: '/images/Rippl-logo.jpeg',
     images: [
       '/images/Rippl-logo.jpeg',
+      '/images/trauma-journal-1.png',
+      '/images/trauma-journal-2.png',
+      '/images/trauma-journal-4.png',
     ],
     status: 'coming-soon',
-    technologies: ['React', 'TypeScript', 'Convex', 'Clerk'],
+    technologies: ['React Native', 'Expo', 'Zustand', 'React Query', 'NestJS'],
     content: {
       en: {
         tagline: 'Track and process difficult moments with trauma-informed guidance',
