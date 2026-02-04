@@ -26,7 +26,7 @@ export function Hero() {
   // Hover bubbles - defined inside component to access translations
   const hoverBubbles = [
     { text: t('hero.bubbles.experience'), position: 'top-4 -left-4 lg:-left-24', rotate: '-6deg', bg: 'bg-amber-300' },
-    { text: t('hero.bubbles.personality'), position: 'top-1/3 -right-4 lg:-right-8', rotate: '5deg', bg: 'bg-lime-300' },
+    { text: t('hero.bubbles.personality'), position: 'top-1/3 right-0 sm:-right-4 lg:-right-8', rotate: '5deg', bg: 'bg-lime-300' },
     { text: t('hero.bubbles.hungry'), position: 'bottom-20 -left-4 lg:-left-20', rotate: '-4deg', bg: 'bg-cyan-300' },
   ]
 
@@ -120,6 +120,7 @@ export function Hero() {
 
             {/* Scroll hint - animates after subtitle */}
             <m.div
+              className="mb-8 lg:mb-0"
               variants={fadeUpVariants}
               initial="hidden"
               animate={subtitleComplete ? 'visible' : 'hidden'}
@@ -147,7 +148,7 @@ export function Hero() {
           {/* Hero photo - fades in with subtitle */}
           <m.div
             ref={imageRef}
-            className="relative order-first lg:order-last lg:translate-x-16 xl:translate-x-24 lg:-translate-y-12 cursor-pointer"
+            className="relative order-first lg:order-last w-full lg:w-auto flex justify-center lg:justify-end lg:-translate-y-8 cursor-pointer"
             style={{ perspective: 1000 }}
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
@@ -166,7 +167,7 @@ export function Hero() {
           >
             {/* 3D tilting image container */}
             <m.div
-              className="relative w-72 h-[22rem] lg:w-96 lg:h-[30rem] xl:w-[26rem] xl:h-[34rem] overflow-hidden"
+              className="relative w-72 h-[22rem] lg:w-80 lg:h-[26rem] xl:w-96 xl:h-[30rem] overflow-hidden"
               style={{
                 rotateX,
                 rotateY,
