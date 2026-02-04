@@ -134,8 +134,6 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
             style={{ willChange: 'transform, opacity' }}
             className="fixed z-40 inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[min(36vw,460px)] sm:min-w-[380px] bg-amber-400 border-4 border-base-950 shadow-[8px_8px_0px_0px_#0a0a0a]"
           >
-            {/* Top accent bar */}
-            <div className="h-3 bg-base-950" />
 
             <div className="p-6 sm:p-8">
               {/* Close button - offset position */}

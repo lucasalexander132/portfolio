@@ -7,7 +7,7 @@ import { projects } from '@/data/projects'
 import type { Project } from '@/types/project'
 import { fadeUpVariants, staggerContainerVariants } from '@/lib/motion'
 import { ProjectDetail } from './ProjectDetail'
-import { useCursorHover } from '@/components/cursor'
+import { useCursor } from '@/components/cursor'
 import { useLocale, useTranslations } from '@/lib/i18n'
 
 // Hover bubbles config per project - positioned OUTSIDE the card
@@ -79,14 +79,13 @@ interface BentoCardProps {
 
 function BentoCard({ project, index, size, onClick, isSelected, locale, comingSoonLabel }: BentoCardProps) {
   const content = project.content[locale]
-  const cursorProps = useCursorHover('text', content.cursorText || 'View project')
+  const { setCursorVariant, resetCursor } = useCursor()
   const config = bentoConfig[size]
   const [isHovered, setIsHovered] = useState(false)
   const bubbles = projectBubbles[project.id] || []
 
   return (
     <m.article
-      {...(content.cursorText ? cursorProps : {})}
       role="button"
       tabIndex={0}
       onClick={onClick}
@@ -96,8 +95,14 @@ function BentoCard({ project, index, size, onClick, isSelected, locale, comingSo
           onClick()
         }
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => {
+        setIsHovered(true)
+        setCursorVariant('text', content.cursorText)
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false)
+        resetCursor()
+      }}
       variants={fadeUpVariants}
       whileHover={{
         y: -6,

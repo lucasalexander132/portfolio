@@ -19,19 +19,30 @@ export function Typewriter({
   const [displayedText, setDisplayedText] = useState('')
   const [isComplete, setIsComplete] = useState(false)
   const [showCursor, setShowCursor] = useState(true)
+  const [currentText, setCurrentText] = useState(text)
+
+  // Reset when text prop changes
+  useEffect(() => {
+    if (text !== currentText) {
+      setDisplayedText('')
+      setIsComplete(false)
+      setShowCursor(true)
+      setCurrentText(text)
+    }
+  }, [text, currentText])
 
   // Typing effect
   useEffect(() => {
-    if (displayedText.length < text.length) {
+    if (displayedText.length < currentText.length) {
       const timeoutId = setTimeout(() => {
-        setDisplayedText(text.slice(0, displayedText.length + 1))
+        setDisplayedText(currentText.slice(0, displayedText.length + 1))
       }, speed)
       return () => clearTimeout(timeoutId)
-    } else if (!isComplete) {
+    } else if (!isComplete && displayedText.length === currentText.length && currentText.length > 0) {
       setIsComplete(true)
       onComplete?.()
     }
-  }, [displayedText, text, speed, isComplete, onComplete])
+  }, [displayedText, currentText, speed, isComplete, onComplete])
 
   // Cursor fade after completion
   useEffect(() => {

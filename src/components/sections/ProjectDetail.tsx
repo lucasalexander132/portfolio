@@ -242,19 +242,26 @@ export function ProjectDetail({ project, onClose }: ProjectDetailProps) {
             </p>
           </m.section>
 
-          {/* Technologies - subtle */}
+          {/* Technologies */}
           <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.9, duration: 0.5 }}
-            className="mb-16 pt-8 border-t border-base-200"
+            className="mb-16 pt-8 border-t border-base-300"
           >
-            <span className="text-xs uppercase tracking-[0.2em] text-base-400 font-medium">
+            <span className="text-xs uppercase tracking-[0.2em] text-amber-700 font-medium">
               {t('projects.labels.built_with')}
             </span>
-            <p className="mt-3 text-sm text-base-500">
-              {project.technologies.join(' · ')}
-            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.technologies.map((tech) => (
+                <span
+                  key={tech}
+                  className="inline-block px-3 py-1.5 text-sm font-medium text-base-800 bg-base-100 border border-base-300 rounded-md"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
           </m.div>
 
           {/* CTAs - minimal styling */}

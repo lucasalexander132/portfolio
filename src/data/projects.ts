@@ -34,7 +34,7 @@ export const projects = [
           'Building a unified platform combining Kanban task management, documentation management, and an AI chat assistant. The AI understands the organization\'s knowledge base through hybrid search, answering questions and guiding users through document creation with interactive prompts.',
         result:
           'Shipping with over 220K+ lines of TypeScript. Features include drag-and-drop Kanban boards, multi-assignee tasks, and an AI assistant with documentation map integration. Performance optimized from 5s to 4.1s LCP with 1.5MB bundle reduction.',
-        cursorText: 'Explore the knowledge platform',
+        cursorText: 'Built for Small Businesses',
       },
       fr: {
         tagline: 'Plateforme de gestion des connaissances avec assistant IA pour la documentation',
@@ -44,7 +44,7 @@ export const projects = [
           'Construction d\'une plateforme unifiee combinant gestion de taches Kanban, gestion de documentation et un assistant IA. L\'IA comprend la base de connaissances de l\'organisation grace a une recherche hybride, repondant aux questions et guidant les utilisateurs dans la creation de documents avec des invites interactives.',
         result:
           'Livraison avec plus de 220 000 lignes de TypeScript. Fonctionnalites incluant tableaux Kanban glisser-deposer, taches multi-assignees et un assistant IA avec integration de carte documentaire. Performance optimisee de 5s a 4.1s LCP avec reduction de 1.5MB du bundle.',
-        cursorText: 'Explorez la plateforme de connaissances',
+        cursorText: 'Conçu pour les petites entreprises',
       },
     },
   },
@@ -68,7 +68,7 @@ export const projects = [
           'Building an all-in-one app where users paste words or photograph text, and get complete flashcards instantly. AI generates contextual sentences at the user\'s level, high-quality TTS provides native pronunciation, and FSRS spaced repetition optimizes review timing.',
         result:
           'Shipping across web, iOS, and Android with 24K lines of TypeScript. Features include OCR text capture, tap-to-select word picking, ElevenLabs voices, Stripe subscriptions, and cross-platform sync. Word to reviewable card in under 30 seconds.',
-        cursorText: 'Learn vocabulary faster',
+        cursorText: 'Science Backed',
       },
       fr: {
         tagline: 'Apprentissage du vocabulaire avec flashcards generees par IA et repetition espacee',
@@ -78,7 +78,7 @@ export const projects = [
           'Construction d\'une application tout-en-un ou les utilisateurs collent des mots ou photographient du texte, et obtiennent des flashcards completes instantanement. L\'IA genere des phrases contextuelles au niveau de l\'utilisateur, le TTS haute qualite fournit la prononciation native, et la repetition espacee FSRS optimise le timing des revisions.',
         result:
           'Livraison sur web, iOS et Android avec 24K lignes de TypeScript. Fonctionnalites incluant capture de texte OCR, selection de mots par toucher, voix ElevenLabs, abonnements Stripe et synchronisation multiplateforme. Du mot a la carte revisable en moins de 30 secondes.',
-        cursorText: 'Apprenez le vocabulaire plus vite',
+        cursorText: 'Fondé sur la science',
       },
     },
   },
@@ -100,7 +100,7 @@ export const projects = [
           'Building an app to log traumatic moments as they happen, then work through structured modules based on Janina Fisher\'s trauma-informed framework. Gentle prompts help users understand their responses, identify patterns, and develop self-compassion.',
         result:
           'In development. Focused on creating a safe, private space for trauma processing with guided exercises adapted from clinical approaches.',
-        cursorText: 'Process with compassion',
+        cursorText: 'Trauma Informed',
       },
       fr: {
         tagline: 'Suivez et traitez les moments difficiles avec un accompagnement informe par le trauma',
@@ -110,7 +110,7 @@ export const projects = [
           'Construction d\'une application pour consigner les moments traumatiques au moment ou ils surviennent, puis travailler a travers des modules structures bases sur le cadre informe par le trauma de Janina Fisher. Des invites douces aident les utilisateurs a comprendre leurs reactions, identifier des patterns et developper l\'auto-compassion.',
         result:
           'En developpement. Concentre sur la creation d\'un espace sur et prive pour le traitement des traumatismes avec des exercices guides adaptes des approches cliniques.',
-        cursorText: 'Traitez avec compassion',
+        cursorText: 'Informé par le trauma',
       },
     },
   },
@@ -133,7 +133,7 @@ export const projects = [
           'Built a schema-first extraction platform where users define custom formats (text, dates, numbers, booleans) with example-based templates. Claude AI extracts data against the schema, providing confidence scores and AI notes for each field to make review fast and trustworthy.',
         result:
           'Production-ready with comprehensive security hardening. Features include custom schema builder, batch PDF processing, OCR support, confidence-scored extractions, and spreadsheet export. Built with i18n (French/English) from day one.',
-        cursorText: 'See the extraction platform',
+        cursorText: 'De-busy your work',
       },
       fr: {
         tagline: 'Extraction de donnees PDF alimentee par IA avec schemas personnalises',
@@ -143,7 +143,7 @@ export const projects = [
           'Construction d\'une plateforme d\'extraction axee sur les schemas ou les utilisateurs definissent des formats personnalises (texte, dates, nombres, booleens) avec des modeles bases sur des exemples. Claude AI extrait les donnees selon le schema, fournissant des scores de confiance et des notes IA pour chaque champ pour rendre la revision rapide et fiable.',
         result:
           'Pret pour la production avec un renforcement de securite complet. Fonctionnalites incluant constructeur de schemas personnalises, traitement PDF par lots, support OCR, extractions avec scores de confiance et export tableur. Construit avec i18n (francais/anglais) des le premier jour.',
-        cursorText: 'Voir la plateforme d\'extraction',
+        cursorText: 'Désencombrez votre travail',
       },
     },
   },

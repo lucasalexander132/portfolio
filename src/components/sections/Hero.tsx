@@ -1,17 +1,24 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { m, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react'
 import Image from 'next/image'
 import { Typewriter } from '@/components/motion/Typewriter'
 import { fadeUpVariants } from '@/lib/motion'
 import { useCursorHover } from '@/components/cursor'
-import { useTranslations } from '@/lib/i18n'
+import { useTranslations, useLocale } from '@/lib/i18n'
 
 export function Hero() {
   const t = useTranslations()
+  const { locale } = useLocale()
   const [headlineComplete, setHeadlineComplete] = useState(false)
   const [subtitleComplete, setSubtitleComplete] = useState(false)
+
+  // Reset animation states when locale changes
+  useEffect(() => {
+    setHeadlineComplete(false)
+    setSubtitleComplete(false)
+  }, [locale])
   const [isImageHovered, setIsImageHovered] = useState(false)
   const imageCursorProps = useCursorHover('text', t('hero.cursor.photo'))
   const helpLinkCursorProps = useCursorHover('text', t('hero.cursor.help_link'))
