@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 
     // Send email via Resend
     const { error } = await resend.emails.send({
-      from: 'Contact Form <onboarding@resend.dev>',
+      from: process.env.RESEND_FROM_EMAIL!,
       to: process.env.CONTACT_EMAIL!,
       subject: `Portfolio Contact: ${name}`,
       replyTo: email,
