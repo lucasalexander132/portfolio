@@ -132,24 +132,23 @@ export function ContactForm({ isOpen, onClose }: ContactFormProps) {
             exit={{ y: 40, opacity: 0, rotate: 1 }}
             transition={springBrutal}
             style={{ willChange: 'transform, opacity' }}
-            className="fixed z-40 inset-4 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[min(36vw,460px)] sm:min-w-[380px] bg-amber-400 border-4 border-base-950 shadow-[8px_8px_0px_0px_#0a0a0a]"
+            className="fixed z-40 left-4 right-4 top-20 max-h-[calc(100dvh-6rem)] sm:left-1/2 sm:right-auto sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:max-h-[90vh] sm:w-[min(36vw,460px)] sm:min-w-95 bg-amber-400 border-4 border-base-950 shadow-[8px_8px_0px_0px_#0a0a0a]"
           >
+            {/* Close button - offset position, outside scrollable area */}
+            <m.button
+              type="button"
+              onClick={onClose}
+              className="absolute -top-3 -right-3 z-10 w-10 h-10 bg-text-primary border-3 border-base-950 shadow-[3px_3px_0px_0px_#0a0a0a] flex items-center justify-center hover:bg-red-400 hover:shadow-[1px_1px_0px_0px_#0a0a0a] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+              whileTap={{ scale: 0.95 }}
+              transition={springBrutal}
+              onMouseEnter={() => setCursorVariant('text', t('contact.cursor.close'), false, undefined, '#ef4444')}
+              onMouseLeave={resetCursor}
+              aria-label="Close contact form"
+            >
+              <X className="w-5 h-5 text-base-950" strokeWidth={3} />
+            </m.button>
 
-            <div className="p-6 sm:p-8">
-              {/* Close button - offset position */}
-              <m.button
-                type="button"
-                onClick={onClose}
-                className="absolute -top-3 -right-3 w-10 h-10 bg-text-primary border-3 border-base-950 shadow-[3px_3px_0px_0px_#0a0a0a] flex items-center justify-center hover:bg-red-400 hover:shadow-[1px_1px_0px_0px_#0a0a0a] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-                whileTap={{ scale: 0.95 }}
-                transition={springBrutal}
-                onMouseEnter={() => setCursorVariant('text', t('contact.cursor.close'), false, undefined, '#ef4444')}
-                onMouseLeave={resetCursor}
-                aria-label="Close contact form"
-              >
-                <X className="w-5 h-5 text-base-950" strokeWidth={3} />
-              </m.button>
-
+            <div className="p-6 sm:p-8 overflow-y-auto max-h-[calc(100dvh-6rem-8px)] sm:max-h-[calc(90vh-8px)]">
               {/* Header */}
               <div className="mb-8">
                 <h2 className="font-mono text-3xl sm:text-4xl font-black text-base-950 uppercase tracking-tight leading-none">
