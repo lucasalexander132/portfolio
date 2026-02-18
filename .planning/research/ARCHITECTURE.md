@@ -1,802 +1,547 @@
-# Architecture Research
+# Architecture: /updates Page Integration
 
-**Domain:** Single-page portfolio site with orchestrated animations
-**Stack:** Next.js 16 App Router, React 19.2, TypeScript, Tailwind CSS 4, shadcn/ui, Motion
-**Researched:** 2026-02-02
-**Confidence:** HIGH (verified with official docs and recent community patterns)
-
----
-
-## Page Structure
-
-### Single Page with Sections Architecture
-
-For a single-page portfolio site, the App Router still provides value through its rendering model even without multi-route navigation. The recommended structure:
-
-```
-app/
-  layout.tsx          # Root layout (html, body, fonts, global providers)
-  page.tsx            # Single page orchestrating all sections
-  globals.css         # Tailwind imports, custom @theme tokens
-```
-
-**Key insight:** Next.js preserves SPA-like behavior within a single page. Scroll position, state, and DOM are maintained. The App Router's strength here is Server Component support for initial render performance, not routing.
-
-### Section Organization
-
-Each major section becomes a self-contained component:
-
-```
-components/
-  sections/
-    HeroSection.tsx       # Intro/landing with orchestrated entrance
-    ServicesSection.tsx   # Services/capabilities grid
-    ProjectsSection.tsx   # Case studies showcase
-    ContactSection.tsx    # Contact form with server action
-```
-
-**Why sections as components, not routes:**
-- Single scroll context for smooth navigation
-- Shared animation orchestration context
-- Simpler mental model for single-page site
-- Still get Server/Client component benefits
+**Project:** Civix Solutions Portfolio - Live Updates Page
+**Researched:** 2026-02-18
+**Confidence:** HIGH (based on direct codebase analysis + Next.js 16 App Router patterns)
 
 ---
 
-## Component Hierarchy
+## Executive Summary
 
-### Layer 1: App Shell (Server)
+The existing portfolio is a single-page client-rendered app (`src/app/page.tsx` is `'use client'`) wrapped in a root layout that provides `LocaleProvider`, `MotionProvider`, and `CursorProvider` at the `<body>` level. Adding an `/updates` route is architecturally clean because any new route automatically inherits all providers -- zero layout changes needed.
+
+The key architectural decisions are:
+
+1. **Server/client boundary:** Markdown reading and parsing happens in a server-only utility. The page component is a server component. Only the tag filter and animated list are client components.
+2. **Tag filtering via URL search params** (`?tag=engineering`) for shareable, bookmarkable, back-button-friendly filtering. With a small update count, all entries are passed to the client and filtered there for instant UX.
+3. **Navigation adaptation:** The current Navigation component is tightly coupled to single-page scroll anchors. It needs route-aware behavior via `usePathname()`. This is the single most impactful change to existing code.
+4. **Markdown stored in `src/content/updates/`** -- inside `src/` for path alias access, outside `app/` because they are data not routes.
+
+---
+
+## Current Architecture Map
+
+```
+src/
+  app/
+    layout.tsx          -- Root: fonts, LocaleProvider, MotionProvider, CursorProvider
+    page.tsx            -- 'use client', single-page: Hero, Services, Projects, Footer
+    globals.css         -- Tailwind 4 @theme, color tokens, grain textures
+    api/contact/route.ts
+  components/
+    layout/
+      Navigation.tsx    -- 'use client', fixed bottom nav, scroll-to-anchor, contact form
+      Footer.tsx        -- 'use client', scroll-to-anchor links
+      ContactForm.tsx
+      LanguageSwitcher.tsx
+    sections/           -- Hero, Services, Projects, ProjectCard, ProjectModal, etc.
+    cursor/             -- CursorContext, CustomCursor
+    motion/             -- MotionProvider, Typewriter
+    ui/                 -- shadcn: button, dialog, input, textarea, label
+  lib/
+    i18n.tsx            -- LocaleProvider (React Context), useLocale(), useTranslations()
+    motion.ts           -- Spring configs, animation variants
+    utils.ts            -- cn() utility
+  types/
+    project.ts          -- Project discriminated union
+    i18n.d.ts           -- TranslationKey type from en.json structure
+  data/
+    projects.ts         -- Static project data array
+messages/
+  en.json               -- English UI strings (flat dot-notation keys)
+  fr.json               -- French UI strings
+```
+
+### Root Layout Provider Chain (Why No Layout Changes Are Needed)
 
 ```tsx
-// app/layout.tsx - Server Component
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body className={fontClasses}>
-        {children}
-      </body>
-    </html>
-  )
-}
+// src/app/layout.tsx -- ALL routes inherit these providers
+<html className={fontVariables}>
+  <body className="bg-base-950 text-text-primary">
+    <LocaleProvider>        // i18n context (client component)
+      <MotionProvider>      // motion/react LazyMotion (client component)
+        <CursorProvider>    // custom cursor state (client component)
+          <CustomCursor />
+          {children}        // <-- /updates renders here automatically
+        </CursorProvider>
+      </MotionProvider>
+    </LocaleProvider>
+  </body>
+</html>
 ```
 
-**Responsibility:** HTML structure, fonts, metadata
+The `/updates` page gets i18n (`useTranslations()`), motion (`m` components, `LazyMotion`), cursor (`useCursor()`), fonts (CSS variables), and the full Tailwind theme with zero additional wiring.
 
-### Layer 2: Page Orchestrator (Client)
+---
 
-```tsx
-// app/page.tsx - imports client orchestrator
-import { PageOrchestrator } from '@/components/PageOrchestrator'
-import { projects } from '@/data/projects'
-
-export default function HomePage() {
-  return <PageOrchestrator projects={projects} />
-}
-```
-
-**Responsibility:** Pass static data to client orchestrator
-
-### Layer 3: Animation Orchestrator (Client)
-
-```tsx
-// components/PageOrchestrator.tsx
-'use client'
-
-export function PageOrchestrator({ projects }) {
-  return (
-    <motion.main
-      initial="hidden"
-      animate="visible"
-      variants={pageVariants}
-    >
-      <HeroSection />
-      <ServicesSection />
-      <ProjectsSection projects={projects} />
-      <ContactSection />
-    </motion.main>
-  )
-}
-```
-
-**Responsibility:**
-- Top-level animation orchestration
-- Page load sequence coordination
-- Variant propagation to children
-
-### Layer 4: Sections (Client)
-
-Each section is a client component that:
-1. Receives variants from parent via propagation
-2. Defines its own child variants for internal elements
-3. Uses `whileInView` for scroll-triggered reveals
-
-```tsx
-// components/sections/HeroSection.tsx
-'use client'
-
-const sectionVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-}
-
-export function HeroSection() {
-  return (
-    <motion.section variants={sectionVariants}>
-      <motion.h1 variants={itemVariants}>...</motion.h1>
-      <motion.p variants={itemVariants}>...</motion.p>
-    </motion.section>
-  )
-}
-```
-
-### Layer 5: UI Primitives (shadcn/ui)
+## New File Structure
 
 ```
-components/
-  ui/
-    button.tsx        # shadcn button
-    card.tsx          # shadcn card (for project cards)
-    input.tsx         # shadcn input
-    textarea.tsx      # shadcn textarea
-    form.tsx          # shadcn form components
-```
+NEW FILES:
+  src/
+    app/
+      updates/
+        page.tsx                        -- Server component: reads markdown, passes to client
+    components/
+      updates/
+        UpdatesList.tsx                 -- Client component: animated list + client-side filter
+        UpdateCard.tsx                  -- Presentational: single update entry card
+        TagFilter.tsx                   -- Client component: tag buttons using searchParams
+    lib/
+      updates.ts                        -- Server-only: read/parse markdown, sort, type
+    types/
+      update.ts                         -- UpdateEntry frontmatter + parsed entry types
+    content/
+      updates/
+        2026-02-18-first-update.md      -- Markdown files with YAML frontmatter
 
-**Responsibility:** Consistent styling, accessibility, composability
-
-### Complete Hierarchy Diagram
-
-```
-RootLayout (Server)
-  |
-  +-- HomePage (Server - passes data)
-        |
-        +-- PageOrchestrator (Client - animation root)
-              |
-              +-- HeroSection (Client)
-              |     +-- motion.h1, motion.p (animated elements)
-              |
-              +-- ServicesSection (Client)
-              |     +-- ServiceCard[] (animated cards)
-              |
-              +-- ProjectsSection (Client)
-              |     +-- ProjectCard[] (templated, animated)
-              |
-              +-- ContactSection (Client)
-                    +-- ContactForm (form with server action)
+MODIFIED FILES:
+  src/
+    components/layout/
+      Navigation.tsx                    -- Route-aware nav (usePathname conditional)
+      Footer.tsx                        -- Add Updates link
+  messages/
+    en.json                             -- Add "updates" and "nav.updates" keys
+    fr.json                             -- Add matching French keys
 ```
 
 ---
 
-## Animation Architecture
+## Detailed Component Architecture
 
-### Page Load Orchestration Pattern
+### 1. TypeScript Types (`src/types/update.ts`)
 
-The key to orchestrated page load is **variant propagation** with **staggered timing**.
+```typescript
+export type UpdateTag =
+  | 'engineering'
+  | 'design'
+  | 'project'
+  | 'announcement'
+  | 'personal'
 
-#### Step 1: Define Page-Level Variants
+export type UpdateType = 'note' | 'article' | 'changelog'
 
-```tsx
-const pageVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      when: "beforeChildren",    // Page fades in first
-      staggerChildren: 0.15,     // Then sections stagger in
-      delayChildren: 0.3         // After initial delay
-    }
-  }
-}
-```
-
-#### Step 2: Sections Inherit and Define Children
-
-```tsx
-const sectionVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      staggerChildren: 0.08  // Internal elements stagger
-    }
-  }
-}
-```
-
-#### Step 3: Elements Use Item Variants
-
-```tsx
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" }
-  }
-}
-```
-
-**Critical:** Child components must NOT have their own `animate` prop if they want to inherit parent's variant propagation. Only the top-level orchestrator defines `animate="visible"`.
-
-### Scroll-Based Section Reveals
-
-For sections below the fold, use `whileInView` instead of inherited variants:
-
-```tsx
-export function ServicesSection() {
-  return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={sectionVariants}
-    >
-      {/* Children inherit and stagger */}
-    </motion.section>
-  )
-}
-```
-
-**Configuration options:**
-- `viewport.once: true` - Animate only on first view (recommended)
-- `viewport.margin: "-100px"` - Trigger 100px before entering viewport
-- `viewport.amount: 0.3` - Trigger when 30% visible
-
-### Alternative: react-intersection-observer + Motion
-
-For more control over viewport detection:
-
-```tsx
-import { useInView } from 'react-intersection-observer'
-
-export function ProjectsSection({ projects }) {
-  const { ref, inView } = useInView({
-    threshold: 0.2,
-    triggerOnce: true
-  })
-
-  return (
-    <motion.section
-      ref={ref}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={sectionVariants}
-    >
-      {/* Content */}
-    </motion.section>
-  )
-}
-```
-
-**When to use which:**
-- `whileInView`: Simpler, sufficient for most cases
-- `react-intersection-observer`: When you need the `inView` boolean for conditional logic beyond animation
-
-### Animation Sequence Timeline
-
-```
-T=0ms     Page load, orchestrator mounts
-T=0ms     Page container: hidden -> visible (fade)
-T=300ms   Hero section starts (delayChildren)
-T=300ms   Hero H1 animates
-T=380ms   Hero subtitle animates
-T=450ms   Services section starts (staggerChildren)
-...
-T=scroll  Below-fold sections trigger on viewport entry
-```
-
----
-
-## Data Layer
-
-### Project Case Studies Data Structure
-
-For templated, extensible case studies, use TypeScript types with a data file:
-
-```tsx
-// types/project.ts
-export interface Project {
-  id: string
-  slug: string
+export interface UpdateFrontmatter {
   title: string
-  client: string
-  category: 'web' | 'mobile' | 'branding' | 'consulting'
-  description: string
-  challenge: string
-  solution: string
-  results: string[]
-  technologies: string[]
-  thumbnail: string
-  images: string[]
-  featured: boolean
-  order: number
+  date: string              // ISO: "2026-02-18"
+  tags: UpdateTag[]
+  type: UpdateType
+  summary: string           // 1-2 sentences for card display
+  published: boolean        // false = draft, excluded from list
+}
+
+export interface UpdateEntry extends UpdateFrontmatter {
+  slug: string              // Derived from filename: "first-update"
+  content: string           // Rendered HTML from markdown body
 }
 ```
 
-```tsx
-// data/projects.ts
-import { Project } from '@/types/project'
+### 2. Markdown Content (`src/content/updates/*.md`)
 
-export const projects: Project[] = [
-  {
-    id: '1',
-    slug: 'project-alpha',
-    title: 'Project Alpha',
-    client: 'Client Name',
-    category: 'web',
-    description: 'Brief description...',
-    challenge: 'The challenge was...',
-    solution: 'We solved this by...',
-    results: ['50% faster load times', '2x conversion'],
-    technologies: ['Next.js', 'TypeScript', 'PostgreSQL'],
-    thumbnail: '/projects/alpha/thumb.jpg',
-    images: ['/projects/alpha/1.jpg', '/projects/alpha/2.jpg'],
-    featured: true,
-    order: 1
-  },
-  // More projects...
-]
+```markdown
+---
+title: "Shipped new portfolio updates page"
+date: "2026-02-18"
+tags: ["engineering", "project"]
+type: "note"
+summary: "Added a live updates section to share what I'm working on."
+published: true
+---
 
-export function getFeaturedProjects(): Project[] {
-  return projects
-    .filter(p => p.featured)
-    .sort((a, b) => a.order - b.order)
+Content body in markdown here...
+```
+
+**Filename convention:** `YYYY-MM-DD-slug-text.md`. The slug is derived by stripping the date prefix and `.md` extension.
+
+**Why `src/content/updates/` not elsewhere:**
+- Inside `src/` so the `@/content/updates/` path alias works
+- Not in `public/` because files are read server-side, not served directly
+- Not in `app/` because they are data, not routes
+- Separate from `data/` which contains TypeScript modules
+
+### 3. Server-Only Markdown Utility (`src/lib/updates.ts`)
+
+```typescript
+// src/lib/updates.ts
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import matter from 'gray-matter'
+// unified pipeline for markdown -> HTML
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
+import rehypeSanitize from 'rehype-sanitize'
+import type { UpdateEntry, UpdateFrontmatter } from '@/types/update'
+
+const CONTENT_DIR = path.join(process.cwd(), 'src/content/updates')
+
+export async function getAllUpdates(): Promise<UpdateEntry[]> {
+  const files = await fs.readdir(CONTENT_DIR)
+  const mdFiles = files.filter(f => f.endsWith('.md'))
+
+  const entries = await Promise.all(mdFiles.map(parseUpdateFile))
+
+  return entries
+    .filter(e => e.published)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
-export function getProjectBySlug(slug: string): Project | undefined {
-  return projects.find(p => p.slug === slug)
+export async function getAllTags(): Promise<string[]> {
+  const entries = await getAllUpdates()
+  const tags = new Set(entries.flatMap(e => e.tags))
+  return Array.from(tags).sort()
+}
+
+async function parseUpdateFile(filename: string): Promise<UpdateEntry> {
+  const filePath = path.join(CONTENT_DIR, filename)
+  const raw = await fs.readFile(filePath, 'utf-8')
+  const { data, content } = matter(raw)
+  const frontmatter = data as UpdateFrontmatter
+
+  const html = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeSanitize)
+    .use(rehypeStringify)
+    .process(content)
+
+  const slug = filename
+    .replace(/^\d{4}-\d{2}-\d{2}-/, '')
+    .replace(/\.md$/, '')
+
+  return {
+    ...frontmatter,
+    slug,
+    content: String(html),
+  }
 }
 ```
 
-**Why TypeScript data file over MDX for this use case:**
-- Single-page site doesn't need individual project routes
-- Stronger typing for template consistency
-- Simpler mental model
-- No MDX compilation overhead
-- Easy to add new projects (just add to array)
+**Key decisions:**
+- `node:fs/promises` is only available in server components/server-only modules
+- `gray-matter` parses YAML frontmatter
+- `unified` + `remark` + `rehype` converts markdown to sanitized HTML
+- All processing is server-side; zero impact on client bundle
+
+### 4. Page Component (`src/app/updates/page.tsx`)
+
+```typescript
+// Server component -- reads markdown, passes data to client components
+"use cache"
+import { cacheLife } from 'next/cache'
+import { getAllUpdates, getAllTags } from '@/lib/updates'
+import { UpdatesList } from '@/components/updates/UpdatesList'
+
+export default async function UpdatesPage(
+  props: { searchParams: Promise<{ tag?: string }> }
+) {
+  cacheLife("hours")
+
+  const { tag } = await props.searchParams   // Next.js 16: async searchParams
+  const entries = await getAllUpdates()
+  const allTags = await getAllTags()
+
+  return (
+    <UpdatesList
+      entries={entries}
+      allTags={allTags}
+      activeTag={tag}
+    />
+  )
+}
+```
+
+**Next.js 16 specifics addressed:**
+- `searchParams` is a `Promise` -- must `await` it
+- `"use cache"` directive for opt-in caching (not automatic in Next.js 16)
+- `cacheLife("hours")` for periodic revalidation
+
+### 5. Client Components (`src/components/updates/`)
+
+**UpdatesList.tsx** -- Receives all entries, filters client-side, renders animated list.
+
+**TagFilter.tsx** -- Renders tag buttons. Uses `useRouter().push()` to update `?tag=X` search param. Wrapped in `<Suspense>` because `useSearchParams()` requires it in Next.js App Router.
+
+**UpdateCard.tsx** -- Presentational card for a single update. Uses existing design system tokens (`bg-base-900`, `text-text-primary`, `font-serif`, etc.).
 
 ### Data Flow Diagram
 
 ```
-data/projects.ts (static, typed)
-        |
-        v
-app/page.tsx (Server Component reads data)
-        |
-        v
-PageOrchestrator (receives projects as prop)
-        |
-        v
-ProjectsSection (receives projects as prop)
-        |
-        v
-ProjectCard[] (maps over projects, renders each)
-```
-
-### Contact Form Data Flow
-
-```
-ContactForm (Client Component)
-        |
-        | FormData via action
-        v
-actions/contact.ts (Server Action)
-        |
-        | Validates with Zod
-        | Sends email (Resend/other)
-        |
-        v
-Returns { success: boolean, error?: string }
-        |
-        v
-ContactForm updates UI state
-```
-
-```tsx
-// actions/contact.ts
-'use server'
-
-import { z } from 'zod'
-
-const contactSchema = z.object({
-  name: z.string().min(2, 'Name is required'),
-  email: z.string().email('Invalid email'),
-  message: z.string().min(10, 'Message too short')
-})
-
-export async function submitContact(formData: FormData) {
-  const raw = {
-    name: formData.get('name'),
-    email: formData.get('email'),
-    message: formData.get('message')
-  }
-
-  const result = contactSchema.safeParse(raw)
-
-  if (!result.success) {
-    return {
-      success: false,
-      errors: result.error.flatten().fieldErrors
-    }
-  }
-
-  // Send email via Resend, SendGrid, etc.
-  try {
-    // await sendEmail(result.data)
-    return { success: true }
-  } catch (e) {
-    return { success: false, error: 'Failed to send message' }
-  }
-}
+src/content/updates/*.md  (filesystem)
+         |
+         v
+src/lib/updates.ts  (server-only: fs.readFile + gray-matter + unified)
+         |
+         v
+src/app/updates/page.tsx  (server component, "use cache")
+  - await props.searchParams for active tag
+  - getAllUpdates() returns UpdateEntry[]
+  - getAllTags() returns string[]
+         |
+         v
+<UpdatesList entries={...} allTags={...} activeTag={...} />  (client)
+  |                    |
+  v                    v
+<TagFilter />       <UpdateCard /> x N
+  (reads/writes        (presentational)
+   ?tag= param)
 ```
 
 ---
 
-## Component Boundaries
+## Integration Points With Existing Code
 
-### Server vs Client Boundary
+### Navigation.tsx -- MODIFIED (Most Impactful Change)
 
-| Component | Boundary | Reason |
-|-----------|----------|--------|
-| RootLayout | Server | Static HTML structure |
-| page.tsx | Server | Data fetching, SEO |
-| PageOrchestrator | Client | Animation state |
-| All Sections | Client | Animation, interactivity |
-| UI Primitives | Client | Event handlers |
-| Server Actions | Server | Form processing |
+**Current behavior:** Fixed bottom nav with scroll-to-anchor links (`#services`, `#projects`). All navigation uses `e.preventDefault()` + `element.scrollIntoView()`.
 
-**Rule of thumb:** Animation = Client. Static content could be Server, but since all sections animate, they're all Client Components.
+**Problem:** On `/updates`, anchor targets (`#services`, `#projects`) do not exist.
 
-### Communication Patterns
+**Recommended approach: Route-aware conditional rendering.**
 
-**Parent to Child (Props):**
-- PageOrchestrator -> Sections: variant propagation, data
-- Sections -> Cards: individual item data
+```
+Use usePathname() to detect current route:
 
-**Child to Parent (Callbacks):**
-- Not needed for this architecture
-- Contact form uses server action, not parent callback
+On "/" (homepage):
+  - Render current scroll-anchor nav items (unchanged behavior)
+  - Optionally add "Updates" as a <Link> to /updates
 
-**Server to Client:**
-- app/page.tsx passes pre-fetched data to PageOrchestrator
+On "/updates":
+  - Render route links: [Home → /] [Updates → /updates] [Contact → opens form]
+  - Use Next.js <Link> for actual navigation
+  - Contact button stays the same (opens ContactForm overlay)
+```
 
-**Client to Server:**
-- ContactForm invokes submitContact server action
+**Why this approach over alternatives:**
+- **Option A (chosen): Conditional rendering via `usePathname()`** -- Homepage experience untouched, updates page gets appropriate nav. Small code change.
+- Option B: Always show route-based nav -- Bigger visual change to the carefully crafted homepage.
+- Option C: Separate Navigation component per route -- Duplicates code, harder to maintain.
 
----
+**Implementation notes:**
+- Import `usePathname` from `next/navigation`
+- Import `Link` from `next/link`
+- The `navItems` array becomes conditional based on pathname
+- Contact button and LanguageSwitcher remain unchanged on both routes
 
-## Templated Project Cards
+### Footer.tsx -- MODIFIED (Minor)
 
-### ProjectCard Component Pattern
+Add "Updates" to the `quickLinks` array. The current `handleNavClick` already checks `href.startsWith('#')` and only does smooth scroll for anchor links. A `/updates` href will fall through to default behavior. However, since Footer is a client component, use `<Link>` from `next/link` for client-side navigation to avoid a full page reload.
 
-```tsx
-// components/ProjectCard.tsx
-'use client'
+**Change scope:** Add one entry to the `quickLinks` array, add a conditional render for `<Link>` vs `<a>` based on whether href starts with `#`.
 
-import { Project } from '@/types/project'
-import { Card, CardContent } from '@/components/ui/card'
-import { motion } from 'motion/react'
+### messages/en.json and messages/fr.json -- MODIFIED (Additive)
 
-interface ProjectCardProps {
-  project: Project
-  index: number
-}
+Add keys:
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" }
+```json
+{
+  "nav": {
+    "updates": "Updates"
+  },
+  "updates": {
+    "title": "Updates",
+    "subtitle": "What's happening at Civix Solutions",
+    "filter_all": "All",
+    "no_results": "No updates found for this filter.",
+    "read_more": "Read more"
   }
 }
-
-export function ProjectCard({ project, index }: ProjectCardProps) {
-  return (
-    <motion.div variants={cardVariants}>
-      <Card className="group overflow-hidden">
-        <div className="relative aspect-video">
-          <img
-            src={project.thumbnail}
-            alt={project.title}
-            className="object-cover transition-transform group-hover:scale-105"
-          />
-          {/* Overlay on hover */}
-          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="flex items-center justify-center h-full">
-              <span className="text-white font-medium">View Project</span>
-            </div>
-          </div>
-        </div>
-        <CardContent className="p-4">
-          <p className="text-sm text-muted-foreground">{project.client}</p>
-          <h3 className="font-semibold mt-1">{project.title}</h3>
-          <p className="text-sm mt-2 line-clamp-2">{project.description}</p>
-          <div className="flex flex-wrap gap-1 mt-3">
-            {project.technologies.slice(0, 3).map(tech => (
-              <span
-                key={tech}
-                className="text-xs px-2 py-0.5 bg-muted rounded-full"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
-  )
-}
 ```
 
-**Template extensibility:** Adding a new project requires only adding an entry to `data/projects.ts`. The component handles rendering consistently.
+The `TranslationKey` type in `src/types/i18n.d.ts` auto-generates from `en.json` via the `NestedKeyOf` utility type. Adding keys to `en.json` automatically makes them available to `t()` with full compile-time type safety. Just ensure `fr.json` gets matching keys.
 
-### Project Detail Modal (Optional Enhancement)
+### Files That Need NO Changes
 
-If project details should expand without page navigation:
-
-```tsx
-// components/ProjectModal.tsx
-'use client'
-
-import { Project } from '@/types/project'
-import { AnimatePresence, motion } from 'motion/react'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
-
-interface ProjectModalProps {
-  project: Project | null
-  onClose: () => void
-}
-
-export function ProjectModal({ project, onClose }: ProjectModalProps) {
-  return (
-    <AnimatePresence>
-      {project && (
-        <Dialog open={!!project} onOpenChange={onClose}>
-          <DialogContent className="max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-            >
-              {/* Full case study content */}
-              <h2>{project.title}</h2>
-              <section>
-                <h3>Challenge</h3>
-                <p>{project.challenge}</p>
-              </section>
-              <section>
-                <h3>Solution</h3>
-                <p>{project.solution}</p>
-              </section>
-              <section>
-                <h3>Results</h3>
-                <ul>
-                  {project.results.map((result, i) => (
-                    <li key={i}>{result}</li>
-                  ))}
-                </ul>
-              </section>
-            </motion.div>
-          </DialogContent>
-        </Dialog>
-      )}
-    </AnimatePresence>
-  )
-}
-```
+| File | Why No Change |
+|------|---------------|
+| `src/app/layout.tsx` | Providers already wrap all routes |
+| `src/app/page.tsx` | Homepage stays as-is |
+| `src/lib/i18n.tsx` | Context works across all routes |
+| `src/components/cursor/*` | Works automatically via root layout |
+| `src/components/motion/*` | Works automatically via root layout |
+| `src/app/globals.css` | Existing theme tokens cover updates page needs |
+| `src/types/i18n.d.ts` | Auto-generates from en.json, no manual change |
 
 ---
 
-## Build Order
+## Tag Filtering: Recommended Approach
 
-### Phase Dependencies
+**Use URL search params for state, but filter client-side for speed.**
 
-```
-1. Foundation (no dependencies)
-   - TypeScript types
-   - Tailwind configuration
-   - shadcn/ui setup
+Rationale for URL params (not component state):
+1. **Shareable URLs:** `/updates?tag=engineering` can be bookmarked
+2. **Back button works:** Browser history tracks filter changes
+3. **SSR-friendly:** Server can read params for initial render
 
-2. Data Layer (depends on types)
-   - Project type definition
-   - projects.ts data file
-   - Contact form schema
+Rationale for client-side filtering (not server-side):
+1. **Update count will be small** (under 100 for a long time)
+2. **Instant filter response** -- no server round-trip
+3. **Simpler architecture** -- pass all entries once, filter in JS
+4. **Switch to server-side later** if list grows large
 
-3. UI Primitives (depends on Tailwind/shadcn)
-   - Button, Card, Input, Textarea, Form
-   - Custom variants/styling
-
-4. Animation System (depends on UI primitives)
-   - Variant definitions
-   - PageOrchestrator shell
-
-5. Static Sections (depends on animation system)
-   - HeroSection
-   - ServicesSection
-
-6. Data-Driven Sections (depends on data layer + animation)
-   - ProjectCard template
-   - ProjectsSection
-
-7. Interactive Features (depends on sections)
-   - ContactForm + server action
-   - Project modal (if implementing)
-
-8. Polish (depends on all above)
-   - Fine-tune animation timing
-   - Atmospheric effects
-   - Responsive adjustments
-```
-
-### Recommended Build Sequence
-
-| Order | What | Why First |
-|-------|------|-----------|
-| 1 | TypeScript types + data file | Defines contract for all components |
-| 2 | Tailwind theme + shadcn setup | Foundation for all styling |
-| 3 | Root layout + page shell | Establishes app structure |
-| 4 | PageOrchestrator (empty) | Animation context for sections |
-| 5 | HeroSection (static) | Most visible, validates animation pattern |
-| 6 | Animation refinement | Tune timing before more sections |
-| 7 | ServicesSection | Second section, reinforces pattern |
-| 8 | ProjectCard template | Reusable pattern for projects |
-| 9 | ProjectsSection | Combines cards with scroll-trigger |
-| 10 | Contact server action | Backend before form |
-| 11 | ContactSection + form | Complete form with validation |
-| 12 | Polish pass | Timing, effects, responsive |
-
-### Critical Path
-
-```
-Types -> Data -> ProjectCard -> ProjectsSection
-                      |
-Types -> Server Action -> ContactForm -> ContactSection
-                      |
-shadcn setup -> UI primitives -> All sections
-                      |
-Tailwind theme -> PageOrchestrator -> Section animations
-```
+**Pattern:**
+- Server component passes ALL entries to `<UpdatesList>`
+- `TagFilter` component uses `useSearchParams()` to read active tag and `useRouter().push()` to update it
+- `UpdatesList` filters entries client-side based on active tag
+- `<Suspense>` boundary wraps `TagFilter` (required by `useSearchParams()`)
 
 ---
 
-## File Structure Recommendation
+## Static Generation vs Dynamic Rendering
 
+**Use `"use cache"` with `cacheLife("hours")`.**
+
+- Markdown files change infrequently (only when you publish an update)
+- Reading filesystem on every request is wasteful
+- Portfolio deploys on content changes anyway, so `cacheLife("max")` is also viable
+- `"use cache"` is the Next.js 16 way (replaces the old `revalidate` export)
+
+**Future: Individual update pages.** If you later add `/updates/[slug]` detail pages, use `generateStaticParams()` to pre-render each at build time:
+
+```typescript
+// src/app/updates/[slug]/page.tsx (future)
+export async function generateStaticParams() {
+  const entries = await getAllUpdates()
+  return entries.map(e => ({ slug: e.slug }))
+}
 ```
-portfolio/
-├── app/
-│   ├── layout.tsx           # Root layout (Server)
-│   ├── page.tsx             # Home page (Server, imports orchestrator)
-│   ├── globals.css          # Tailwind + custom theme
-│   └── actions/
-│       └── contact.ts       # Contact form server action
-├── components/
-│   ├── PageOrchestrator.tsx # Animation orchestrator (Client)
-│   ├── sections/
-│   │   ├── HeroSection.tsx
-│   │   ├── ServicesSection.tsx
-│   │   ├── ProjectsSection.tsx
-│   │   └── ContactSection.tsx
-│   ├── ProjectCard.tsx      # Templated project card
-│   ├── ContactForm.tsx      # Form component
-│   └── ui/                  # shadcn components
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── input.tsx
-│       ├── textarea.tsx
-│       └── ...
-├── data/
-│   └── projects.ts          # Static project data
-├── types/
-│   └── project.ts           # Project type definition
-├── lib/
-│   ├── utils.ts             # cn() and utilities
-│   └── animations.ts        # Shared variant definitions
-└── public/
-    └── projects/            # Project images
-        ├── alpha/
-        └── beta/
+
+This is out of scope for the initial milestone but the architecture supports it cleanly.
+
+---
+
+## Markdown Processing: Library Recommendations
+
+**`gray-matter` for frontmatter + `unified`/`remark`/`rehype` for body.**
+
+| Library | Purpose | Why |
+|---------|---------|-----|
+| `gray-matter` | Parse YAML frontmatter | Stable, widely used, zero-config |
+| `unified` | Processing pipeline | Extensible, composable |
+| `remark-parse` | Parse markdown to AST | Part of unified ecosystem |
+| `remark-rehype` | Convert markdown AST to HTML AST | Bridge between remark and rehype |
+| `rehype-sanitize` | Sanitize HTML output | Security (habit, even for own content) |
+| `rehype-stringify` | Serialize HTML AST to string | Final output step |
+
+```bash
+npm install gray-matter unified remark-parse remark-rehype rehype-stringify rehype-sanitize
 ```
+
+All server-side only. Zero client bundle impact.
+
+**Why NOT `next-mdx-remote` or MDX:**
+- MDX lets you embed React components in markdown. Overkill for text-based updates.
+- Adds complexity (serialization, component mapping, client-side hydration).
+- Start simple. Add MDX later only if you need interactive elements inside posts.
+
+---
+
+## Component Boundaries Summary
+
+| Component | Server/Client | Responsibility | Depends On |
+|-----------|--------------|----------------|------------|
+| `app/updates/page.tsx` | Server | Read markdown, pass data down | `lib/updates.ts` |
+| `lib/updates.ts` | Server-only | Filesystem read, parse, sort | `content/updates/*.md`, `gray-matter`, `unified` |
+| `UpdatesList` | Client | Animated list, client-side filtering | Receives `entries` prop, uses `useTranslations()` |
+| `UpdateCard` | Client | Single update card presentation | Uses design system tokens, `useTranslations()` |
+| `TagFilter` | Client | Tag buttons, URL param updates | `useSearchParams()`, `useRouter()` |
+| `Navigation` | Client | Route-aware nav (modified) | `usePathname()`, `<Link>` (new imports) |
+| `Footer` | Client | Add Updates link (modified) | `<Link>` (new import) |
+
+---
+
+## Suggested Build Order
+
+Each phase builds on the previous. Phases are ordered to minimize risk and provide early visual feedback.
+
+### Phase 1: Data Foundation (no visible changes)
+
+1. Create `src/types/update.ts` -- TypeScript types
+2. Create `src/content/updates/` directory with 2-3 sample `.md` files
+3. Install `gray-matter` + `unified` ecosystem packages
+4. Create `src/lib/updates.ts` -- server-only markdown reader
+
+### Phase 2: Page Shell + i18n Keys
+
+5. Add i18n keys to `messages/en.json` and `messages/fr.json`
+6. Create `src/app/updates/page.tsx` -- server component with `"use cache"`
+7. Verify: page renders raw data at `/updates`
+
+### Phase 3: UI Components
+
+8. Create `src/components/updates/UpdateCard.tsx` -- styled card
+9. Create `src/components/updates/TagFilter.tsx` -- tag filter with searchParams
+10. Create `src/components/updates/UpdatesList.tsx` -- list layout combining card + filter
+
+### Phase 4: Navigation Integration (modifies existing code)
+
+11. Modify `Navigation.tsx` -- route-aware behavior using `usePathname()`
+12. Modify `Footer.tsx` -- add Updates link
+
+### Phase 5: Polish
+
+13. Add entry animations (Motion library, staggered card reveals)
+14. Responsive design pass
+15. Visual consistency check (grain texture, typography, spacing)
+
+**Critical path:** Phase 1 must complete before Phase 2. Phase 2 before Phase 3. Phase 4 can run in parallel with Phase 3. Phase 5 depends on all prior phases.
 
 ---
 
 ## Anti-Patterns to Avoid
 
-### 1. Mixing Animate Props with Variant Propagation
+### Do NOT Create a Nested Layout for /updates
 
-**Wrong:**
-```tsx
-<motion.div animate="visible" variants={parentVariants}>
-  <motion.div animate="visible" variants={childVariants}> {/* Breaks propagation */}
+```
+BAD:  src/app/updates/layout.tsx that re-wraps providers
+GOOD: Let root layout handle everything; updates/page.tsx is just a page
 ```
 
-**Right:**
-```tsx
-<motion.div initial="hidden" animate="visible" variants={parentVariants}>
-  <motion.div variants={childVariants}> {/* Inherits from parent */}
+A nested layout is only needed if `/updates` has a genuinely different shell (sidebar, different nav structure). It does not.
+
+### Do NOT Make the Page Component a Client Component
+
+```
+BAD:  'use client' on page.tsx, useEffect to load markdown
+GOOD: Server component reads filesystem, passes data as props to client children
 ```
 
-### 2. Server Components with Animation
+### Do NOT Duplicate the i18n System for Content
 
-**Wrong:**
-```tsx
-// This won't work - motion needs client
-export default function HeroSection() {
-  return <motion.div>...</motion.div>
-}
+```
+BAD:  Separate markdown files per locale (en/first-update.md, fr/first-update.md)
+GOOD: English-only markdown content; only UI chrome (title, labels) goes through t()
 ```
 
-**Right:**
-```tsx
-'use client'
-export function HeroSection() {
-  return <motion.div>...</motion.div>
-}
+Update content stays English. Bilingual UI strings (page title, filter labels, "Read more") go through the existing `t()` function.
+
+### Do NOT Use Dynamic Imports for Markdown
+
+```
+BAD:  import(`@/content/updates/${slug}.md`)
+GOOD: fs.readFile() in a server-only module
 ```
 
-### 3. Over-animating
+Dynamic imports of non-JS files are fragile with bundlers. Use Node.js `fs` in server-only code.
 
-**Wrong:** Every element animates independently with complex transitions
+---
 
-**Right:** Orchestrated, purposeful animations with clear hierarchy
+## Breaking Changes / Migration Risks
 
-### 4. Data in Client Components
-
-**Wrong:**
-```tsx
-'use client'
-export function ProjectsSection() {
-  const projects = await fetch(...) // Can't await in client
-}
-```
-
-**Right:**
-```tsx
-// page.tsx (server)
-const projects = getProjects()
-return <ProjectsSection projects={projects} />
-```
+| Change | Risk | Mitigation |
+|--------|------|------------|
+| Navigation behavior on homepage | LOW | `usePathname()` conditional; homepage nav stays identical |
+| New npm dependencies | LOW | Server-only; no client bundle impact |
+| i18n key additions | NONE | Additive; existing keys untouched |
+| Root layout | NONE | No changes needed |
+| CSS/theme | NONE | Existing tokens sufficient |
 
 ---
 
 ## Sources
 
-**Next.js App Router Architecture:**
-- [Next.js App Router Advanced Patterns 2026](https://medium.com/@beenakumawat002/next-js-app-router-advanced-patterns-for-2026-server-actions-ppr-streaming-edge-first-b76b1b3dcac7)
-- [Next.js Architecture in 2026](https://www.yogijs.tech/blog/nextjs-project-architecture-app-router)
-- [Modular Architecture for Next.js 16](https://dev.to/ramacan/modular-architecture-example-for-nextjs-16-1nln)
-
-**Motion Animation Patterns:**
-- [Motion Official Documentation](https://motion.dev/docs/react-animation)
-- [Motion Stagger Documentation](https://motion.dev/docs/stagger)
-- [Advanced Framer Motion Patterns](https://blog.maximeheckel.com/posts/advanced-animation-patterns-with-framer-motion/)
-- [Variants Animation Propagation](https://framerbook.com/animation/example-animations/27-variants-animation-propagation/)
-
-**Scroll-Based Animations:**
-- [react-intersection-observer NPM](https://www.npmjs.com/package/react-intersection-observer)
-- [React Intersection Observer with Next.js](https://medium.com/@franciscomoretti/react-intersection-observer-with-tailwind-and-next-js-ad68aa847b21)
-- [Motion inView Documentation](https://motion.dev/docs/inview)
-
-**Server Actions & Forms:**
-- [Next.js Forms Guide](https://nextjs.org/docs/app/guides/forms)
-- [Forms with Server Actions and Zod](https://www.freecodecamp.org/news/handling-forms-nextjs-server-actions-zod/)
-- [Robin Wieruch Next.js Forms Guide](https://www.robinwieruch.de/next-forms/)
-
-**shadcn/ui Patterns:**
-- [shadcn/ui Components](https://ui.shadcn.com/docs/components)
-- [shadcn/ui Ecosystem 2025](https://www.devkit.best/blog/mdx/shadcn-ui-ecosystem-complete-guide-2025)
-
-**Tailwind CSS 4:**
-- [Tailwind CSS 4 Best Practices](https://www.frontendtools.tech/blog/tailwind-css-best-practices-design-system-patterns)
-- [Tailwind CSS v4 Ultimate Guide](https://walidezzat.hashnode.dev/tailwind-css-v4-complete-guide)
+- **Direct codebase analysis:** All files listed in architecture map were read and analyzed
+- **Next.js 16 App Router:** Async `params`/`searchParams`, `"use cache"` directive, `cacheLife()` API -- HIGH confidence from official docs
+- **gray-matter, unified ecosystem:** Stable Node.js libraries with years of production use -- HIGH confidence
+- **URL search params pattern for filtering:** Standard Next.js App Router pattern documented in official guides -- HIGH confidence
