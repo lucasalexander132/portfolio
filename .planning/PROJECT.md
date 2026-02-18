@@ -8,15 +8,18 @@ A single-page portfolio for Civix Solutions, a frontend development consultancy 
 
 Visitors must feel at ease — like they've found someone who genuinely cares about solving their problem, not selling them something. The digital equivalent of walking into a well-organized workshop at golden hour and realizing you can finally stop worrying.
 
-## Current Milestone: v1.1 Internationalization
+## Current Milestone: v1.2 Live Updates
 
-**Goal:** Enable French and English language support with instant client-side switching
+**Goal:** Add a live updates page that serves as a dynamic resume — a chronological stream of professional activity (shipping, learning, working on) written in Lucas's voice
 
 **Target features:**
-- i18n system with translation files for EN/FR
-- Instant language switching without page reload
-- Language switcher in navbar (FR on top, EN on bottom)
-- Browser language detection on first visit
+- Dedicated `/updates` page (own route, not part of single-page scroll)
+- Markdown-file-based entries: edit files, redeploy to publish
+- Mix of quick and longer entries; both use the same format
+- Tags per entry (e.g., shipping, learning, working-on, thinking) with filter UI
+- Chronological stream, newest first
+- Page UI follows site locale (EN/FR); entry content in English only
+- Navigation link from main site to the updates page
 
 ## Requirements
 
@@ -31,11 +34,12 @@ Visitors must feel at ease — like they've found someone who genuinely cares ab
 
 ### Active
 
-- [ ] i18n translation system for English and French
-- [ ] Instant language switching without page reload
-- [ ] Language switcher in navbar (FR on top, EN on bottom)
-- [ ] Browser language detection on first visit
-- [ ] All existing content translated to French
+- [ ] Live updates page at `/updates` (own route)
+- [ ] Markdown-file-based entry system with frontmatter metadata
+- [ ] Tags per entry with client-side filter UI
+- [ ] Chronological stream, newest first
+- [ ] Page UI localized (EN/FR); entry content English only
+- [ ] Navigation link from main site to updates page
 
 ### Out of Scope
 
@@ -76,4 +80,4 @@ More projects will be added as the portfolio grows — the system must accommoda
 | Templated project system | Portfolio will grow; system must scale without redesign | — Pending |
 
 ---
-*Last updated: 2026-02-03 after milestone v1.1 initialization*
+*Last updated: 2026-02-18 after milestone v1.2 initialization*
