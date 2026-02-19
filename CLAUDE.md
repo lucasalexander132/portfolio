@@ -38,7 +38,8 @@
 
 ## Key File Locations
 - `UpdateEntry` type: `src/lib/updates.ts` (NOT `src/types/updates.ts`)
-- Homepage framed-card layout (`fixed inset-0 p-3`): in `src/app/page.tsx`, NOT in `layout.tsx` — new pages get a clean canvas
+- Framed-card layout (`fixed inset-0 p-3 bg-text-primary`, dark inner card `bg-base-900 rounded-[28px]`): used by homepage (`src/app/page.tsx`) AND the updates section (`src/app/updates/layout.tsx`). New standalone pages outside these routes get a clean canvas.
+- Static assets (images, etc.) must live in `public/` to be served by Next.js — root-level image files will 404
 - `UPDATE_TAGS` / `UpdateTag`: `src/lib/tags.ts` — extracted from `updates.ts` because `updates.ts` has `import 'server-only'`. Client components must import tag constants from `@/lib/tags`, not `@/lib/updates`
 
 ## Design Constraints
