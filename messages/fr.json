@@ -2,7 +2,8 @@
   "nav": {
     "services": "Services",
     "projects": "Projets",
-    "contact": "Contact"
+    "contact": "Contact",
+    "updates": "Mises \u00e0 jour"
   },
   "hero": {
     "title": "Déçu par des développeurs dans le passé ?",
@@ -71,17 +72,24 @@
       "contact": "Envoyer un message",
       "github": "Voir le code",
       "linkedin": "Se connecter",
-      "bluesky": "Suivre"
+      "bluesky": "Suivre",
+      "updates": "Quoi de neuf"
     }
   },
   "cursor": {
     "thats_me": "C'est moi !",
     "what_ill_do": "Ce que je ferai",
     "what_ive_done": "Ce que j'ai fait",
-    "drop_a_line": "Envoyer un message"
+    "drop_a_line": "Envoyer un message",
+    "latest_updates": "Quoi de neuf"
   },
   "updates": {
-    "pageTitle": "Mises à jour",
+    "pageTitle": "Mises \u00e0 jour",
+    "cta": {
+      "title": "Un projet en t\u00eate ?",
+      "description": "Parlons de comment je peux vous aider.",
+      "button": "Prendre contact"
+    },
     "now": {
       "focus": "En ce moment",
       "learning": "En cours d'apprentissage",

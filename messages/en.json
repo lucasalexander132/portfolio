@@ -2,7 +2,8 @@
   "nav": {
     "services": "Services",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "updates": "Updates"
   },
   "hero": {
     "title": "Been burned by developers before?",
@@ -71,17 +72,24 @@
       "contact": "Drop a Line",
       "github": "See Code",
       "linkedin": "Connect",
-      "bluesky": "Follow"
+      "bluesky": "Follow",
+      "updates": "What's New"
     }
   },
   "cursor": {
     "thats_me": "That's me!",
     "what_ill_do": "What I'll Do",
     "what_ive_done": "What I've Done",
-    "drop_a_line": "Drop a Line"
+    "drop_a_line": "Drop a Line",
+    "latest_updates": "What's New"
   },
   "updates": {
     "pageTitle": "Updates",
+    "cta": {
+      "title": "Have a project in mind?",
+      "description": "Let's talk about how I can help.",
+      "button": "Get in Touch"
+    },
     "now": {
       "focus": "Current focus",
       "learning": "Currently learning",
