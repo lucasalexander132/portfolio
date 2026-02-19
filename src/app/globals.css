@@ -6,6 +6,7 @@
   --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sketch: var(--font-sketch), 'Comic Sans MS', cursive;
+  --font-mono: var(--font-mono), 'IBM Plex Mono', ui-monospace, monospace;
 
   /* Fluid Type Scale */
   --text-display: clamp(2.5rem, 5vw + 1rem, 4.5rem);

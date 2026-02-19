@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Fraunces, Open_Sans, Architects_Daughter } from 'next/font/google'
+import { Fraunces, Open_Sans, Architects_Daughter, IBM_Plex_Mono } from 'next/font/google'
 import { LocaleProvider } from '@/lib/i18n'
 import { MotionProvider } from '@/components/motion/MotionProvider'
 import { CursorProvider, CustomCursor } from '@/components/cursor'
@@ -25,6 +25,13 @@ const architectsDaughter = Architects_Daughter({
   display: 'swap',
 })
 
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   title: 'Civix Solutions | Frontend Development for Small Business',
   description: 'Boutique frontend consultancy building solutions for small businesses.',
@@ -38,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${openSans.variable} ${architectsDaughter.variable}`}
+      className={`${fraunces.variable} ${openSans.variable} ${architectsDaughter.variable} ${ibmPlexMono.variable}`}
     >
       <body className="bg-base-950 text-text-primary">
         <LocaleProvider>
