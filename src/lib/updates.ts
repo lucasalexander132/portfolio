@@ -7,6 +7,7 @@ import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
+import rehypePrettyCode from 'rehype-pretty-code'
 import { cacheLife } from 'next/cache'
 
 // ---------------------------------------------------------------------------
@@ -34,6 +35,7 @@ export interface UpdateEntry {
   tag: UpdateTag
   summary: string
   body: string       // rendered HTML from markdown body
+  link?: { url: string; label: string }
 }
 
 // ---------------------------------------------------------------------------
@@ -66,6 +68,22 @@ function validateFrontmatter(
   if (typeof data.summary !== 'string' || data.summary.trim() === '') {
     throw new Error(`Missing or empty "summary" in ${filename}`)
   }
+
+  if (data.link !== undefined) {
+    const link = data.link as Record<string, unknown>
+    if (
+      typeof link !== 'object' ||
+      link === null ||
+      typeof link.url !== 'string' ||
+      link.url.trim() === '' ||
+      typeof link.label !== 'string' ||
+      link.label.trim() === ''
+    ) {
+      throw new Error(
+        `Invalid "link" in ${filename}. Expected { url: string, label: string }`,
+      )
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -83,6 +101,7 @@ export async function parseUpdate(
   const result = await unified()
     .use(remarkParse)
     .use(remarkRehype)
+    .use(rehypePrettyCode, { theme: 'github-dark-default', keepBackground: true })
     .use(rehypeStringify)
     .process(content)
 
@@ -95,6 +114,9 @@ export async function parseUpdate(
     tag: data.tag as UpdateTag,
     summary: data.summary as string,
     body: String(result),
+    link: data.link
+      ? { url: (data.link as Record<string, unknown>).url as string, label: (data.link as Record<string, unknown>).label as string }
+      : undefined,
   }
 }
 
@@ -117,4 +139,38 @@ export async function getUpdates(): Promise<UpdateEntry[]> {
   )
 
   return entries.sort((a, b) => b.date.localeCompare(a.date))
+}
+
+// ---------------------------------------------------------------------------
+// Get a single update by slug
+// ---------------------------------------------------------------------------
+
+export async function getUpdateBySlug(slug: string): Promise<UpdateEntry | null> {
+  'use cache'
+  cacheLife('days')
+
+  const dir = join(process.cwd(), 'src', 'content', 'updates')
+  try {
+    const raw = await readFile(join(dir, `${slug}.md`), 'utf-8')
+    return parseUpdate(`${slug}.md`, raw)
+  } catch {
+    return null
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Get adjacent (prev/next) entries for navigation
+// ---------------------------------------------------------------------------
+
+export async function getAdjacentEntries(slug: string): Promise<{
+  prev: { slug: string; title: string } | null
+  next: { slug: string; title: string } | null
+}> {
+  const entries = await getUpdates()
+  const index = entries.findIndex(e => e.slug === slug)
+  if (index === -1) return { prev: null, next: null }
+  return {
+    prev: index > 0 ? { slug: entries[index - 1].slug, title: entries[index - 1].title } : null,
+    next: index < entries.length - 1 ? { slug: entries[index + 1].slug, title: entries[index + 1].title } : null,
+  }
 }
