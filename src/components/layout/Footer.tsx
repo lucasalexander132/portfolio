@@ -134,7 +134,7 @@ export function Footer() {
           className="mt-16 pt-8 border-t border-base-800/50 flex flex-col sm:flex-row justify-between items-center gap-4"
         >
           <p className="text-base-600 text-xs">
-            &copy; {new Date().getFullYear()} {t('footer.copyright')}. {t('footer.all_rights')}
+            &copy; 2026 {t('footer.copyright')}. {t('footer.all_rights')}
           </p>
           <p className="text-base-700 text-xs">
             {t('footer.availability')}
