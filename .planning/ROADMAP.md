@@ -34,7 +34,7 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 
 - [x] **Phase 9: Content Infrastructure** - Markdown pipeline, TypeScript types, and tag vocabulary
 - [x] **Phase 10: Page Shell** - Route, i18n chrome, SEO metadata, and "now" section
-- [ ] **Phase 11: Entry Display** - UpdateCard component, Motion animation, and link field
+- [x] **Phase 11: Entry Display** - UpdateCard component, Motion animation, and link field
 - [ ] **Phase 12: Tag Filtering** - URL search param filter with TagFilter component
 - [ ] **Phase 13: Navigation Integration** - Nav link, Footer link, and contact CTA
 
@@ -213,9 +213,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 11-01-PLAN.md — Foundation: IBM Plex Mono font, link field on UpdateEntry, getUpdateBySlug + getAdjacentEntries, rehype-pretty-code integration
-- [ ] 11-02-PLAN.md — Entry list: EntryListItem + TagChip components, hover states, stagger animation, View Transition links
-- [ ] 11-03-PLAN.md — Detail page: /updates/[slug] route, EntryArticle, PostNavigation, .prose-updates CSS styles
+- [x] 11-01-PLAN.md — Foundation: IBM Plex Mono font, link field on UpdateEntry, getUpdateBySlug + getAdjacentEntries, rehype-pretty-code integration
+- [x] 11-02-PLAN.md — Entry list: EntryListItem + TagChip components, hover states, stagger animation, View Transition links
+- [x] 11-03-PLAN.md — Detail page: /updates/[slug] route, EntryArticle, PostNavigation, .prose-updates CSS styles
 
 ### Phase 12: Tag Filtering
 **Goal**: Visitors can filter the update stream by tag using shareable URLs
@@ -261,10 +261,10 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 8. Content Migration | v1.1 | 4/4 | Complete | 2026-02-03 |
 | 9. Content Infrastructure | v1.2 | 2/2 | Complete | 2026-02-19 |
 | 10. Page Shell | v1.2 | 2/2 | Complete | 2026-02-19 |
-| 11. Entry Display | v1.2 | 0/3 | Ready | - |
+| 11. Entry Display | v1.2 | 3/3 | Complete | 2026-02-19 |
 | 12. Tag Filtering | v1.2 | 0/? | Not started | - |
 | 13. Navigation Integration | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-19 -- Phase 11 planned (3 plans in 2 waves)*
+*Last updated: 2026-02-19 -- Phase 11 complete (3 plans executed)*

@@ -24,9 +24,9 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Entry Display
 
-- [ ] **UPD-09**: `UpdateCard` component displays title, date (month + year only), tag chip, body text
-- [ ] **UPD-10**: Entry list uses staggered Motion animation on page load, consistent with existing animation patterns
-- [ ] **UPD-11**: Entries support an optional `link` field (url + label); displayed as a subtle external link on the card
+- [x] **UPD-09**: `UpdateCard` component displays title, date (month + year only), tag chip, body text
+- [x] **UPD-10**: Entry list uses staggered Motion animation on page load, consistent with existing animation patterns
+- [x] **UPD-11**: Entries support an optional `link` field (url + label); displayed as a subtle external link on the card
 - [x] **UPD-12**: Evergreen "now" section at top of page shows Lucas's current focus; editable with a single-line frontmatter change or data update
 
 ### Navigation
@@ -76,9 +76,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UPD-06 | Phase 12 | Pending |
 | UPD-07 | Phase 10 | Pending |
 | UPD-08 | Phase 10 | Pending |
-| UPD-09 | Phase 11 | Pending |
-| UPD-10 | Phase 11 | Pending |
-| UPD-11 | Phase 11 | Pending |
+| UPD-09 | Phase 11 | Complete |
+| UPD-10 | Phase 11 | Complete |
+| UPD-11 | Phase 11 | Complete |
 | UPD-12 | Phase 10 | Pending |
 | UPD-13 | Phase 13 | Pending |
 | UPD-14 | Phase 13 | Pending |
