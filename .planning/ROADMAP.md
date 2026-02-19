@@ -228,7 +228,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 12-01-PLAN.md — TagFilter component, server-side filtering via searchParams, Suspense wrapping, and i18n labels
+- [x] 12-01-PLAN.md — TagFilter component, client-side filtering via useSearchParams, Suspense wrapping, and i18n labels
 
 ### Phase 13: Navigation Integration
 **Goal**: Visitors can reach `/updates` from the main site navigation and return to the homepage, with a persistent contact CTA on the updates page
@@ -239,10 +239,11 @@ Plans:
   2. "Updates" link appears in the Footer quick links section
   3. A persistent contact CTA on the `/updates` page links back to the contact form on the homepage
   4. Existing homepage scroll-to-anchor behavior is unchanged after Navigation.tsx modifications
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 13-01: TBD (to be defined during phase planning)
+- [ ] 13-01-PLAN.md — i18n keys, ContactCTA component, and updates layout with Navigation + Footer
+- [ ] 13-02-PLAN.md — Route-aware Navigation.tsx and Footer.tsx with Updates links
 
 ## Progress
 
@@ -263,8 +264,8 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 10. Page Shell | v1.2 | 2/2 | Complete | 2026-02-19 |
 | 11. Entry Display | v1.2 | 3/3 | Complete | 2026-02-19 |
 | 12. Tag Filtering | v1.2 | 1/1 | Complete | 2026-02-19 |
-| 13. Navigation Integration | v1.2 | 0/? | Not started | - |
+| 13. Navigation Integration | v1.2 | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-19 -- Phase 12 complete (tag filtering)*
+*Last updated: 2026-02-19 -- Phase 13 planned (navigation integration)*
