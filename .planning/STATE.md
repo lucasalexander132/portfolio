@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-18)
 
 **Core value:** Visitors must feel at ease -- like they've found someone who genuinely cares about solving their problem.
-**Current focus:** Milestone v1.2 - Live Updates (Phase 13: Navigation Integration -- in progress)
+**Current focus:** Milestone v1.2 - Live Updates (Complete)
 
 ## Current Position
 
 Phase: 13 of 13 (Navigation Integration)
-Plan: 1 of 2 in current phase
-Status: In progress
-Last activity: 2026-02-19 -- Completed 13-01-PLAN.md (Updates layout chrome + ContactCTA)
+Plan: 2 of 2 in current phase
+Status: Phase complete -- v1.2 milestone complete
+Last activity: 2026-02-19 -- Completed 13-02-PLAN.md (Route-aware Navigation + Footer)
 
-Progress: █████████████████████████ 25/27 plans
+Progress: ███████████████████████████ 27/27 plans
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 25
-- Average duration: 3.1 min
-- Total execution time: 77.2 min
+- Total plans completed: 27
+- Average duration: 3.0 min
+- Total execution time: 81.2 min
 
 **By Phase:**
 
@@ -37,10 +37,10 @@ Progress: ███████████████████████�
 | 10-page-shell | 2 | 3 min | 1.5 min |
 | 11-entry-display | 3 | 7 min | 2.3 min |
 | 12-tag-filtering | 1 | 3 min | 3 min |
-| 13-navigation-integration | 1 | 2 min | 2 min |
+| 13-navigation-integration | 2 | 4 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 11-01 (2 min), 11-02 (2 min), 11-03 (3 min), 12-01 (3 min), 13-01 (2 min)
+- Last 5 plans: 11-02 (2 min), 11-03 (3 min), 12-01 (3 min), 13-01 (2 min), 13-02 (2 min)
 - Trend: Consistently fast (~2-3 min/plan)
 
 *Updated after each plan completion*
@@ -71,6 +71,12 @@ Recent decisions affecting current work:
 - **Client-side filtering via useSearchParams** -- Server-side searchParams broke static rendering; client-side preserves static build
 - **Suspense at page level** -- Wraps UpdatesPageContent in page.tsx for useSearchParams support
 
+### Phase 13 Implementation Decisions
+
+- **Conditional rendering for route-aware links** -- isHashLink && isHome pattern for minimal diff
+- **Prepend / to hash links off homepage** -- Creates /#section URLs that Next.js Link handles natively
+- **Separate logo rendering paths** -- Link href="/" off homepage vs a href="#hero" on homepage
+
 ### Pending Todos
 
 - Delete unused ProjectCard.tsx and ProjectModal.tsx in polish phase (marked as deprecated)
@@ -82,5 +88,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 13-01-PLAN.md -- ready for 13-02
+Stopped at: Completed 13-02-PLAN.md -- v1.2 milestone complete
 Resume file: None
