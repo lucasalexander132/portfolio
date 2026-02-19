@@ -18,7 +18,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 ### Page
 
 - [x] **UPD-05**: `/updates` route exists as an App Router server component that reads and renders the entry stream
-- [ ] **UPD-06**: Tag filter uses URL search params (`?tag=X`); filtered views are shareable and server-rendered (no client state)
+- [x] **UPD-06**: Tag filter uses URL search params (`?tag=X`); filtered views are shareable and server-rendered (no client state)
 - [x] **UPD-07**: Page UI chrome (headings, filter labels, CTAs, French notice) follows site locale (EN/FR); entry content remains English with a brief French notice when locale is FR
 - [x] **UPD-08**: `/updates` route has page metadata (title, description) for SEO
 
@@ -73,7 +73,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UPD-03 | Phase 9 | Complete |
 | UPD-04 | Phase 9 | Complete |
 | UPD-05 | Phase 10 | Pending |
-| UPD-06 | Phase 12 | Pending |
+| UPD-06 | Phase 12 | Complete |
 | UPD-07 | Phase 10 | Pending |
 | UPD-08 | Phase 10 | Pending |
 | UPD-09 | Phase 11 | Complete |
@@ -91,4 +91,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-18*
-*Last updated: 2026-02-19 -- Phase 9 requirements marked Complete (UPD-01 through UPD-04)*
+*Last updated: 2026-02-19 -- Phase 12 requirement marked Complete (UPD-06)*

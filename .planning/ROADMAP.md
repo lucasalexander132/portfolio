@@ -35,7 +35,7 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 - [x] **Phase 9: Content Infrastructure** - Markdown pipeline, TypeScript types, and tag vocabulary
 - [x] **Phase 10: Page Shell** - Route, i18n chrome, SEO metadata, and "now" section
 - [x] **Phase 11: Entry Display** - UpdateCard component, Motion animation, and link field
-- [ ] **Phase 12: Tag Filtering** - URL search param filter with TagFilter component
+- [x] **Phase 12: Tag Filtering** - URL search param filter with TagFilter component
 - [ ] **Phase 13: Navigation Integration** - Nav link, Footer link, and contact CTA
 
 ## Phase Details
@@ -262,9 +262,9 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 9. Content Infrastructure | v1.2 | 2/2 | Complete | 2026-02-19 |
 | 10. Page Shell | v1.2 | 2/2 | Complete | 2026-02-19 |
 | 11. Entry Display | v1.2 | 3/3 | Complete | 2026-02-19 |
-| 12. Tag Filtering | v1.2 | 0/1 | Not started | - |
+| 12. Tag Filtering | v1.2 | 1/1 | Complete | 2026-02-19 |
 | 13. Navigation Integration | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-19 -- Phase 12 planned (1 plan)*
+*Last updated: 2026-02-19 -- Phase 12 complete (tag filtering)*
