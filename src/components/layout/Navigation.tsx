@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { m } from 'motion/react'
 import { Mail } from 'lucide-react'
 import { springSnappy, springSubtle } from '@/lib/motion'
@@ -12,11 +14,14 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 const navItems = [
   { href: '#services', labelKey: 'nav.services' as const, cursorKey: 'cursor.what_ill_do' as const },
   { href: '#projects', labelKey: 'nav.projects' as const, cursorKey: 'cursor.what_ive_done' as const },
+  { href: '/updates', labelKey: 'nav.updates' as const, cursorKey: 'cursor.latest_updates' as const },
 ] as const
 
 export function Navigation() {
   const { setCursorVariant, resetCursor } = useCursor()
   const t = useTranslations()
+  const pathname = usePathname()
+  const isHome = pathname === '/'
   const [isFormOpen, setIsFormOpen] = useState(false)
 
   // Close form on Escape key
@@ -66,32 +71,67 @@ export function Navigation() {
           <div className="flex items-center gap-1 bg-base-900/50 backdrop-blur-md rounded-lg px-2 py-2 shadow-lg border border-base-700/30">
             {/* Logo */}
             <m.div whileTap={{ scale: 0.95 }} transition={springSnappy}>
-              <a
-                href="#hero"
-                onClick={(e) => handleClick(e, '#hero')}
-                className="flex items-center justify-center w-10 h-10 rounded-lg bg-text-primary text-base-950 font-serif text-lg font-medium hover:bg-amber-400 transition-colors"
-                onMouseEnter={() => setCursorVariant('link', undefined, true, 'up')}
-                onMouseLeave={resetCursor}
-              >
-                C.
-              </a>
+              {isHome ? (
+                <a
+                  href="#hero"
+                  onClick={(e) => handleClick(e, '#hero')}
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-text-primary text-base-950 font-serif text-lg font-medium hover:bg-amber-400 transition-colors"
+                  onMouseEnter={() => setCursorVariant('link', undefined, true, 'up')}
+                  onMouseLeave={resetCursor}
+                >
+                  C.
+                </a>
+              ) : (
+                <Link
+                  href="/"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg bg-text-primary text-base-950 font-serif text-lg font-medium hover:bg-amber-400 transition-colors"
+                  onMouseEnter={() => setCursorVariant('link', undefined, true, 'up')}
+                  onMouseLeave={resetCursor}
+                >
+                  C.
+                </Link>
+              )}
             </m.div>
 
             {/* Nav Links */}
             <ul className="flex items-center gap-1 pl-1">
-              {navItems.map(({ href, labelKey, cursorKey }) => (
-                <li key={href}>
-                  <m.a
-                    href={href}
-                    onClick={(e) => handleClick(e, href)}
-                    className="block px-4 py-2 text-sm rounded-lg text-amber-500 border border-amber-500/50 bg-base-900 hover:bg-base-800 hover:border-amber-400 transition-colors"
-                    onMouseEnter={() => setCursorVariant('text', t(cursorKey), true)}
-                    onMouseLeave={resetCursor}
-                  >
-                    {t(labelKey)}
-                  </m.a>
-                </li>
-              ))}
+              {navItems.map(({ href, labelKey, cursorKey }) => {
+                const isHashLink = href.startsWith('#')
+
+                if (isHashLink && isHome) {
+                  // On homepage: smooth scroll for hash links
+                  return (
+                    <li key={href}>
+                      <m.a
+                        href={href}
+                        onClick={(e) => handleClick(e, href)}
+                        className="block px-4 py-2 text-sm rounded-lg text-amber-500 border border-amber-500/50 bg-base-900 hover:bg-base-800 hover:border-amber-400 transition-colors"
+                        onMouseEnter={() => setCursorVariant('text', t(cursorKey), true)}
+                        onMouseLeave={resetCursor}
+                      >
+                        {t(labelKey)}
+                      </m.a>
+                    </li>
+                  )
+                }
+
+                // Off homepage hash links: navigate to /#section
+                // Route links (like /updates): navigate directly
+                const resolvedHref = isHashLink ? `/${href}` : href
+
+                return (
+                  <li key={href}>
+                    <Link
+                      href={resolvedHref}
+                      className="block px-4 py-2 text-sm rounded-lg text-amber-500 border border-amber-500/50 bg-base-900 hover:bg-base-800 hover:border-amber-400 transition-colors"
+                      onMouseEnter={() => setCursorVariant('text', t(cursorKey), true)}
+                      onMouseLeave={resetCursor}
+                    >
+                      {t(labelKey)}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
 
             {/* Contact Icon */}
