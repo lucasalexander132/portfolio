@@ -1,6 +1,9 @@
 'use client'
 
+import { m } from 'motion/react'
+import { staggerContainerVariants, fadeUpVariants } from '@/lib/motion'
 import type { UpdateEntry } from '@/lib/updates'
+import EntryListItem from './EntryListItem'
 
 interface EntryStreamContainerProps {
   entries: UpdateEntry[]
@@ -10,12 +13,17 @@ export default function EntryStreamContainer({
   entries,
 }: EntryStreamContainerProps) {
   return (
-    <section aria-label="Updates stream">
+    <m.div
+      variants={staggerContainerVariants}
+      initial="hidden"
+      animate="visible"
+      aria-label="Updates stream"
+    >
       {entries.map((entry) => (
-        <div key={entry.slug} className="py-4 border-b border-base-800">
-          <p className="text-sm text-text-muted">{entry.title}</p>
-        </div>
+        <m.div key={entry.slug} variants={fadeUpVariants}>
+          <EntryListItem entry={entry} />
+        </m.div>
       ))}
-    </section>
+    </m.div>
   )
 }
