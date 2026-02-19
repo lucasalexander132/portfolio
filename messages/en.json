@@ -86,6 +86,11 @@
       "focus": "Current focus",
       "learning": "Currently learning",
       "lastUpdated": "Last updated"
+    },
+    "filter": {
+      "label": "Filter by tag",
+      "all": "All",
+      "noEntries": "No entries with this tag yet."
     }
   }
 }

@@ -86,6 +86,11 @@
       "focus": "En ce moment",
       "learning": "En cours d'apprentissage",
       "lastUpdated": "Mis à jour le"
+    },
+    "filter": {
+      "label": "Filtrer par sujet",
+      "all": "Tout",
+      "noEntries": "Aucune mise a jour avec ce sujet pour le moment."
     }
   }
 }
