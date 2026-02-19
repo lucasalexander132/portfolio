@@ -32,7 +32,7 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 
 ### v1.2 Live Updates
 
-- [ ] **Phase 9: Content Infrastructure** - Markdown pipeline, TypeScript types, and tag vocabulary
+- [x] **Phase 9: Content Infrastructure** - Markdown pipeline, TypeScript types, and tag vocabulary
 - [ ] **Phase 10: Page Shell** - Route, i18n chrome, SEO metadata, and "now" section
 - [ ] **Phase 11: Entry Display** - UpdateCard component, Motion animation, and link field
 - [ ] **Phase 12: Tag Filtering** - URL search param filter with TagFilter component
@@ -185,7 +185,7 @@ Plans:
 
 Plans:
 - [x] 09-01-PLAN.md — Install deps and create typed markdown parsing pipeline with getUpdates()
-- [ ] 09-02-PLAN.md — Create 4 seed entries and verify end-to-end with build
+- [x] 09-02-PLAN.md — Create 4 seed entries and verify end-to-end with build
 
 ### Phase 10: Page Shell
 **Goal**: Visitors can navigate to `/updates` and see a complete page with localized chrome, SEO metadata, and a "now" section showing current focus
@@ -256,7 +256,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 6. Translation Infrastructure | v1.1 | 2/2 | Complete | 2026-02-03 |
 | 7. Language Switcher | v1.1 | 1/1 | Complete | 2026-02-03 |
 | 8. Content Migration | v1.1 | 4/4 | Complete | 2026-02-03 |
-| 9. Content Infrastructure | v1.2 | 1/2 | In progress | - |
+| 9. Content Infrastructure | v1.2 | 2/2 | Complete | 2026-02-19 |
 | 10. Page Shell | v1.2 | 0/? | Not started | - |
 | 11. Entry Display | v1.2 | 0/? | Not started | - |
 | 12. Tag Filtering | v1.2 | 0/? | Not started | - |
@@ -264,4 +264,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-19 -- Phase 9 planned (2 plans in 2 waves)*
+*Last updated: 2026-02-19 -- Phase 9 complete (2/2 plans)*
