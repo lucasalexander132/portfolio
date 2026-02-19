@@ -17,17 +17,17 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Page
 
-- [ ] **UPD-05**: `/updates` route exists as an App Router server component that reads and renders the entry stream
+- [x] **UPD-05**: `/updates` route exists as an App Router server component that reads and renders the entry stream
 - [ ] **UPD-06**: Tag filter uses URL search params (`?tag=X`); filtered views are shareable and server-rendered (no client state)
-- [ ] **UPD-07**: Page UI chrome (headings, filter labels, CTAs, French notice) follows site locale (EN/FR); entry content remains English with a brief French notice when locale is FR
-- [ ] **UPD-08**: `/updates` route has page metadata (title, description) for SEO
+- [x] **UPD-07**: Page UI chrome (headings, filter labels, CTAs, French notice) follows site locale (EN/FR); entry content remains English with a brief French notice when locale is FR
+- [x] **UPD-08**: `/updates` route has page metadata (title, description) for SEO
 
 ### Entry Display
 
 - [ ] **UPD-09**: `UpdateCard` component displays title, date (month + year only), tag chip, body text
 - [ ] **UPD-10**: Entry list uses staggered Motion animation on page load, consistent with existing animation patterns
 - [ ] **UPD-11**: Entries support an optional `link` field (url + label); displayed as a subtle external link on the card
-- [ ] **UPD-12**: Evergreen "now" section at top of page shows Lucas's current focus; editable with a single-line frontmatter change or data update
+- [x] **UPD-12**: Evergreen "now" section at top of page shows Lucas's current focus; editable with a single-line frontmatter change or data update
 
 ### Navigation
 
