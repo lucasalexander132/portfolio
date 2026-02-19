@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { getNow } from '@/lib/now'
 import { getUpdates } from '@/lib/updates'
 import UpdatesPageContent from '@/components/updates/UpdatesPageContent'
+import { ContactCTA } from '@/components/updates/ContactCTA'
 
 export function generateMetadata(): Metadata {
   const now = getNow()
@@ -22,8 +23,11 @@ export default async function UpdatesPage() {
   const entries = await getUpdates()
 
   return (
-    <Suspense>
-      <UpdatesPageContent now={now} entries={entries} />
-    </Suspense>
+    <>
+      <Suspense>
+        <UpdatesPageContent now={now} entries={entries} />
+      </Suspense>
+      <ContactCTA />
+    </>
   )
 }
