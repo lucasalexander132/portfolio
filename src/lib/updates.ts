@@ -29,6 +29,27 @@ export interface UpdateEntry {
   summary: string
   body: string       // rendered HTML from markdown body
   link?: { url: string; label: string }
+  title_fr?: string
+  summary_fr?: string
+  body_fr?: string
+}
+
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+const UPDATES_DIR = join(process.cwd(), 'src', 'content', 'updates')
+
+// ---------------------------------------------------------------------------
+// Markdown processing pipeline
+// ---------------------------------------------------------------------------
+
+function markdownPipeline() {
+  return unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypePrettyCode, { theme: 'github-dark-default', keepBackground: true })
+    .use(rehypeStringify)
 }
 
 // ---------------------------------------------------------------------------
@@ -91,16 +112,11 @@ export async function parseUpdate(
 
   validateFrontmatter(data as Record<string, unknown>, filename)
 
-  const result = await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypePrettyCode, { theme: 'github-dark-default', keepBackground: true })
-    .use(rehypeStringify)
-    .process(content)
+  const result = await markdownPipeline().process(content)
 
   const slug = filename.replace(/\.md$/, '')
 
-  return {
+  const entry: UpdateEntry = {
     slug,
     title: data.title as string,
     date: data.date as string,
@@ -111,6 +127,22 @@ export async function parseUpdate(
       ? { url: (data.link as Record<string, unknown>).url as string, label: (data.link as Record<string, unknown>).label as string }
       : undefined,
   }
+
+  // Load optional French companion file
+  const frFilename = filename.replace(/\.md$/, '.fr.md')
+  const frPath = join(UPDATES_DIR, frFilename)
+  try {
+    const frRaw = await readFile(frPath, 'utf-8')
+    const { data: frData, content: frContent } = matter(frRaw)
+    const frResult = await markdownPipeline().process(frContent)
+    entry.title_fr = frData.title as string
+    entry.summary_fr = frData.summary as string
+    entry.body_fr = String(frResult)
+  } catch {
+    // No French companion file — graceful fallback
+  }
+
+  return entry
 }
 
 // ---------------------------------------------------------------------------
@@ -121,17 +153,18 @@ export async function getUpdates(): Promise<UpdateEntry[]> {
   'use cache'
   cacheLife('days')
 
-  const dir = join(process.cwd(), 'src', 'content', 'updates')
-  const files = (await readdir(dir)).filter((f) => f.endsWith('.md'))
+  const files = (await readdir(UPDATES_DIR)).filter(
+    (f) => f.endsWith('.md') && !f.endsWith('.fr.md'),
+  )
 
   const entries = await Promise.all(
     files.map(async (file) => {
-      const raw = await readFile(join(dir, file), 'utf-8')
+      const raw = await readFile(join(UPDATES_DIR, file), 'utf-8')
       return parseUpdate(file, raw)
     }),
   )
 
-  return entries.sort((a, b) => b.date.localeCompare(a.date))
+  return entries.sort((a, b) => b.slug.localeCompare(a.slug))
 }
 
 // ---------------------------------------------------------------------------
@@ -142,9 +175,8 @@ export async function getUpdateBySlug(slug: string): Promise<UpdateEntry | null>
   'use cache'
   cacheLife('days')
 
-  const dir = join(process.cwd(), 'src', 'content', 'updates')
   try {
-    const raw = await readFile(join(dir, `${slug}.md`), 'utf-8')
+    const raw = await readFile(join(UPDATES_DIR, `${slug}.md`), 'utf-8')
     return parseUpdate(`${slug}.md`, raw)
   } catch {
     return null
