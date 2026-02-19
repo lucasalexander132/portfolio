@@ -184,7 +184,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 09-01-PLAN.md — Install deps and create typed markdown parsing pipeline with getUpdates()
+- [x] 09-01-PLAN.md — Install deps and create typed markdown parsing pipeline with getUpdates()
 - [ ] 09-02-PLAN.md — Create 4 seed entries and verify end-to-end with build
 
 ### Phase 10: Page Shell
@@ -256,7 +256,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 6. Translation Infrastructure | v1.1 | 2/2 | Complete | 2026-02-03 |
 | 7. Language Switcher | v1.1 | 1/1 | Complete | 2026-02-03 |
 | 8. Content Migration | v1.1 | 4/4 | Complete | 2026-02-03 |
-| 9. Content Infrastructure | v1.2 | 0/2 | Ready | - |
+| 9. Content Infrastructure | v1.2 | 1/2 | In progress | - |
 | 10. Page Shell | v1.2 | 0/? | Not started | - |
 | 11. Entry Display | v1.2 | 0/? | Not started | - |
 | 12. Tag Filtering | v1.2 | 0/? | Not started | - |
