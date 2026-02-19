@@ -17,25 +17,26 @@ Build the full entry display layer for `/updates`: the list items in the entry s
 - Flat list items separated by thin dividers (#2D3140), NOT card boxes
 - Per-entry structure (top to bottom): meta row (date + bullet dot + colored tag chip), Fraunces 20px title, muted body excerpt
 - Padding: 28px top and bottom per entry
-- Excerpt: first N characters auto-truncated from the markdown body — no separate `summary` frontmatter field needed
+- Excerpt: use the `summary` field from entry frontmatter directly as the muted excerpt text
+  - **Decision revised (planning):** Original decision said "first N characters auto-truncated from the markdown body -- no separate summary frontmatter field needed." Revised because Phase 9 established `summary` as a required field in the `UpdateEntry` type, `validateFrontmatter()` enforces it, and all 4 content files already have it. Using the existing `summary` field is simpler and avoids HTML tag stripping from the rendered body.
 
 ### Entry hover state
 - The entire clickable area runs from divider to divider (full-width)
 - Hover: lifts off page with drop shadow, fills with cream background, inverts text colors to match cream surface, shows pointer cursor
-- Always navigates to `/updates/[slug]` on click — the `link` field does NOT override the destination
+- Always navigates to `/updates/[slug]` on click -- the `link` field does NOT override the destination
 
 ### Tag chip colors (from design file)
 - `project-launch`: solid amber fill (#D4A843), dark text (#161921), no stroke
 - `learning`: transparent fill, amber stroke and text (#D4A843)
 - `community`: transparent fill, green stroke and text (#6B9E78)
 - `design-thinking`: transparent fill, purple stroke and text (#8B7CC8)
-- `business`: use outline style — Claude to pick a reasonable accent color consistent with the palette
+- `business`: use outline style -- Claude to pick a reasonable accent color consistent with the palette
 
 ### Detail page
-- In scope for Phase 11 — full `/updates/[slug]` route required
-- Layout: Back row → Article header → Divider → Article body → Divider → Post navigation
+- In scope for Phase 11 -- full `/updates/[slug]` route required
+- Layout: Back row -> Article header -> Divider -> Article body -> Divider -> Post navigation
 - Article header: meta row (date + dot + filled tag chip) / Fraunces 40px title / muted subtitle/lead text (Open Sans 17px)
-- Post navigation: hide the unavailable direction entirely — never show disabled states
+- Post navigation: hide the unavailable direction entirely -- never show disabled states
 
 ### Markdown body rendering (detail page)
 Rich rendering required, all styled to match the design:
@@ -52,11 +53,11 @@ Rich rendering required, all styled to match the design:
 
 ### Link field (on detail page)
 - Rendered as a standalone amber link row inside the article body
-- Format: external-link icon + "Visit [title] →" amber text, opens in new tab
+- Format: external-link icon + "Visit [title] ->" amber text, opens in new tab
 
 ### Animation
 - Entry list: staggered Motion on page load, consistent with existing `containerVariants`/`itemVariants` patterns
-- List → detail navigation: React 19 View Transition API (smooth crossfade or shared-element transition)
+- List -> detail navigation: React 19 View Transition API (smooth crossfade or shared-element transition)
 
 ### Claude's Discretion
 - Exact truncation length for body excerpt on list items
@@ -69,8 +70,8 @@ Rich rendering required, all styled to match the design:
 <specifics>
 ## Specific Ideas
 
-- Design reference: `portfolio-updates.pen` in project root — shows both the list view and detail page in detail. All measurements, colors, and typography drawn from there.
-- Entry list items should feel like a reading list, not a card grid — the divider-separated flat layout is intentional
+- Design reference: `portfolio-updates.pen` in project root -- shows both the list view and detail page in detail. All measurements, colors, and typography drawn from there.
+- Entry list items should feel like a reading list, not a card grid -- the divider-separated flat layout is intentional
 - The hover lift effect on entries is the primary interactive cue; it should feel snappy, not floaty
 
 </specifics>
@@ -78,7 +79,7 @@ Rich rendering required, all styled to match the design:
 <deferred>
 ## Deferred Ideas
 
-None — discussion stayed within phase scope.
+None -- discussion stayed within phase scope.
 
 </deferred>
 
