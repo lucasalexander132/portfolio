@@ -10,10 +10,10 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **UPD-01**: Content system exists -- gray-matter + unified pipeline reads `.md` files from `/content/updates/` and returns typed entries
-- [ ] **UPD-02**: `UpdateEntry` TypeScript interface defines all frontmatter fields; schema is enforced at build time (no `any` types)
-- [ ] **UPD-03**: Tag vocabulary is a fixed TypeScript union type (max 5-7 tags); invalid tags cause a build error
-- [ ] **UPD-04**: `getUpdates()` utility uses `"use cache"` directive for build-time caching
+- [x] **UPD-01**: Content system exists -- gray-matter + unified pipeline reads `.md` files from `/content/updates/` and returns typed entries
+- [x] **UPD-02**: `UpdateEntry` TypeScript interface defines all frontmatter fields; schema is enforced at build time (no `any` types)
+- [x] **UPD-03**: Tag vocabulary is a fixed TypeScript union type (max 5-7 tags); invalid tags cause a build error
+- [x] **UPD-04**: `getUpdates()` utility uses `"use cache"` directive for build-time caching
 
 ### Page
 
@@ -68,10 +68,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| UPD-01 | Phase 9 | Pending |
-| UPD-02 | Phase 9 | Pending |
-| UPD-03 | Phase 9 | Pending |
-| UPD-04 | Phase 9 | Pending |
+| UPD-01 | Phase 9 | Complete |
+| UPD-02 | Phase 9 | Complete |
+| UPD-03 | Phase 9 | Complete |
+| UPD-04 | Phase 9 | Complete |
 | UPD-05 | Phase 10 | Pending |
 | UPD-06 | Phase 12 | Pending |
 | UPD-07 | Phase 10 | Pending |
@@ -91,4 +91,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-18*
-*Last updated: 2026-02-18 -- traceability updated with phase mappings*
+*Last updated: 2026-02-19 -- Phase 9 requirements marked Complete (UPD-01 through UPD-04)*

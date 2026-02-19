@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-02-18)
 
 **Core value:** Visitors must feel at ease -- like they've found someone who genuinely cares about solving their problem.
-**Current focus:** Milestone v1.2 - Live Updates (Phase 9: Content Infrastructure)
+**Current focus:** Milestone v1.2 - Live Updates (Phase 10: Page Shell)
 
 ## Current Position
 
