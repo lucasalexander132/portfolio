@@ -225,10 +225,10 @@ Plans:
   1. Clicking a tag chip filters the stream to show only entries with that tag; clicking again clears the filter
   2. The active filter is stored in the URL as `?tag=X`, making filtered views shareable and bookmarkable
   3. TagFilter component wraps `useSearchParams()` in a `<Suspense>` boundary (no hydration errors)
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 12-01: TBD (to be defined during phase planning)
+- [ ] 12-01-PLAN.md — TagFilter component, server-side filtering via searchParams, Suspense wrapping, and i18n labels
 
 ### Phase 13: Navigation Integration
 **Goal**: Visitors can reach `/updates` from the main site navigation and return to the homepage, with a persistent contact CTA on the updates page
@@ -262,9 +262,9 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 9. Content Infrastructure | v1.2 | 2/2 | Complete | 2026-02-19 |
 | 10. Page Shell | v1.2 | 2/2 | Complete | 2026-02-19 |
 | 11. Entry Display | v1.2 | 3/3 | Complete | 2026-02-19 |
-| 12. Tag Filtering | v1.2 | 0/? | Not started | - |
+| 12. Tag Filtering | v1.2 | 0/1 | Not started | - |
 | 13. Navigation Integration | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-19 -- Phase 11 complete (3 plans executed)*
+*Last updated: 2026-02-19 -- Phase 12 planned (1 plan)*
