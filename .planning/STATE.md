@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-18)
 Phase: 13 of 13 (Navigation Integration)
 Plan: 2 of 2 in current phase
 Status: Phase complete -- v1.2 milestone complete
-Last activity: 2026-02-19 -- Completed quick-005 (Add animation to updates page)
+Last activity: 2026-02-19 -- Completed quick-006 (Add French translations to update entries)
 
 Progress: ███████████████████████████ 27/27 plans
 
@@ -87,6 +87,7 @@ Recent decisions affecting current work:
 |---|-------------|------|--------|-----------|
 | 004 | Update Updates page styling to match portfolio-updates.pen exactly | 2026-02-19 | b1bd44e | [004-update-updates-page-styling-to-match-por](./quick/004-update-updates-page-styling-to-match-por/) |
 | 005 | Add orchestrated stagger animation to /updates page | 2026-02-19 | da0ed98 | [005-add-animation-to-updates-page](./quick/005-add-animation-to-updates-page/) |
+| 006 | Add French translations to update entries | 2026-02-19 | 9de3b83 | [006-add-french-translations-to-update-entrie](./quick/006-add-french-translations-to-update-entrie/) |
 
 ### Blockers/Concerns
 
@@ -95,5 +96,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed quick-005 -- Updates page sections animate in with staggered fade-up on load
+Stopped at: Completed quick-006 -- French companion files for update entries with locale-aware rendering
 Resume file: None
