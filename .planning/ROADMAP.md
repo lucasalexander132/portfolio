@@ -181,10 +181,11 @@ Plans:
   2. TypeScript compilation fails if an entry uses an invalid tag or is missing required frontmatter fields
   3. `getUpdates()` returns entries sorted newest-first and uses the `"use cache"` directive for build-time caching
   4. At least 4 seed entries exist covering different tags to validate the pipeline end-to-end
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: TBD (to be defined during phase planning)
+- [ ] 09-01-PLAN.md — Install deps and create typed markdown parsing pipeline with getUpdates()
+- [ ] 09-02-PLAN.md — Create 4 seed entries and verify end-to-end with build
 
 ### Phase 10: Page Shell
 **Goal**: Visitors can navigate to `/updates` and see a complete page with localized chrome, SEO metadata, and a "now" section showing current focus
@@ -255,7 +256,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 6. Translation Infrastructure | v1.1 | 2/2 | Complete | 2026-02-03 |
 | 7. Language Switcher | v1.1 | 1/1 | Complete | 2026-02-03 |
 | 8. Content Migration | v1.1 | 4/4 | Complete | 2026-02-03 |
-| 9. Content Infrastructure | v1.2 | 0/? | Not started | - |
+| 9. Content Infrastructure | v1.2 | 0/2 | Ready | - |
 | 10. Page Shell | v1.2 | 0/? | Not started | - |
 | 11. Entry Display | v1.2 | 0/? | Not started | - |
 | 12. Tag Filtering | v1.2 | 0/? | Not started | - |
@@ -263,4 +264,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-18 — v1.2 Live Updates milestone added (Phases 9-13)*
+*Last updated: 2026-02-19 -- Phase 9 planned (2 plans in 2 waves)*
