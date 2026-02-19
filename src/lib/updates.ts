@@ -11,18 +11,11 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import { cacheLife } from 'next/cache'
 
 // ---------------------------------------------------------------------------
-// Tag vocabulary
+// Tag vocabulary (re-exported from shared module for client compatibility)
 // ---------------------------------------------------------------------------
 
-export const UPDATE_TAGS = [
-  'project-launch',
-  'design-thinking',
-  'business',
-  'community',
-  'learning',
-] as const
-
-export type UpdateTag = (typeof UPDATE_TAGS)[number]
+import { UPDATE_TAGS, type UpdateTag } from './tags'
+export { UPDATE_TAGS, type UpdateTag } from './tags'
 
 // ---------------------------------------------------------------------------
 // Entry type

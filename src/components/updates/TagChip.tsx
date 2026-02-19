@@ -1,6 +1,6 @@
 'use client'
 
-import type { UpdateTag } from '@/lib/updates'
+import type { UpdateTag } from '@/lib/tags'
 
 export const TAG_STYLES: Record<
   UpdateTag,

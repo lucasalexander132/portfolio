@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { getNow } from '@/lib/now'
 import { getUpdates } from '@/lib/updates'
 import UpdatesPageContent from '@/components/updates/UpdatesPageContent'
@@ -20,5 +21,9 @@ export default async function UpdatesPage() {
   const now = getNow()
   const entries = await getUpdates()
 
-  return <UpdatesPageContent now={now} entries={entries} />
+  return (
+    <Suspense>
+      <UpdatesPageContent now={now} entries={entries} />
+    </Suspense>
+  )
 }

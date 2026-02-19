@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { UPDATE_TAGS, type UpdateTag } from '@/lib/updates'
+import { UPDATE_TAGS, type UpdateTag } from '@/lib/tags'
 import { TAG_STYLES } from './TagChip'
 import { useTranslations } from '@/lib/i18n'
 
