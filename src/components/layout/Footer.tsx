@@ -1,5 +1,7 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { m } from 'motion/react'
 import { Github, Linkedin } from 'lucide-react'
 
@@ -27,6 +29,7 @@ import { fadeUpVariants, staggerContainerVariants } from '@/lib/motion'
 const quickLinks = [
   { href: '#services', labelKey: 'nav.services' as const, cursorKey: 'footer.cursor.services' as const },
   { href: '#projects', labelKey: 'nav.projects' as const, cursorKey: 'footer.cursor.projects' as const },
+  { href: '/updates', labelKey: 'nav.updates' as const, cursorKey: 'footer.cursor.updates' as const },
 ]
 
 const socialLinks = [
@@ -38,6 +41,8 @@ const socialLinks = [
 export function Footer() {
   const t = useTranslations()
   const { setCursorVariant, resetCursor } = useCursor()
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
@@ -76,19 +81,43 @@ export function Footer() {
               {t('footer.nav_title')}
             </h3>
             <ul className="mt-4 space-y-3">
-              {quickLinks.map(({ href, labelKey, cursorKey }) => (
-                <li key={href}>
-                  <a
-                    href={href}
-                    onClick={(e) => handleNavClick(e, href)}
-                    className="text-base-700 hover:text-amber-500 transition-colors text-sm font-semibold"
-                    onMouseEnter={() => setCursorVariant('text', t(cursorKey), true)}
-                    onMouseLeave={resetCursor}
-                  >
-                    {t(labelKey)}
-                  </a>
-                </li>
-              ))}
+              {quickLinks.map(({ href, labelKey, cursorKey }) => {
+                const isHashLink = href.startsWith('#')
+
+                if (isHashLink && isHome) {
+                  // On homepage: smooth scroll for hash links
+                  return (
+                    <li key={href}>
+                      <a
+                        href={href}
+                        onClick={(e) => handleNavClick(e, href)}
+                        className="text-base-700 hover:text-amber-500 transition-colors text-sm font-semibold"
+                        onMouseEnter={() => setCursorVariant('text', t(cursorKey), true)}
+                        onMouseLeave={resetCursor}
+                      >
+                        {t(labelKey)}
+                      </a>
+                    </li>
+                  )
+                }
+
+                // Off homepage hash links: navigate to /#section
+                // Route links (like /updates): navigate directly
+                const resolvedHref = isHashLink ? `/${href}` : href
+
+                return (
+                  <li key={href}>
+                    <Link
+                      href={resolvedHref}
+                      className="text-base-700 hover:text-amber-500 transition-colors text-sm font-semibold"
+                      onMouseEnter={() => setCursorVariant('text', t(cursorKey), true)}
+                      onMouseLeave={resetCursor}
+                    >
+                      {t(labelKey)}
+                    </Link>
+                  </li>
+                )
+              })}
               <li>
                 <button
                   type="button"
