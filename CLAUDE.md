@@ -39,6 +39,7 @@
 ## Key File Locations
 - `UpdateEntry` type: `src/lib/updates.ts` (NOT `src/types/updates.ts`)
 - Homepage framed-card layout (`fixed inset-0 p-3`): in `src/app/page.tsx`, NOT in `layout.tsx` — new pages get a clean canvas
+- `UPDATE_TAGS` / `UpdateTag`: `src/lib/tags.ts` — extracted from `updates.ts` because `updates.ts` has `import 'server-only'`. Client components must import tag constants from `@/lib/tags`, not `@/lib/updates`
 
 ## Design Constraints
 - No Inter, Roboto, or Arial — distinctive typography only
