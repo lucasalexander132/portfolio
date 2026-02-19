@@ -3,17 +3,18 @@
 ## Milestones
 
 - 🚧 **v1.0 MVP** - Phases 1-5 (in progress)
-- 📋 **v1.1 Internationalization** - Phases 6-8 (planned)
+- ✅ **v1.1 Internationalization** - Phases 6-8 (complete)
+- 📋 **v1.2 Live Updates** - Phases 9-13 (planned)
 
 ## Overview
 
-This roadmap delivers a single-page portfolio for Civix Solutions that makes weary, skeptical visitors feel understood before impressed. v1.0 builds from visual foundation through content, case studies, animation, and contact experience. v1.1 adds French language support with instant client-side switching, enabling bilingual visitors to experience the same empathetic messaging in their preferred language.
+This roadmap delivers a single-page portfolio for Civix Solutions that makes weary, skeptical visitors feel understood before impressed. v1.0 builds from visual foundation through content, case studies, animation, and contact experience. v1.1 adds French language support with instant client-side switching. v1.2 adds a live updates page at `/updates` -- a chronological activity stream that serves as a living resume, showing potential clients that Lucas is actively building, learning, and shipping.
 
 ## Phases
 
 **Phase Numbering:**
-- Integer phases (1, 2, 3, 4, 5, 6, 7, 8): Planned milestone work
-- Decimal phases (e.g., 2.1): Urgent insertions if needed (marked with INSERTED)
+- Integer phases (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13): Planned milestone work
+- Decimal phases (e.g., 2.1): Urgent insertions (marked with INSERTED)
 
 ### v1.0 MVP
 
@@ -28,6 +29,14 @@ This roadmap delivers a single-page portfolio for Civix Solutions that makes wea
 - [x] **Phase 6: Translation Infrastructure** - LocaleProvider, translation files, and type safety
 - [x] **Phase 7: Language Switcher** - Toggle UI and navigation integration
 - [x] **Phase 8: Content Migration** - French translations for all sections
+
+### v1.2 Live Updates
+
+- [ ] **Phase 9: Content Infrastructure** - Markdown pipeline, TypeScript types, and tag vocabulary
+- [ ] **Phase 10: Page Shell** - Route, i18n chrome, SEO metadata, and "now" section
+- [ ] **Phase 11: Entry Display** - UpdateCard component, Motion animation, and link field
+- [ ] **Phase 12: Tag Filtering** - URL search param filter with TagFilter component
+- [ ] **Phase 13: Navigation Integration** - Nav link, Footer link, and contact CTA
 
 ## Phase Details
 
@@ -163,10 +172,78 @@ Plans:
 - [x] 08-03-PLAN.md — Add locale-keyed content to projects and refactor Projects/ProjectDetail
 - [x] 08-04-PLAN.md — Footer translations and visual verification checkpoint
 
+### Phase 9: Content Infrastructure
+**Goal**: A typed, validated markdown pipeline exists that reads update entries and enforces the content schema at build time
+**Depends on**: Phase 8
+**Requirements**: UPD-01, UPD-02, UPD-03, UPD-04
+**Success Criteria** (what must be TRUE):
+  1. Markdown files in `src/content/updates/` are parsed into typed `UpdateEntry` objects with frontmatter and rendered HTML body
+  2. TypeScript compilation fails if an entry uses an invalid tag or is missing required frontmatter fields
+  3. `getUpdates()` returns entries sorted newest-first and uses the `"use cache"` directive for build-time caching
+  4. At least 4 seed entries exist covering different tags to validate the pipeline end-to-end
+**Plans**: TBD
+
+Plans:
+- [ ] 09-01: TBD (to be defined during phase planning)
+
+### Phase 10: Page Shell
+**Goal**: Visitors can navigate to `/updates` and see a complete page with localized chrome, SEO metadata, and a "now" section showing current focus
+**Depends on**: Phase 9
+**Requirements**: UPD-05, UPD-07, UPD-08, UPD-12
+**Success Criteria** (what must be TRUE):
+  1. `/updates` route renders as a server component displaying the entry stream from `getUpdates()`
+  2. Page headings, filter labels, and French-language notice switch correctly between EN and FR locales
+  3. Page has proper `<title>` and `<meta description>` for SEO (verifiable in page source)
+  4. An evergreen "now" section at the top shows current focus and can be updated with a single frontmatter or data change
+**Plans**: TBD
+
+Plans:
+- [ ] 10-01: TBD (to be defined during phase planning)
+
+### Phase 11: Entry Display
+**Goal**: Each update entry renders as a polished card with staggered animation, and entries with links surface them clearly
+**Depends on**: Phase 10
+**Requirements**: UPD-09, UPD-10, UPD-11
+**Success Criteria** (what must be TRUE):
+  1. UpdateCard displays title, formatted date (month + year), tag chip, and rendered markdown body
+  2. Entry list animates in with staggered Motion on page load, consistent with existing `containerVariants`/`itemVariants` patterns
+  3. Entries with an optional `link` field display a subtle external link that opens in a new tab
+**Plans**: TBD
+
+Plans:
+- [ ] 11-01: TBD (to be defined during phase planning)
+
+### Phase 12: Tag Filtering
+**Goal**: Visitors can filter the update stream by tag using shareable URLs
+**Depends on**: Phase 11
+**Requirements**: UPD-06
+**Success Criteria** (what must be TRUE):
+  1. Clicking a tag chip filters the stream to show only entries with that tag; clicking again clears the filter
+  2. The active filter is stored in the URL as `?tag=X`, making filtered views shareable and bookmarkable
+  3. TagFilter component wraps `useSearchParams()` in a `<Suspense>` boundary (no hydration errors)
+**Plans**: TBD
+
+Plans:
+- [ ] 12-01: TBD (to be defined during phase planning)
+
+### Phase 13: Navigation Integration
+**Goal**: Visitors can reach `/updates` from the main site navigation and return to the homepage, with a persistent contact CTA on the updates page
+**Depends on**: Phase 12
+**Requirements**: UPD-13, UPD-14, UPD-15
+**Success Criteria** (what must be TRUE):
+  1. "Updates" link appears in the Nav component; on the homepage it scrolls or navigates normally, on `/updates` nav links route back to `/#services`, `/#projects`
+  2. "Updates" link appears in the Footer quick links section
+  3. A persistent contact CTA on the `/updates` page links back to the contact form on the homepage
+  4. Existing homepage scroll-to-anchor behavior is unchanged after Navigation.tsx modifications
+**Plans**: TBD
+
+Plans:
+- [ ] 13-01: TBD (to be defined during phase planning)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8
+Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 12 > 13
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -178,7 +255,12 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8
 | 6. Translation Infrastructure | v1.1 | 2/2 | Complete | 2026-02-03 |
 | 7. Language Switcher | v1.1 | 1/1 | Complete | 2026-02-03 |
 | 8. Content Migration | v1.1 | 4/4 | Complete | 2026-02-03 |
+| 9. Content Infrastructure | v1.2 | 0/? | Not started | - |
+| 10. Page Shell | v1.2 | 0/? | Not started | - |
+| 11. Entry Display | v1.2 | 0/? | Not started | - |
+| 12. Tag Filtering | v1.2 | 0/? | Not started | - |
+| 13. Navigation Integration | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-03 — Phase 8 complete, v1.1 milestone complete*
+*Last updated: 2026-02-18 — v1.2 Live Updates milestone added (Phases 9-13)*

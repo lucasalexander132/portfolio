@@ -1,8 +1,8 @@
 # Requirements: Civix Solutions Portfolio v1.2
 
 **Defined:** 2026-02-18
-**Core Value:** Visitors must feel at ease — like they've found someone who genuinely cares about solving their problem.
-**Milestone Focus:** Live Updates page — a chronological activity stream that serves as a living resume
+**Core Value:** Visitors must feel at ease -- like they've found someone who genuinely cares about solving their problem.
+**Milestone Focus:** Live Updates page -- a chronological activity stream that serves as a living resume
 
 ## v1.2 Requirements
 
@@ -10,7 +10,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **UPD-01**: Content system exists — gray-matter + unified pipeline reads `.md` files from `/content/updates/` and returns typed entries
+- [ ] **UPD-01**: Content system exists -- gray-matter + unified pipeline reads `.md` files from `/content/updates/` and returns typed entries
 - [ ] **UPD-02**: `UpdateEntry` TypeScript interface defines all frontmatter fields; schema is enforced at build time (no `any` types)
 - [ ] **UPD-03**: Tag vocabulary is a fixed TypeScript union type (max 5-7 tags); invalid tags cause a build error
 - [ ] **UPD-04**: `getUpdates()` utility uses `"use cache"` directive for build-time caching
@@ -68,27 +68,27 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| UPD-01 | TBD | Pending |
-| UPD-02 | TBD | Pending |
-| UPD-03 | TBD | Pending |
-| UPD-04 | TBD | Pending |
-| UPD-05 | TBD | Pending |
-| UPD-06 | TBD | Pending |
-| UPD-07 | TBD | Pending |
-| UPD-08 | TBD | Pending |
-| UPD-09 | TBD | Pending |
-| UPD-10 | TBD | Pending |
-| UPD-11 | TBD | Pending |
-| UPD-12 | TBD | Pending |
-| UPD-13 | TBD | Pending |
-| UPD-14 | TBD | Pending |
-| UPD-15 | TBD | Pending |
+| UPD-01 | Phase 9 | Pending |
+| UPD-02 | Phase 9 | Pending |
+| UPD-03 | Phase 9 | Pending |
+| UPD-04 | Phase 9 | Pending |
+| UPD-05 | Phase 10 | Pending |
+| UPD-06 | Phase 12 | Pending |
+| UPD-07 | Phase 10 | Pending |
+| UPD-08 | Phase 10 | Pending |
+| UPD-09 | Phase 11 | Pending |
+| UPD-10 | Phase 11 | Pending |
+| UPD-11 | Phase 11 | Pending |
+| UPD-12 | Phase 10 | Pending |
+| UPD-13 | Phase 13 | Pending |
+| UPD-14 | Phase 13 | Pending |
+| UPD-15 | Phase 13 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 15 total
-- Mapped to phases: 0 (roadmap pending)
-- Unmapped: 15 ⚠️
+- Mapped to phases: 15
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-18*
-*Last updated: 2026-02-18 — initial definition*
+*Last updated: 2026-02-18 -- traceability updated with phase mappings*
