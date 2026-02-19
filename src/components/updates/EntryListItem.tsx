@@ -60,7 +60,7 @@ export default function EntryListItem({ entry }: EntryListItemProps) {
         </h3>
 
         {/* Excerpt from summary field */}
-        <p className="text-sm text-text-muted group-hover:text-[#444] transition-colors duration-150 line-clamp-2">
+        <p className="text-[15px] text-text-muted group-hover:text-[#444] transition-colors duration-150 line-clamp-2">
           {entry.summary}
         </p>
       </m.article>

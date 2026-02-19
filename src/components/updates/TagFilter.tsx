@@ -2,7 +2,6 @@
 
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { UPDATE_TAGS, type UpdateTag } from '@/lib/tags'
-import { TAG_STYLES } from './TagChip'
 import { useTranslations } from '@/lib/i18n'
 
 function formatLabel(tag: UpdateTag): string {
@@ -39,16 +38,15 @@ export default function TagFilter() {
         type="button"
         onClick={() => handleTagClick(null)}
         aria-pressed={!activeTag}
-        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border hover:opacity-80 transition-opacity ${
+        className={`inline-flex items-center h-8 px-4 rounded-full text-sm font-medium border hover:opacity-80 transition-opacity ${
           !activeTag
-            ? 'bg-base-800 text-text-primary border-base-700'
-            : 'bg-transparent text-text-muted border-base-700'
+            ? 'bg-[#D4A843] text-[#161921] border-transparent'
+            : 'bg-transparent text-text-muted border-[#3D424D]'
         }`}
       >
         {t('updates.filter.all')}
       </button>
       {UPDATE_TAGS.map((tag) => {
-        const style = TAG_STYLES[tag]
         const isActive = activeTag === tag
 
         return (
@@ -57,10 +55,10 @@ export default function TagFilter() {
             type="button"
             onClick={() => handleTagClick(tag)}
             aria-pressed={isActive}
-            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border hover:opacity-80 transition-opacity ${
+            className={`inline-flex items-center h-8 px-4 rounded-full text-sm font-medium border hover:opacity-80 transition-opacity ${
               isActive
-                ? `${style.bg} ${style.text} ${style.border}`
-                : `bg-transparent ${style.text} ${style.border}`
+                ? 'bg-[#D4A843] text-[#161921] border-transparent'
+                : 'bg-transparent text-text-muted border-[#3D424D]'
             }`}
           >
             {formatLabel(tag)}
