@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { m } from 'motion/react'
-import { Mail } from 'lucide-react'
+import { Mail, NotebookPen } from 'lucide-react'
 import { springSnappy, springSubtle } from '@/lib/motion'
 import { useCursor } from '@/components/cursor'
 import { useTranslations } from '@/lib/i18n'
@@ -14,7 +14,6 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 const navItems = [
   { href: '#services', labelKey: 'nav.services' as const, cursorKey: 'cursor.what_ill_do' as const },
   { href: '#projects', labelKey: 'nav.projects' as const, cursorKey: 'cursor.what_ive_done' as const },
-  { href: '/updates', labelKey: 'nav.updates' as const, cursorKey: 'cursor.latest_updates' as const },
 ] as const
 
 export function Navigation() {
@@ -133,6 +132,19 @@ export function Navigation() {
                 )
               })}
             </ul>
+
+            {/* Updates Icon */}
+            <m.div whileTap={{ scale: 0.95 }} transition={springSnappy}>
+              <Link
+                href="/updates"
+                className="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500 text-base-950 hover:bg-amber-400 transition-colors"
+                onMouseEnter={() => setCursorVariant('text', t('cursor.latest_updates'), true)}
+                onMouseLeave={resetCursor}
+                aria-label="Updates"
+              >
+                <NotebookPen className="w-5 h-5" />
+              </Link>
+            </m.div>
 
             {/* Contact Icon */}
             <m.div whileTap={{ scale: 0.95 }} transition={springSnappy}>
