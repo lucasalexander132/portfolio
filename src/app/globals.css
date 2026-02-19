@@ -171,6 +171,215 @@
       0 4px 10px rgba(255, 255, 255, 0.03),
       0 12px 36px rgba(255, 255, 255, 0.04);
   }
+
+  /* Rich markdown article body styles for /updates/[slug] detail pages */
+  .prose-updates {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: #C4B89A;
+    line-height: 1.75;
+  }
+
+  .prose-updates p {
+    margin-bottom: 1.25em;
+    max-width: 65ch;
+  }
+
+  .prose-updates h2 {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 700;
+    color: #EDE5D4;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+    line-height: 1.3;
+  }
+
+  .prose-updates h3 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: #EDE5D4;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.4;
+  }
+
+  .prose-updates blockquote {
+    border-left: 3px solid #D4A843;
+    padding-left: 1em;
+    margin: 1.5em 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+
+  .prose-updates blockquote p {
+    margin-bottom: 0.5em;
+  }
+
+  .prose-updates ul {
+    list-style: none;
+    padding-left: 1.25em;
+    margin: 1em 0;
+  }
+
+  .prose-updates ul li {
+    position: relative;
+    padding-left: 0.25em;
+    margin-bottom: 0.5em;
+  }
+
+  .prose-updates ul li::before {
+    content: '';
+    position: absolute;
+    left: -1em;
+    top: 0.65em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #D4A843;
+  }
+
+  .prose-updates ol {
+    list-style: none;
+    padding-left: 1.25em;
+    margin: 1em 0;
+    counter-reset: list-counter;
+  }
+
+  .prose-updates ol li {
+    position: relative;
+    padding-left: 0.25em;
+    margin-bottom: 0.5em;
+    counter-increment: list-counter;
+  }
+
+  .prose-updates ol li::before {
+    content: counter(list-counter) '.';
+    position: absolute;
+    left: -1.5em;
+    color: #D4A843;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  /* Code blocks (rehype-pretty-code output) */
+  .prose-updates pre {
+    position: relative;
+    background-color: #0D0F14;
+    border-radius: 8px;
+    margin: 1.5em 0;
+    overflow: hidden;
+  }
+
+  .prose-updates pre > code {
+    display: block;
+    padding: 1em 1.25em;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  .prose-updates [data-rehype-pretty-code-figure] {
+    position: relative;
+  }
+
+  .prose-updates [data-rehype-pretty-code-title] {
+    background-color: #0D0F14;
+    border-bottom: 1px solid #2D3140;
+    padding: 0.5em 1.25em;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    border-radius: 8px 8px 0 0;
+  }
+
+  .prose-updates [data-rehype-pretty-code-title] + pre {
+    border-radius: 0 0 8px 8px;
+  }
+
+  /* Inline code */
+  .prose-updates :not(pre) > code {
+    background-color: #1A1D26;
+    color: #D4A843;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+
+  /* Copy button for code blocks (injected via useEffect in EntryArticle) */
+  .prose-updates pre .copy-button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    background: #2D3140;
+    border: 1px solid #3D4150;
+    border-radius: 4px;
+    padding: 0.25em 0.5em;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .prose-updates pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .prose-updates pre .copy-button:hover {
+    color: var(--color-text-primary);
+    background: #3D4150;
+  }
+
+  /* Images */
+  .prose-updates img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid #2D3140;
+    margin: 1.5em 0 0.5em;
+  }
+
+  .prose-updates img + em,
+  .prose-updates figcaption {
+    display: block;
+    font-style: italic;
+    color: var(--color-text-muted);
+    font-size: 14px;
+    margin-bottom: 1.5em;
+  }
+
+  /* Horizontal rules */
+  .prose-updates hr {
+    border: none;
+    border-top: 1px solid #2D3140;
+    margin: 2em 0;
+  }
+
+  /* Links */
+  .prose-updates a {
+    color: #D4A843;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .prose-updates a:hover {
+    color: #E8C060;
+  }
+
+  /* Emphasis */
+  .prose-updates strong {
+    color: #EDE5D4;
+    font-weight: 600;
+  }
+
+  .prose-updates em {
+    font-style: italic;
+  }
 }
 
 /* Utility for text that "sinks into" the page */
