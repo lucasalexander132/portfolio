@@ -99,6 +99,10 @@
       "label": "Filter by tag",
       "all": "All",
       "noEntries": "No entries with this tag yet."
+    },
+    "stream": {
+      "title": "Recent Updates",
+      "entries": "entries"
     }
   }
 }

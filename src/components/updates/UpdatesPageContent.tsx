@@ -32,12 +32,20 @@ export default function UpdatesPageContent({
     : entries
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-12">
-      <h1 className="font-serif text-h1 text-text-primary mb-8">
+    <main className="max-w-[720px] mx-auto px-6 pt-[60px] pb-[80px]">
+      <h1 className="font-serif text-[48px] font-bold text-text-primary mb-8">
         {t('updates.pageTitle')}
       </h1>
-      <TagFilter />
       <NowSection now={now} />
+      <div className="flex items-baseline justify-between mb-4">
+        <h2 className="font-serif text-[24px] text-text-primary">
+          {t('updates.stream.title')}
+        </h2>
+        <span className="text-sm text-text-muted">
+          {filteredEntries.length} {t('updates.stream.entries')}
+        </span>
+      </div>
+      <TagFilter />
       {filteredEntries.length === 0 && activeTag ? (
         <p className="text-text-muted text-center py-12">
           {t('updates.filter.noEntries')}

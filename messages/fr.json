@@ -99,6 +99,10 @@
       "label": "Filtrer par sujet",
       "all": "Tout",
       "noEntries": "Aucune mise a jour avec ce sujet pour le moment."
+    },
+    "stream": {
+      "title": "Mises \u00e0 jour r\u00e9centes",
+      "entries": "entr\u00e9es"
     }
   }
 }
