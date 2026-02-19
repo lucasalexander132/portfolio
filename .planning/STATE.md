@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-18)
 
 **Core value:** Visitors must feel at ease -- like they've found someone who genuinely cares about solving their problem.
-**Current focus:** Milestone v1.2 - Live Updates (Phase 11: Entry Display -- complete)
+**Current focus:** Milestone v1.2 - Live Updates (Phase 12: Tag Filtering -- complete)
 
 ## Current Position
 
-Phase: 11 of 13 (Entry Display)
-Plan: 3 of 3 in current phase
+Phase: 12 of 13 (Tag Filtering)
+Plan: 1 of 1 in current phase
 Status: Phase complete
-Last activity: 2026-02-19 -- Completed 11-03-PLAN.md (detail page: EntryArticle, PostNavigation, prose-updates CSS)
+Last activity: 2026-02-19 -- Completed 12-01-PLAN.md (TagFilter component, URL-based filtering, animation replay)
 
-Progress: ███████████████████████░ 23/27 plans
+Progress: ████████████████████████░ 24/27 plans
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 23
+- Total plans completed: 24
 - Average duration: 3.1 min
-- Total execution time: 72.2 min
+- Total execution time: 75.2 min
 
 **By Phase:**
 
@@ -34,13 +34,13 @@ Progress: ███████████████████████�
 | 06-translation-infrastructure | 2 | 2 min | 1 min |
 | 07-language-switcher | 1 | 1 min | 1 min |
 | 08-content-migration | 4 | 16 min | 4 min |
-
 | 10-page-shell | 2 | 3 min | 1.5 min |
 | 11-entry-display | 3 | 7 min | 2.3 min |
+| 12-tag-filtering | 1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 10-01 (1 min), 10-02 (2 min), 11-01 (2 min), 11-02 (2 min), 11-03 (3 min)
-- Trend: Consistently fast (~2 min/plan)
+- Last 5 plans: 10-02 (2 min), 11-01 (2 min), 11-02 (2 min), 11-03 (3 min), 12-01 (3 min)
+- Trend: Consistently fast (~2-3 min/plan)
 
 *Updated after each plan completion*
 
@@ -64,6 +64,12 @@ Recent decisions affecting current work:
 - **Month+year date format only** -- Avoids timezone bugs, hydration mismatches, and abandonment anxiety
 - **Navigation.tsx isolated to Phase 13** -- Highest-risk change to existing code; isolate from core feature
 
+### Phase 12 Implementation Decisions
+
+- **Shared lib/tags.ts for client-safe tag constants** -- updates.ts has server-only; extracted constants to shared module
+- **Client-side filtering via useSearchParams** -- Server-side searchParams broke static rendering; client-side preserves static build
+- **Suspense at page level** -- Wraps UpdatesPageContent in page.tsx for useSearchParams support
+
 ### Pending Todos
 
 - Delete unused ProjectCard.tsx and ProjectModal.tsx in polish phase (marked as deprecated)
@@ -75,5 +81,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 11-03-PLAN.md (detail page: EntryArticle, PostNavigation, prose-updates CSS) -- Phase 11 complete
+Stopped at: Completed 12-01-PLAN.md (TagFilter, URL filtering, animation replay) -- Phase 12 complete
 Resume file: None
