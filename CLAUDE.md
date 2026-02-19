@@ -22,6 +22,24 @@
 /components/layout/    # Header, footer, containers
 /components/features/  # Project cards, contact form, etc.
 
+## i18n System
+- Hooks live in `src/lib/i18n.ts` — import from `@/lib/i18n`
+- `useLocale()` returns `{ locale, setLocale }` — use for locale detection
+- `useTranslations()` returns the `t` function directly — use for translated strings
+- Do NOT use `useLanguage` — it does not exist
+- Translation files: `messages/en.json` and `messages/fr.json` at project root
+- `TranslationKey` type is derived from `typeof en` — new keys must be added to `en.json` before calling `t()` in components or TypeScript will reject them
+
+## CSS Variables
+- Tailwind 4 theme tokens are `--color-*` prefixed: `--color-text-primary`, `--color-text-muted`, `--color-base-800`, `--color-base-700`, `--color-amber-500`, etc.
+- Do NOT use shorthand tokens like `--bg`, `--surface`, `--border`, `--accent`, `--text-primary` — they do not exist
+- Always read `src/app/globals.css` to confirm actual token names before writing component styles
+- Use Tailwind utility classes where possible: `text-text-primary`, `bg-base-800`, `border-base-700`
+
+## Key File Locations
+- `UpdateEntry` type: `src/lib/updates.ts` (NOT `src/types/updates.ts`)
+- Homepage framed-card layout (`fixed inset-0 p-3`): in `src/app/page.tsx`, NOT in `layout.tsx` — new pages get a clean canvas
+
 ## Design Constraints
 - No Inter, Roboto, or Arial — distinctive typography only
 - Dominant colors with sharp accents, not evenly distributed palettes
