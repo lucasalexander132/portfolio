@@ -196,10 +196,11 @@ Plans:
   2. Page headings, filter labels, and French-language notice switch correctly between EN and FR locales
   3. Page has proper `<title>` and `<meta description>` for SEO (verifiable in page source)
   4. An evergreen "now" section at the top shows current focus and can be updated with a single frontmatter or data change
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 10-01: TBD (to be defined during phase planning)
+- [ ] 10-01-PLAN.md — Data layer: getNow() utility, now.md content, and i18n translation keys
+- [ ] 10-02-PLAN.md — Page route, UpdatesPageContent, NowSection, and EntryStreamContainer components
 
 ### Phase 11: Entry Display
 **Goal**: Each update entry renders as a polished card with staggered animation, and entries with links surface them clearly
@@ -257,11 +258,11 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 7. Language Switcher | v1.1 | 1/1 | Complete | 2026-02-03 |
 | 8. Content Migration | v1.1 | 4/4 | Complete | 2026-02-03 |
 | 9. Content Infrastructure | v1.2 | 2/2 | Complete | 2026-02-19 |
-| 10. Page Shell | v1.2 | 0/? | Not started | - |
+| 10. Page Shell | v1.2 | 0/2 | Ready | - |
 | 11. Entry Display | v1.2 | 0/? | Not started | - |
 | 12. Tag Filtering | v1.2 | 0/? | Not started | - |
 | 13. Navigation Integration | v1.2 | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-19 -- Phase 9 complete (2/2 plans)*
+*Last updated: 2026-02-19 -- Phase 10 planned (2 plans in 2 waves)*
