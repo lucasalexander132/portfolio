@@ -4,7 +4,7 @@
 
 - 🚧 **v1.0 MVP** - Phases 1-5 (in progress)
 - ✅ **v1.1 Internationalization** - Phases 6-8 (complete)
-- 📋 **v1.2 Live Updates** - Phases 9-13 (planned)
+- ✅ **v1.2 Live Updates** - Phases 9-13 (complete)
 
 ## Overview
 
@@ -242,8 +242,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 13-01-PLAN.md — i18n keys, ContactCTA component, and updates layout with Navigation + Footer
-- [ ] 13-02-PLAN.md — Route-aware Navigation.tsx and Footer.tsx with Updates links
+- [x] 13-01-PLAN.md — i18n keys, ContactCTA component, and updates layout with Navigation + Footer
+- [x] 13-02-PLAN.md — Route-aware Navigation.tsx and Footer.tsx with Updates links
 
 ## Progress
 
@@ -264,8 +264,8 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7 > 8 > 9 > 10 > 11 > 1
 | 10. Page Shell | v1.2 | 2/2 | Complete | 2026-02-19 |
 | 11. Entry Display | v1.2 | 3/3 | Complete | 2026-02-19 |
 | 12. Tag Filtering | v1.2 | 1/1 | Complete | 2026-02-19 |
-| 13. Navigation Integration | v1.2 | 0/2 | Not started | - |
+| 13. Navigation Integration | v1.2 | 2/2 | Complete | 2026-02-19 |
 
 ---
 *Roadmap created: 2026-02-02*
-*Last updated: 2026-02-19 -- Phase 13 planned (navigation integration)*
+*Last updated: 2026-02-19 -- Phase 13 complete (navigation integration), v1.2 milestone complete*

@@ -31,9 +31,9 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Navigation
 
-- [ ] **UPD-13**: "Updates" link appears in Nav component; uses `usePathname()` to distinguish route navigation from anchor scrolling; on `/updates`, nav links route back to `/#services`, `/#projects`
-- [ ] **UPD-14**: "Updates" link added to Footer quick links
-- [ ] **UPD-15**: Persistent contact CTA on `/updates` page links back to the contact form
+- [x] **UPD-13**: "Updates" link appears in Nav component; uses `usePathname()` to distinguish route navigation from anchor scrolling; on `/updates`, nav links route back to `/#services`, `/#projects`
+- [x] **UPD-14**: "Updates" link added to Footer quick links
+- [x] **UPD-15**: Persistent contact CTA on `/updates` page links back to the contact form
 
 ## Future Requirements
 
@@ -80,9 +80,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UPD-10 | Phase 11 | Complete |
 | UPD-11 | Phase 11 | Complete |
 | UPD-12 | Phase 10 | Pending |
-| UPD-13 | Phase 13 | Pending |
-| UPD-14 | Phase 13 | Pending |
-| UPD-15 | Phase 13 | Pending |
+| UPD-13 | Phase 13 | Complete |
+| UPD-14 | Phase 13 | Complete |
+| UPD-15 | Phase 13 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 15 total
