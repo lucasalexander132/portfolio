@@ -79,5 +79,13 @@
     "what_ill_do": "Ce que je ferai",
     "what_ive_done": "Ce que j'ai fait",
     "drop_a_line": "Envoyer un message"
+  },
+  "updates": {
+    "pageTitle": "Mises à jour",
+    "now": {
+      "focus": "En ce moment",
+      "learning": "En cours d'apprentissage",
+      "lastUpdated": "Mis à jour le"
+    }
   }
 }
