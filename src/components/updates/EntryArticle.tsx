@@ -142,7 +142,7 @@ export default function EntryArticle({ entry, adjacent }: EntryArticleProps) {
       {/* Post navigation */}
       <PostNavigation prev={adjacent.prev} next={adjacent.next} />
     </main>
-    <ScrollProgressIndicator body={body} />
+    <ScrollProgressIndicator body={body} title={title} />
     </>
   )
 }

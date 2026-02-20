@@ -20,9 +20,10 @@ function slugify(text: string): string {
 
 interface ScrollProgressIndicatorProps {
   body: string
+  title: string
 }
 
-export default function ScrollProgressIndicator({ body }: ScrollProgressIndicatorProps) {
+export default function ScrollProgressIndicator({ body, title }: ScrollProgressIndicatorProps) {
   const [headings, setHeadings] = useState<HeadingInfo[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
   const scrollContainerRef = useRef<HTMLElement | null>(null)
@@ -50,13 +51,24 @@ export default function ScrollProgressIndicator({ body }: ScrollProgressIndicato
         return
       }
 
+      const titleEl = document.querySelector<HTMLElement>('header h1')
       const els = proseContainer.querySelectorAll<HTMLElement>('h2, h3')
-      const extracted: HeadingInfo[] = Array.from(els).map((el) => ({
-        id: el.id,
-        text: el.textContent || '',
-        level: el.tagName === 'H2' ? 2 : 3,
-        element: el,
-      }))
+
+      const extracted: HeadingInfo[] = []
+
+      if (titleEl) {
+        if (!titleEl.id) titleEl.id = slugify(title)
+        extracted.push({ id: titleEl.id, text: title, level: 1, element: titleEl })
+      }
+
+      Array.from(els).forEach((el) => {
+        extracted.push({
+          id: el.id,
+          text: el.textContent || '',
+          level: el.tagName === 'H2' ? 2 : 3,
+          element: el,
+        })
+      })
 
       setHeadings(extracted)
     }, 50)
@@ -78,7 +90,7 @@ export default function ScrollProgressIndicator({ body }: ScrollProgressIndicato
     if (!container || headings.length === 0) return
 
     const scrollTop = container.scrollTop
-    const offset = 120
+    const offset = container.clientHeight / 2
 
     let currentIndex = 0
     for (let i = headings.length - 1; i >= 0; i--) {
@@ -117,18 +129,16 @@ export default function ScrollProgressIndicator({ body }: ScrollProgressIndicato
   if (headings.length === 0) return null
 
   return (
-    <div className="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2">
+    <div className="hidden lg:flex fixed right-10 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-2">
       {headings.map((heading, i) => (
         <button
           key={heading.id || i}
           onClick={() => handleClick(heading)}
           aria-label={`Scroll to: ${heading.text}`}
-          className={`rounded-full transition-all duration-300 ${
-            heading.level === 2 ? 'w-6' : 'w-3'
-          } h-[3px] ${
+          className={`rounded-full transition-all duration-300 h-[2px] ${
             i === activeIndex
-              ? 'bg-amber-500 opacity-100'
-              : 'bg-base-700 opacity-40'
+              ? `${heading.level === 1 ? 'w-10' : heading.level === 2 ? 'w-6' : 'w-3'} bg-amber-500 opacity-100`
+              : `${heading.level === 1 ? 'w-3' : heading.level === 2 ? 'w-2' : 'w-1'} bg-base-600 opacity-30`
           }`}
         />
       ))}
