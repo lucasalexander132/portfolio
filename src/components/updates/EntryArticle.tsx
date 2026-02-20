@@ -7,6 +7,7 @@ import type { UpdateEntry } from '@/lib/updates'
 import { useLocale } from '@/lib/i18n'
 import TagChip from './TagChip'
 import PostNavigation from './PostNavigation'
+import ScrollProgressIndicator from './ScrollProgressIndicator'
 
 const MONTHS = [
   'January',
@@ -80,6 +81,7 @@ export default function EntryArticle({ entry, adjacent }: EntryArticleProps) {
   }, [body])
 
   return (
+    <>
     <main className="max-w-3xl mx-auto px-6 py-12">
       {/* Back row */}
       <Link
@@ -140,5 +142,7 @@ export default function EntryArticle({ entry, adjacent }: EntryArticleProps) {
       {/* Post navigation */}
       <PostNavigation prev={adjacent.prev} next={adjacent.next} />
     </main>
+    <ScrollProgressIndicator body={body} />
+    </>
   )
 }
