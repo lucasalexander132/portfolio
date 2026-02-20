@@ -7,7 +7,7 @@ export default function UpdatesLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="fixed inset-0 p-3 sm:p-4 md:p-6 bg-text-primary">
+    <div className="updates-root fixed inset-0 p-3 sm:p-4 md:p-6 bg-text-primary">
       {/* Top brand mark - centered in frame */}
       <div className="absolute top-0 left-0 right-0 h-3 sm:h-4 md:h-6 flex items-center justify-center z-50">
         <span className="text-[8px] tracking-[0.1em] text-base-900 font-sans font-semibold">

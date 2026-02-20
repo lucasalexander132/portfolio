@@ -60,6 +60,7 @@ export function Navigation() {
     <>
       <m.nav
         className="fixed left-1/2 -translate-x-1/2 z-[60]"
+        initial={false}
         animate={{
           bottom: isFormOpen ? 'auto' : 40,
           top: isFormOpen ? 12 : 'auto',

@@ -1,5 +1,6 @@
 'use client'
 
+import { Crosshair, BookOpen } from 'lucide-react'
 import { useLocale, useTranslations } from '@/lib/i18n'
 import type { NowEntry } from '@/lib/now'
 
@@ -31,28 +32,34 @@ export default function NowSection({ now }: NowSectionProps) {
   return (
     <section
       aria-label="Now"
-      className="bg-[#1E2230] border border-[#2D3140] rounded-2xl p-8 mb-12"
+      className="bg-[#1E2230] border border-[#2D3140] rounded-2xl p-8 mb-12 flex flex-col gap-6"
     >
-      <div className="flex items-center justify-between mb-4">
-        <span className="inline-flex items-center h-7 px-3.5 rounded-[14px] bg-amber-500 text-[#161921] text-xs font-bold uppercase tracking-wider">
+      <div className="flex items-center justify-between">
+        <span className="inline-flex items-center h-7 px-3.5 rounded-full bg-amber-500 text-[#161921] text-xs font-bold uppercase tracking-wider">
           NOW
         </span>
-        <span className="text-sm text-text-muted">
+        <span className="text-sm text-text-muted italic">
           {t('updates.now.lastUpdated')} {formattedDate}
         </span>
       </div>
-      <div className="space-y-3">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 mb-1">
-            {t('updates.now.focus')}
-          </p>
-          <p className="text-text-primary">{focus}</p>
+      <div className="grid grid-cols-2 gap-6">
+        <div className="bg-[#161921] rounded-xl p-5 flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <Crosshair className="w-3.5 h-3.5 text-amber-500" />
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-amber-500">
+              {t('updates.now.focus')}
+            </p>
+          </div>
+          <p className="text-text-primary text-sm leading-relaxed">{focus}</p>
         </div>
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-amber-500 mb-1">
-            {t('updates.now.learning')}
-          </p>
-          <p className="text-text-primary">{learning}</p>
+        <div className="bg-[#161921] rounded-xl p-5 flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-3.5 h-3.5 text-amber-500" />
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-amber-500">
+              {t('updates.now.learning')}
+            </p>
+          </div>
+          <p className="text-text-primary text-sm leading-relaxed">{learning}</p>
         </div>
       </div>
     </section>

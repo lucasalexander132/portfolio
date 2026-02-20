@@ -14,7 +14,7 @@ export function CustomCursor() {
   const cursorY = useMotionValue(0)
 
   // Spring for smooth following (high damping = no bounce)
-  const springConfig = { damping: 50, stiffness: 500, mass: 0.5 }
+  const springConfig = { damping: 35, stiffness: 900, mass: 0.2 }
   const x = useSpring(cursorX, springConfig)
   const y = useSpring(cursorY, springConfig)
 
