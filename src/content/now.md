@@ -1,7 +1,7 @@
 ---
-focus_en: "Building the Civix Solutions portfolio updates stream"
-focus_fr: "Développement du flux de mises à jour du portfolio Civix Solutions"
-learning_en: "Next.js 16 App Router patterns and React 19 transitions"
-learning_fr: "Modèles Next.js 16 App Router et transitions React 19"
+focus_en: "Codex Grove beta testing"
+focus_fr: "Tests bêta de Codex Grove"
+learning_en: "RAG architectures for large document databases"
+learning_fr: "Architectures RAG pour les grandes bases de données documentaires"
 updated: "2026-02-19"
 ---

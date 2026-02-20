@@ -8,6 +8,7 @@ export const UPDATE_TAGS = [
   'business',
   'community',
   'learning',
+  'case-study',
 ] as const
 
 export type UpdateTag = (typeof UPDATE_TAGS)[number]
