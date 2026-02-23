@@ -3,19 +3,15 @@
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from '@/lib/i18n'
 import { UPDATE_TAGS, type UpdateTag } from '@/lib/tags'
-import type { NowEntry } from '@/lib/now'
 import type { UpdateEntry } from '@/lib/updates'
-import NowSection from '@/components/updates/NowSection'
 import EntryStreamContainer from '@/components/updates/EntryStreamContainer'
 import TagFilter from '@/components/updates/TagFilter'
 
 interface UpdatesPageContentProps {
-  now: NowEntry
   entries: UpdateEntry[]
 }
 
 export default function UpdatesPageContent({
-  now,
   entries,
 }: UpdatesPageContentProps) {
   const t = useTranslations()
@@ -32,11 +28,10 @@ export default function UpdatesPageContent({
     : entries
 
   return (
-    <main className="animate-page-fade max-w-[720px] mx-auto px-6 pt-[60px] pb-[80px]">
-      <h1 className="font-serif text-[48px] font-bold text-text-primary mb-8">
-        {t('updates.pageTitle')}
+    <main className="animate-page-fade">
+      <h1 className="font-serif text-[44px] font-bold text-[#EDE5D4] tracking-[-1px] text-center mb-12">
+        What I&apos;m Up To / The Whum Tooz
       </h1>
-      <NowSection now={now} />
       <div className="flex items-baseline justify-between mb-4">
         <h2 className="font-serif text-[24px] text-text-primary">
           {t('updates.stream.title')}
