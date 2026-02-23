@@ -6,8 +6,8 @@
     "updates": "Updates"
   },
   "hero": {
-    "title": "Been burned by developers before?",
-    "subtitle": "I get it. You hired someone who promised the world and disappeared. Let's skip the sales pitch and talk about what you actually need.",
+    "title": "Thoughtful software, made with care.",
+    "subtitle": "Web apps, websites, and the occasional weird experiment. Turning caffeine and curiosity into things people can actually use.",
     "cta": "See how I can help",
     "bubbles": {
       "experience": "8 years in dev work",
@@ -22,9 +22,24 @@
   "services": {
     "title": "What I Do",
     "placeholder": "Services content placeholder",
-    "header": "Every project starts with a conversation - no pressure, no commitment. Just two people figuring out if we're a good fit.",
+    "header": "Every project starts with a conversation. You bring the vision, I bring the craft, and together we build something that matters.",
     "footer": "What more could you want?",
-    "footer_cursor": "Free snacks. But I'm working on it."
+    "footer_cursor": "Free snacks. But I'm working on it.",
+    "development": {
+      "title": "Custom Development",
+      "description": "I'm your advocate, and I can solve the process problems plaguing your company. No matter how granular, or how involved.",
+      "cursor": "Like this site"
+    },
+    "communication": {
+      "title": "Ongoing Communication",
+      "description": "If you've been ghosted before, you'll appreciate weekly updates and responses within hours, not days. You'll always know where your project stands.",
+      "cursor": "No ghosts here"
+    },
+    "iteration": {
+      "title": "Fast Iteration",
+      "description": "If you're watching competitors move faster, I help you ship improvements in days instead of months. Speed without sacrificing quality.",
+      "cursor": "I'm addicted to work"
+    }
   },
   "projects": {
     "title": "Work",

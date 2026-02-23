@@ -5,26 +5,24 @@ import { m, useInView, AnimatePresence } from 'motion/react'
 import { ArrowUpRight } from 'lucide-react'
 import { fadeUpVariants, staggerContainerVariants } from '@/lib/motion'
 import { useCursorHover } from '@/components/cursor'
-import { useLocale, useTranslations } from '@/lib/i18n'
-import { services, type Locale } from '@/data/services'
+import { useTranslations } from '@/lib/i18n'
+import { services } from '@/data/services'
 
 function ServiceRow({
   service,
-  locale,
   isExpanded,
   hasExpanded,
   onHover,
   onClick,
 }: {
   service: (typeof services)[number]
-  locale: Locale
   isExpanded: boolean
   hasExpanded: boolean
   onHover: (id: string | null) => void
   onClick: (id: string) => void
 }) {
-  const content = service.content[locale]
-  const cursorProps = useCursorHover('text', content.cursorText)
+  const t = useTranslations()
+  const cursorProps = useCursorHover('text', t(`services.${service.id}.cursor`))
 
   return (
     <m.article
@@ -64,7 +62,7 @@ function ServiceRow({
           }}
           transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          {content.title}
+          {t(`services.${service.id}.title`)}
         </m.h3>
 
         {/* Arrow indicator - using CSS transitions for color */}
@@ -104,7 +102,7 @@ function ServiceRow({
           >
             <div className="pb-8 md:pb-10 pl-16 md:pl-20">
               <p className="text-sm tracking-[0.1em] font-sans text-text-secondary max-w-sm leading-snug">
-                {content.description}
+                {t(`services.${service.id}.description`)}
               </p>
             </div>
           </m.div>
@@ -141,7 +139,6 @@ interface ServicesProps {
 }
 
 export function Services({ hasProjectOpen = false }: ServicesProps) {
-  const { locale } = useLocale()
   const t = useTranslations()
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [lockedId, setLockedId] = useState<string | null>(null)
@@ -193,7 +190,6 @@ export function Services({ hasProjectOpen = false }: ServicesProps) {
             <ServiceRow
               key={service.id}
               service={service}
-              locale={locale}
               isExpanded={expandedId === service.id}
               hasExpanded={expandedId !== null}
               onHover={handleHover}

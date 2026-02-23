@@ -6,13 +6,13 @@
     "updates": "Mises \u00e0 jour"
   },
   "hero": {
-    "title": "Déçu par des développeurs dans le passé ?",
-    "subtitle": "Je comprends. Vous avez engagé quelqu'un qui promettait monts et merveilles, puis a disparu quand les choses se compliquaient. Pas de baratin commercial — parlons de ce dont vous avez vraiment besoin.",
+    "title": "Des outils réfléchis, confectionnés avec soin.",
+    "subtitle": "Applis web, sites, et une ou deux expériences douteuses. La caféine et la curiosité au service de choses que les gens utilisent vraiment.",
     "cta": "Découvrez comment je peux aider",
     "bubbles": {
       "experience": "8 ans d'expérience",
       "personality": "Passionné et empathique",
-      "hungry": "Un peu affamé"
+      "hungry": "La gras, c'est la vie"
     },
     "cursor": {
       "photo": "C'est moi !",
@@ -22,9 +22,24 @@
   "services": {
     "title": "Ce que je fais",
     "placeholder": "Contenu des services à venir",
-    "header": "Chaque projet commence par une conversation - sans pression, sans engagement. Juste deux personnes qui cherchent à savoir si le courant passe.",
+    "header": "Chaque projet commence par une conversation. Votre vision, mon savoir-faire, bâtissons ensemble quelque chose qui a du sens.",
     "footer": "Que demander de plus ?",
-    "footer_cursor": "Des collations gratuites. J'y travaille."
+    "footer_cursor": "Des collations gratuites. J'y travaille.",
+    "development": {
+      "title": "Developpement sur mesure",
+      "description": "Je réponds à vos besoins et résous les problèmes de processus qui pèsent sur votre entreprise. Peu importe l'ampleur ou la complexité.",
+      "cursor": "Comme ce site"
+    },
+    "communication": {
+      "title": "Communication continue",
+      "description": "Si vous avez deja ete ignore, vous apprecierez les mises a jour hebdomadaires et les reponses en quelques heures, pas en jours. Vous saurez toujours ou en est votre projet.",
+      "cursor": "Je reponds toujours"
+    },
+    "iteration": {
+      "title": "Iteration rapide",
+      "description": "Si vous voyez vos concurrents avancer plus vite, je vous aide a livrer des ameliorations en jours plutot qu'en mois. La vitesse sans sacrifier la qualite.",
+      "cursor": "Accro au travail"
+    }
   },
   "projects": {
     "title": "Réalisations",
