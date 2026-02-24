@@ -8,7 +8,7 @@
 
 import type { Locale } from '@/lib/i18n'
 
-export type ProjectStatus = 'live' | 'coming-soon'
+export type ProjectStatus = 'live' | 'beta' | 'coming-soon'
 
 /**
  * Localized content for translatable project fields
@@ -54,6 +54,18 @@ export interface LiveProject extends BaseProject {
 }
 
 /**
+ * Beta project - publicly accessible but not fully launched
+ * URL is required for beta projects
+ */
+export interface BetaProject extends BaseProject {
+  status: 'beta'
+  /** Beta project URL (required) */
+  url: string
+  /** Optional GitHub repository link */
+  githubUrl?: string
+}
+
+/**
  * Coming soon project - in development
  * URL is explicitly disallowed
  */
@@ -68,7 +80,7 @@ export interface ComingSoonProject extends BaseProject {
 /**
  * Union type for all project states
  */
-export type Project = LiveProject | ComingSoonProject
+export type Project = LiveProject | BetaProject | ComingSoonProject
 
 /**
  * Type guard to narrow Project to LiveProject
@@ -84,6 +96,20 @@ export type Project = LiveProject | ComingSoonProject
  */
 export function isLiveProject(project: Project): project is LiveProject {
   return project.status === 'live'
+}
+
+/**
+ * Type guard to narrow Project to BetaProject
+ */
+export function isBetaProject(project: Project): project is BetaProject {
+  return project.status === 'beta'
+}
+
+/**
+ * Type guard for projects that have a visitable URL (live or beta)
+ */
+export function hasProjectUrl(project: Project): project is LiveProject | BetaProject {
+  return project.status === 'live' || project.status === 'beta'
 }
 
 /**

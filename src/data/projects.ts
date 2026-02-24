@@ -23,7 +23,8 @@ export const projects = [
       '/images/codex-grove-dashboard.png',
       '/images/codex-grove-schedule.png',
     ],
-    status: 'coming-soon',
+    status: 'beta',
+    url: 'https://codexgrove.app',
     technologies: ['Next.js', 'TypeScript', 'Prisma', 'TanStack Query', '@dnd-kit', 'Radix UI'],
     content: {
       en: {

@@ -75,9 +75,10 @@ interface BentoCardProps {
   isSelected: boolean
   locale: 'en' | 'fr'
   comingSoonLabel: string
+  inBetaLabel: string
 }
 
-function BentoCard({ project, index, size, onClick, isSelected, locale, comingSoonLabel }: BentoCardProps) {
+function BentoCard({ project, index, size, onClick, isSelected, locale, comingSoonLabel, inBetaLabel }: BentoCardProps) {
   const content = project.content[locale]
   const { setCursorVariant, resetCursor } = useCursor()
   const config = bentoConfig[size]
@@ -130,10 +131,15 @@ function BentoCard({ project, index, size, onClick, isSelected, locale, comingSo
           {String(index + 1).padStart(2, '0')}
         </span>
 
-        {/* Coming Soon badge */}
+        {/* Status badge */}
         {project.status === 'coming-soon' && (
           <span className="absolute right-4 top-4 rounded-full bg-base-900/80 backdrop-blur-sm px-3 py-1 text-xs font-medium text-amber-400">
             {comingSoonLabel}
+          </span>
+        )}
+        {project.status === 'beta' && (
+          <span className="absolute right-4 top-4 rounded-full bg-base-900/80 backdrop-blur-sm px-3 py-1 text-xs font-medium text-amber-400">
+            {inBetaLabel}
           </span>
         )}
 
@@ -290,6 +296,7 @@ export function Projects({ selectedProject, onSelectProject }: ProjectsProps) {
                 isSelected={selectedProject?.id === project.id}
                 locale={locale}
                 comingSoonLabel={t('projects.coming_soon')}
+                inBetaLabel={t('projects.in_beta')}
               />
             ))}
           </m.div>

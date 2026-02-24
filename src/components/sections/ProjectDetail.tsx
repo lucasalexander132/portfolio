@@ -5,7 +5,7 @@ import { m, AnimatePresence } from 'motion/react'
 import { X, Github, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import type { Project } from '@/types/project'
-import { isLiveProject } from '@/types/project'
+import { hasProjectUrl } from '@/types/project'
 import { useLocale, useTranslations } from '@/lib/i18n'
 
 // Hover bubbles config per project - positioned to overlay the image corners
@@ -271,7 +271,7 @@ export function ProjectDetail({ project, onClose }: ProjectDetailProps) {
             transition={{ delay: 2.1, duration: 0.5 }}
             className="flex flex-col gap-4 pb-8"
           >
-            {isLiveProject(project) && (
+            {hasProjectUrl(project) && (
               <a
                 href={project.url}
                 target="_blank"
